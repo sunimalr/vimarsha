@@ -1,5 +1,6 @@
 package org.vimarsha.classifier;
 
+import org.vimarsha.exceptions.ClassificationException;
 import weka.classifiers.Evaluation;
 import weka.classifiers.trees.J48;
 import weka.core.Instances;
@@ -38,11 +39,11 @@ abstract class AbstractClassifier {
         }
     }
 
-    public String classify() {
+    public String classify() throws ClassificationException{
         return null;
     }
 
-    public HashMap<String,String> classify(ArrayList<String> list){
+    public HashMap<String,String> classify(ArrayList<String> list) throws ClassificationException {
         return null;
     }
 }

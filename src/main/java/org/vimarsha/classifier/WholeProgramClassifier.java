@@ -20,6 +20,7 @@
 
 package org.vimarsha.classifier;
 
+import org.vimarsha.exceptions.ClassificationException;
 import weka.core.Instances;
 import weka.core.converters.ConverterUtils.DataSource;
 import weka.classifiers.trees.J48;
@@ -41,7 +42,7 @@ public class WholeProgramClassifier extends AbstractClassifier {
     }
 
     @Override
-    public String classify() {
+    public String classify() throws ClassificationException {
         String[] options = new String[4];
         options[0] = "-C";
         options[1] = "0.25";
@@ -57,7 +58,7 @@ public class WholeProgramClassifier extends AbstractClassifier {
             eval.evaluateModel(tree, testSet);
             output = eval.toSummaryString("\nResults\n======\n", false);
         } catch (Exception ex) {
-            System.out.println(ex.toString());
+            throw new ClassificationException();
         }
         return output;
     }

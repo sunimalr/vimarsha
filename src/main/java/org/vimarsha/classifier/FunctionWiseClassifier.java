@@ -1,5 +1,6 @@
 package org.vimarsha.classifier;
 
+import org.vimarsha.exceptions.ClassificationException;
 import weka.classifiers.Evaluation;
 import weka.classifiers.trees.J48;
 import weka.core.FastVector;
@@ -18,7 +19,7 @@ public class FunctionWiseClassifier extends AbstractClassifier {
     }
 
     @Override
-    public HashMap<String,String> classify(ArrayList<String> list) {
+    public HashMap<String,String> classify(ArrayList<String> list) throws ClassificationException {
         String[] options = new String[4];
         options[0] = "-C";
         options[1] = "0.25";
@@ -34,7 +35,7 @@ public class FunctionWiseClassifier extends AbstractClassifier {
             eval.evaluateModel(tree, testSet);
             predictions = eval.predictions();
         } catch (Exception ex) {
-            System.out.println(ex.toString());
+            throw new ClassificationException();
         }
 
         HashMap<String,String> functionWiseResult=new HashMap<String, String>();
