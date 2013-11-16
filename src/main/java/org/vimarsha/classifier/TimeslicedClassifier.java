@@ -1,6 +1,6 @@
 package org.vimarsha.classifier;
 
-import org.vimarsha.exceptions.ClassificationException;
+import org.vimarsha.exceptions.ClassificationFailedException;
 import weka.classifiers.Evaluation;
 import weka.classifiers.trees.J48;
 import weka.core.FastVector;
@@ -17,7 +17,7 @@ public class TimeslicedClassifier extends AbstractClassifier {
     }
 
     @Override
-    public HashMap<String,String> classify(ArrayList<String> list) throws ClassificationException {
+    public HashMap<String,String> classify(ArrayList<String> list) throws ClassificationFailedException {
         String[] options = new String[4];
         options[0] = "-C";
         options[1] = "0.25";
@@ -33,7 +33,7 @@ public class TimeslicedClassifier extends AbstractClassifier {
             eval.evaluateModel(tree, testSet);
             predictions = eval.predictions();
         } catch (Exception ex) {
-            throw new ClassificationException();
+            throw new ClassificationFailedException();
         }
 
         HashMap<String,String> functionWiseResult=new HashMap<String, String>();
