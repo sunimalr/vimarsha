@@ -1,3 +1,5 @@
+package org.vimarsha.collector;
+
 /**
  * Created with IntelliJ IDEA.
  * User: sunimal

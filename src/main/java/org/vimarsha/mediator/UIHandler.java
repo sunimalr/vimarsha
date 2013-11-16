@@ -1,3 +1,5 @@
+package org.vimarsha.mediator;
+
 /**
  * Created with IntelliJ IDEA.
  * User: sunimal

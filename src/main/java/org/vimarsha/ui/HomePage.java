@@ -1,3 +1,5 @@
+package org.vimarsha.ui;
+
 /**
  * Created with IntelliJ IDEA.
  * User: sunimal
