@@ -13,8 +13,6 @@ import java.util.HashMap;
  */
 public class FunctionWiseClassifier extends AbstractClassifier {
 
-    private ArrayList<String> funcList=new ArrayList<String>();
-
     public FunctionWiseClassifier() {
         super();
     }
