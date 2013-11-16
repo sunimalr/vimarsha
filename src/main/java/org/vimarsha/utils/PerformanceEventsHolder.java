@@ -1,6 +1,6 @@
-package main.java.org.vimarsha.utils;
+package org.vimarsha.utils;
 
-import main.java.org.vimarsha.exceptions.InstructionCountNotSetException;
+import org.vimarsha.exceptions.InstructionCountNotSetException;
 
 import java.util.ArrayList;
 
