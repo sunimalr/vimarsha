@@ -1,4 +1,4 @@
-package main.java.org.vimarsha.exceptions;
+package org.vimarsha.exceptions;
 
 /**
  * Created with IntelliJ IDEA.
