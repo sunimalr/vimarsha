@@ -1,4 +1,4 @@
-package main.java.org.vimarsha.utils;
+package org.vimarsha.utils;
 
 /**
  * Created with IntelliJ IDEA.

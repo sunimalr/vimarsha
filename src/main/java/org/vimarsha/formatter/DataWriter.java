@@ -1,4 +1,4 @@
-package vimarsha.formatter;
+package org.vimarsha.formatter;
 
 /**
  * Created with IntelliJ IDEA.
