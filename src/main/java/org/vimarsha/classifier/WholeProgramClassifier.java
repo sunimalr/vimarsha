@@ -29,14 +29,14 @@ import weka.classifiers.Evaluation;
  * Created with IntelliJ IDEA.
  * User: sunimal
  */
-public class J48Classifier implements Classifier {
+public class WholeProgramClassifier implements Classifier {
 
     private Instances testSet;
     private Instances trainSet;
     private DataSource trainingDataSource;
     private DataSource testingDataSource;
 
-    public J48Classifier() {
+    public WholeProgramClassifier() {
     }
 
     @Override
