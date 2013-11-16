@@ -29,7 +29,7 @@ import weka.classifiers.Evaluation;
  * Created with IntelliJ IDEA.
  * User: sunimal
  */
-public class WholeProgramClassifier implements Classifier {
+public class WholeProgramClassifier extends AbstractClassifier {
 
     private Instances testSet;
     private Instances trainSet;
@@ -37,28 +37,8 @@ public class WholeProgramClassifier implements Classifier {
     private DataSource testingDataSource;
 
     public WholeProgramClassifier() {
+        super();
     }
-
-    @Override
-    public void setTrainingDataSource(String dataSource) {
-        try {
-            this.trainingDataSource = new DataSource(dataSource);
-            trainSet = trainingDataSource.getDataSet();
-        } catch (Exception ex) {
-            System.out.println(ex.toString());
-        }
-    }
-
-    @Override
-    public void setTestingDataSource(String dataSource) {
-        try {
-            this.testingDataSource = new DataSource(dataSource);
-            testSet = testingDataSource.getDataSet();
-        } catch (Exception ex) {
-            System.out.println(ex.toString());
-        }
-    }
-
 
     @Override
     public String classify() {
