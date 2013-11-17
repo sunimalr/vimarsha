@@ -21,10 +21,11 @@
 package org.vimarsha.classifier;
 
 import org.vimarsha.exceptions.ClassificationFailedException;
-import weka.core.Instances;
-import weka.core.converters.ConverterUtils.DataSource;
+import weka.classifiers.meta.FilteredClassifier;
 import weka.classifiers.trees.J48;
-import weka.classifiers.Evaluation;
+import weka.filters.unsupervised.attribute.Remove;
+
+import java.rmi.Remote;
 
 /**
  * Created with IntelliJ IDEA.
@@ -32,32 +33,24 @@ import weka.classifiers.Evaluation;
  */
 public class WholeProgramClassifier extends AbstractClassifier {
 
-    private Instances testSet;
-    private Instances trainSet;
-    private DataSource trainingDataSource;
-    private DataSource testingDataSource;
-
     public WholeProgramClassifier() {
         super();
     }
 
     @Override
     public String classify() throws ClassificationFailedException {
-        String[] options = new String[4];
-        options[0] = "-C";
-        options[1] = "0.25";
-        options[2] = "-M";
-        options[3] = "2";
-        J48 tree = new J48();
-        String output = null;
-
+        J48 j48=new J48();
+        Remove rm=new Remove();
+        String output=null;
+        rm.setAttributeIndices("1");
+        FilteredClassifier fc = new FilteredClassifier();
+        fc.setFilter(rm);
+        fc.setClassifier(j48);
         try {
-            tree.setOptions(options);
-            tree.buildClassifier(trainSet);
-            Evaluation eval = new Evaluation(trainSet);
-            eval.evaluateModel(tree, testSet);
-            output = eval.toSummaryString("\nResults\n======\n", false);
-        } catch (Exception ex) {
+            fc.buildClassifier(trainSet);
+            double pred = fc.classifyInstance(testSet.instance(0));
+            output=testSet.classAttribute().value((int)pred);
+        }catch (Exception ex){
             throw new ClassificationFailedException();
         }
         return output;
