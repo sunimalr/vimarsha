@@ -46,27 +46,18 @@ public class XMLArchitectureConfigurationsLoader extends DefaultHandler {
         this.selected = false;
     }
 
-    public void parseDocument() {
+    public void parseDocument() throws ParserConfigurationException, SAXException, IOException {
         SAXParserFactory factory = SAXParserFactory.newInstance();
-        try {
-            SAXParser parser = factory.newSAXParser();
-            parser.parse(fileName, this);
-        } catch (ParserConfigurationException e) {
-            //TODO Handle exception
-        } catch (SAXException e) {
-            //TODO Handle exception
-            System.out.println("SAXException : xml not well formed");
-        } catch (IOException e) {
-            //TODO Handle exception
-            System.out.println("IO error");
-        }
+        SAXParser parser = factory.newSAXParser();
+        parser.parse(fileName, this);
+
     }
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-        if(qName.equalsIgnoreCase("architecture")){
-            if(attributes.getValue("id").equals(architecture.toString())){
-                this.selected =  true;
+        if (qName.equalsIgnoreCase("architecture")) {
+            if (attributes.getValue("id").equals(architecture.toString())) {
+                this.selected = true;
                 performanceEventsHolder.setArchitecture(architecture);
             } else {
                 this.selected = false;
@@ -76,9 +67,9 @@ public class XMLArchitectureConfigurationsLoader extends DefaultHandler {
 
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
-        if(qName.equalsIgnoreCase("instruction-count") && selected){
+        if (qName.equalsIgnoreCase("instruction-count") && selected) {
             performanceEventsHolder.setInstructionCountEvent(content);
-        } else if (qName.equalsIgnoreCase("event") && selected){
+        } else if (qName.equalsIgnoreCase("event") && selected) {
             performanceEventsHolder.addRawEvent(content);
         }
     }
@@ -88,7 +79,7 @@ public class XMLArchitectureConfigurationsLoader extends DefaultHandler {
         content = new String(ch, start, length);
     }
 
-    public PerformanceEventsHolder getPerformanceEventsHolder(){
+    public PerformanceEventsHolder getPerformanceEventsHolder() {
         return this.performanceEventsHolder;
     }
 
