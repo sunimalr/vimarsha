@@ -20,6 +20,11 @@
 
 package org.vimarsha.utils;
 
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
+
 /**
  * Created with IntelliJ IDEA.
  * User: sunimal
@@ -28,14 +33,22 @@ public class ConfigurationsLoader {
     private XMLArchitectureConfigurationsLoader xmlHandler;
     private PerformanceEventsHolder performanceEventsHolder;
 
-    public ConfigurationsLoader() {
-        performanceEventsHolder = new PerformanceEventsHolder();
+    public ConfigurationsLoader(PerformanceEventsHolder performanceEventsHolder) {
+        this.performanceEventsHolder = performanceEventsHolder;
         xmlHandler = new XMLArchitectureConfigurationsLoader(performanceEventsHolder, "/config/events.config");
     }
 
-    public void loadPerformanceEvents(Architecture architecture) {
+    public void loadPerformanceEvents(Architecture architecture) throws IOException, SAXException, ParserConfigurationException {
         xmlHandler.setArchitecture(architecture);
         xmlHandler.parseDocument();
+        this.performanceEventsHolder = xmlHandler.getPerformanceEventsHolder();
     }
 
+    public PerformanceEventsHolder getPerformanceEventsHolder() {
+        return performanceEventsHolder;
+    }
+
+    public void setPerformanceEventsHolder(PerformanceEventsHolder performanceEventsHolder) {
+        this.performanceEventsHolder = performanceEventsHolder;
+    }
 }
