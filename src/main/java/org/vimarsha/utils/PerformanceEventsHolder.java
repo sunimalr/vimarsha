@@ -34,12 +34,8 @@ public class PerformanceEventsHolder {
     private Architecture architecture;
 
     public PerformanceEventsHolder(){
-        eventsHolder = new ArrayList<String>();
+        setEventsHolder(new ArrayList<String>());
         instructionCountEvent = null;
-    }
-
-    public void setEventsList(ArrayList<String> eventsHolder){
-        this.eventsHolder = eventsHolder;
     }
 
     public void setInstructionCountEvent(String instructionCountEvent){
@@ -47,7 +43,7 @@ public class PerformanceEventsHolder {
     }
 
     public void addRawEvent(String rawEvent){
-        eventsHolder.add(rawEvent);
+        getEventsHolder().add(rawEvent);
     }
 
     public String getInstructionCountEvent() throws InstructionCountNotSetException{
@@ -63,5 +59,13 @@ public class PerformanceEventsHolder {
 
     public void setArchitecture(Architecture architecture) {
         this.architecture = architecture;
+    }
+
+    public ArrayList<String> getEventsHolder() {
+        return eventsHolder;
+    }
+
+    public void setEventsHolder(ArrayList<String> eventsHolder) {
+        this.eventsHolder = eventsHolder;
     }
 }
