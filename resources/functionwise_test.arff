@@ -1,0 +1,26 @@
+@relation function_level_badfs_badma_good
+@attribute r0149 numeric
+@attribute r0151 numeric
+@attribute r02a2 numeric
+@attribute r0126 numeric
+@attribute r0227 numeric
+@attribute r0224 numeric
+@attribute r08a2 numeric
+@attribute r01b0 numeric
+@attribute r20f0 numeric
+@attribute r02f1 numeric
+@attribute r01f2 numeric
+@attribute r01b8 numeric
+@attribute r02b8 numeric
+@attribute r04b8 numeric
+@attribute r40cb numeric
+@attribute status {good, badfs, badma}
+@data
+%
+% 1 Function: pspeedy(Points*,float,long*,int,parsec_barrier_t*)
+%
+25307.5485041,17906812.1589,?,?,?,?,?,?,?,?,?,?,?,2112912.02723,2996145.47934,?
+%
+% 2 Function: dist(Point,Point,int)
+%
+440627.044762,11440947.4817,?,10257873.2546,71844.7427767,11107232.8169,4198959237.47,9432171.99375,14580000.4179,11082802.7843,10636985.8769,78321.202172,107748.938225,251911.210828,7864073.54021,?
