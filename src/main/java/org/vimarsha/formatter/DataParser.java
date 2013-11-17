@@ -20,14 +20,11 @@
 
 package org.vimarsha.formatter;
 
-import org.vimarsha.utils.PerformanceEventsHolder;
-
 /**
  * Created with IntelliJ IDEA.
- * User: sunimal
+ * User: gayashan
  */
-public interface DataWriter {
-    public void writeToArffFile();
-    public void setOutputWriter(OutputWriter outputWriter);
-    public void setEventsHolder(PerformanceEventsHolder performanceEventsHolder);
+public interface DataParser {
+    public void parse();
+    public void setFileReader();
 }

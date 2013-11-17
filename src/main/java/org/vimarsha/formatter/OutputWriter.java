@@ -20,14 +20,14 @@
 
 package org.vimarsha.formatter;
 
-import org.vimarsha.utils.PerformanceEventsHolder;
+import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Created with IntelliJ IDEA.
- * User: sunimal
+ * User: gayashan
  */
-public interface DataWriter {
-    public void writeToArffFile();
-    public void setOutputWriter(OutputWriter outputWriter);
-    public void setEventsHolder(PerformanceEventsHolder performanceEventsHolder);
+public interface OutputWriter {
+    public void write(String stringToWrite) throws IOException;
+    public void writeLines(ArrayList<String> arrayList) throws IOException;
 }
