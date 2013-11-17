@@ -20,6 +20,7 @@
 
 package org.vimarsha.classifier;
 
+import org.vimarsha.exceptions.ClassificationFailedException;
 import weka.core.Instances;
 import weka.core.converters.ConverterUtils.DataSource;
 import weka.classifiers.trees.J48;
@@ -29,7 +30,7 @@ import weka.classifiers.Evaluation;
  * Created with IntelliJ IDEA.
  * User: sunimal
  */
-public class WholeProgramClassifier implements Classifier {
+public class WholeProgramClassifier extends AbstractClassifier {
 
     private Instances testSet;
     private Instances trainSet;
@@ -37,31 +38,11 @@ public class WholeProgramClassifier implements Classifier {
     private DataSource testingDataSource;
 
     public WholeProgramClassifier() {
+        super();
     }
 
     @Override
-    public void setTrainingDataSource(String dataSource) {
-        try {
-            this.trainingDataSource = new DataSource(dataSource);
-            trainSet = trainingDataSource.getDataSet();
-        } catch (Exception ex) {
-            System.out.println(ex.toString());
-        }
-    }
-
-    @Override
-    public void setTestingDataSource(String dataSource) {
-        try {
-            this.testingDataSource = new DataSource(dataSource);
-            testSet = testingDataSource.getDataSet();
-        } catch (Exception ex) {
-            System.out.println(ex.toString());
-        }
-    }
-
-
-    @Override
-    public String classify() {
+    public String classify() throws ClassificationFailedException {
         String[] options = new String[4];
         options[0] = "-C";
         options[1] = "0.25";
@@ -77,7 +58,7 @@ public class WholeProgramClassifier implements Classifier {
             eval.evaluateModel(tree, testSet);
             output = eval.toSummaryString("\nResults\n======\n", false);
         } catch (Exception ex) {
-            System.out.println(ex.toString());
+            throw new ClassificationFailedException();
         }
         return output;
     }
