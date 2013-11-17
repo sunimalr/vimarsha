@@ -58,7 +58,7 @@ abstract class AbstractClassifier {
         }
     }
 
-    public String classify() throws ClassificationFailedException {
+    public Object classify() throws ClassificationFailedException {
         return null;
     }
 
