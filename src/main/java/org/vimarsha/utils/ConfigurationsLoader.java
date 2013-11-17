@@ -25,4 +25,17 @@ package org.vimarsha.utils;
  * User: sunimal
  */
 public class ConfigurationsLoader {
+    private XMLArchitectureConfigurationsLoader xmlHandler;
+    private PerformanceEventsHolder performanceEventsHolder;
+
+    public ConfigurationsLoader() {
+        performanceEventsHolder = new PerformanceEventsHolder();
+        xmlHandler = new XMLArchitectureConfigurationsLoader(performanceEventsHolder, "/config/events.config");
+    }
+
+    public void loadPerformanceEvents(Architecture architecture) {
+        xmlHandler.setArchitecture(architecture);
+        xmlHandler.parseDocument();
+    }
+
 }

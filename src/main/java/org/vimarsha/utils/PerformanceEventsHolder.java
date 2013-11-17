@@ -31,6 +31,7 @@ import java.util.ArrayList;
 public class PerformanceEventsHolder {
     private ArrayList<String> eventsHolder;
     private String instructionCountEvent;
+    private Architecture architecture;
 
     public PerformanceEventsHolder(){
         eventsHolder = new ArrayList<String>();
@@ -54,5 +55,13 @@ public class PerformanceEventsHolder {
             throw new InstructionCountNotSetException();
         }
         return this.instructionCountEvent;
+    }
+
+    public Architecture getArchitecture() {
+        return architecture;
+    }
+
+    public void setArchitecture(Architecture architecture) {
+        this.architecture = architecture;
     }
 }
