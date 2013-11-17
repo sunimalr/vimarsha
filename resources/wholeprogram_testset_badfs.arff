@@ -1,0 +1,27 @@
+@relation performance_data_for_phoenix_benchmark_compiler_optimization_O2
+%
+%       16 attributes for each data instance
+%
+@attribute r0149 numeric
+@attribute r0151 numeric
+@attribute r02a2 numeric
+@attribute r0126 numeric
+@attribute r0227 numeric
+@attribute r0224 numeric
+@attribute r08a2 numeric
+@attribute r01b0 numeric
+@attribute r20f0 numeric
+@attribute r02f1 numeric
+@attribute r01f2 numeric
+@attribute r01b8 numeric
+@attribute r02b8 numeric
+@attribute r04b8 numeric
+@attribute r40cb numeric
+@attribute status {good, badfs, badma}
+@data
+% Program: linear_regression
+% Input: key_file_500MB.txt
+% Threads: 8
+% Time: 6.642470677s
+% ID: 1
+307071.9452,17413980.4706,774144776.4368,7142126.1377,2783312.6292,7140193.8075,1018630025.5799,7142024.6375,22328026.8722,5738532.7092,16883431.7659,5398987.0473,7141099.6556,9116119.7207,31215939.3417,?

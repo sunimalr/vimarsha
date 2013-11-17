@@ -1,0 +1,27 @@
+@relation performance_data_for_phoenix_benchmark_compiler_optimization_O2
+%
+%       16 attributes for each data instance
+%
+@attribute r0149 numeric
+@attribute r0151 numeric
+@attribute r02a2 numeric
+@attribute r0126 numeric
+@attribute r0227 numeric
+@attribute r0224 numeric
+@attribute r08a2 numeric
+@attribute r01b0 numeric
+@attribute r20f0 numeric
+@attribute r02f1 numeric
+@attribute r01f2 numeric
+@attribute r01b8 numeric
+@attribute r02b8 numeric
+@attribute r04b8 numeric
+@attribute r40cb numeric
+@attribute status {good, badfs, badma}
+@data
+% Program: string_match
+% Input: key_file_50MB.txt
+% Threads: 1
+% Time: 0.999781290s
+% ID: 1
+19956.2011,222592.5420,1145898.6393,56086.1445,342.9532,51984.1794,64632537.9106,36762.3071,201175.4653,22794.3137,43930.3787,46.3687,37.6199,158.0034,42791.1092,?
