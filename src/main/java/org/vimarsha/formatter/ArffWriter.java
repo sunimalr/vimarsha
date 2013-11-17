@@ -70,7 +70,7 @@ public class ArffWriter implements OutputWriter {
     }
 
     public void close() throws IOException {
-        fileWriter.close();
         bufferedWriter.close();
+        fileWriter.close();
     }
 }
