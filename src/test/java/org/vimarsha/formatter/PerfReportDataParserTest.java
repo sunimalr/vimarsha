@@ -34,6 +34,8 @@ import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.FileReader;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created with IntelliJ IDEA.
@@ -71,6 +73,7 @@ public class PerfReportDataParserTest extends TestCase {
         assertEquals(138.67849,perfDataHolder.getValue("Thread_sum_with_fs","0x20f0"), 0.000008);
         assertEquals(196.56660,perfDataHolder.getValue("Thread_sum_with_fs","0x4b8"), 0.000005);
         assertEquals(18.377,perfDataHolder.getValue("Serial_pi","0xc0"), 0.0000009);
+        assertEquals(new ArrayList<String>(Arrays.asList("0x20f0","0x151","0x4b8","0xc0")),perfReportDataParser.getPerfDataHolder().getRawEventsCollection("Thread_sum_with_fs"));
     }
 
     @Test(expected = RawEventNotFoundException.class)
