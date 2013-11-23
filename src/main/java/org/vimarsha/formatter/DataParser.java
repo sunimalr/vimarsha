@@ -20,11 +20,14 @@
 
 package org.vimarsha.formatter;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+
 /**
  * Created with IntelliJ IDEA.
  * User: gayashan
  */
 public interface DataParser {
-    public void parse();
-    public void setFileReader();
+    public void parse() throws IOException;
+    public void setFileReader(BufferedReader fileReader);
 }
