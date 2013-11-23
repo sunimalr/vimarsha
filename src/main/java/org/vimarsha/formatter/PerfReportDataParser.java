@@ -50,6 +50,7 @@ public class PerfReportDataParser implements DataParser {
         String out = "";
         int eventCount = -1;
 
+        //TODO Move the constants to a configuration file
         while((line = fileReader.readLine()) != null){
             line = line.trim();
             if (line.contains("Events")){
