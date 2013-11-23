@@ -1,0 +1,72 @@
+# ========
+# captured on: Thu Oct 31 14:37:46 2013
+# hostname : sao40.pok.ibm.com
+# os release : 2.6.32-220.el6.x86_64
+# perf version : 2.6.32-279.19.1.el6.x86_64.debug
+# arch : x86_64
+# nrcpus online : 12
+# nrcpus avail : 12
+# cpudesc : Intel(R) Xeon(R) CPU X5690 @ 3.47GHz
+# cpuid : GenuineIntel,6,44,2
+# total memory : 198348948 kB
+# cmdline : /usr/bin/perf record -e r00c0,r0149,r0151,r20f0,r04b8 ./ppical-bad_fs 4 1000000 
+# event : name = r00c0, type = 4, config = 0xc0, config1 = 0x0, config2 = 0x0, excl_usr = 0, excl_kern = 0, id = { 1608120, 1608121, 1608122, 1608123, 1608124, 1608125, 1608126, 1608127, 1608128, 1608129, 1608130, 1608131 }
+# event : name = r0149, type = 4, config = 0x149, config1 = 0x0, config2 = 0x0, excl_usr = 0, excl_kern = 0, id = { 1608132, 1608133, 1608134, 1608135, 1608136, 1608137, 1608138, 1608139, 1608140, 1608141, 1608142, 1608143 }
+# event : name = r0151, type = 4, config = 0x151, config1 = 0x0, config2 = 0x0, excl_usr = 0, excl_kern = 0, id = { 1608144, 1608145, 1608146, 1608147, 1608148, 1608149, 1608150, 1608151, 1608152, 1608153, 1608154, 1608155 }
+# event : name = r20f0, type = 4, config = 0x20f0, config1 = 0x0, config2 = 0x0, excl_usr = 0, excl_kern = 0, id = { 1608156, 1608157, 1608158, 1608159, 1608160, 1608161, 1608162, 1608163, 1608164, 1608165, 1608166, 1608167 }
+# event : name = r04b8, type = 4, config = 0x4b8, config1 = 0x0, config2 = 0x0, excl_usr = 0, excl_kern = 0, id = { 1608168, 1608169, 1608170, 1608171, 1608172, 1608173, 1608174, 1608175, 1608176, 1608177, 1608178, 1608179 }
+# HEADER_CPU_TOPOLOGY info available, use -I to display
+# HEADER_NUMA_TOPOLOGY info available, use -I to display
+# ========
+#
+# Events: 235  raw 0xc0
+#
+# Overhead        Command      Shared Object              Symbol
+# ........  .............  .................  ..................
+#
+    89.91%  ppical-bad_fs  ppical-bad_fs      [.] Thread_sum_with_fs
+     7.82%  ppical-bad_fs  ppical-bad_fs      [.] Serial_pi
+     2.27%  ppical-bad_fs  [kernel.kallsyms]  [k] 0xffffffff8101c145
+
+
+# Events: 31  raw 0x149
+#
+# Overhead        Command      Shared Object                 Symbol
+# ........  .............  .................  .....................
+#
+    71.23%  ppical-bad_fs  ld-2.12.so         [.] _dl_load_cache_lookup
+    26.78%  ppical-bad_fs  [kernel.kallsyms]  [k] 0xffffffff8101c145
+     1.92%  ppical-bad_fs  libc-2.12.so       [.] execvp
+     0.07%  ppical-bad_fs  libc-2.12.so       [.] free
+
+
+# Events: 203  raw 0x151
+#
+# Overhead        Command      Shared Object              Symbol
+# ........  .............  .................  ..................
+#
+    92.41%  ppical-bad_fs  ppical-bad_fs      [.] Thread_sum_with_fs
+     7.59%  ppical-bad_fs  [kernel.kallsyms]  [k] 0xffffffff8101c145
+
+
+# Events: 155  raw 0x20f0
+#
+# Overhead        Command      Shared Object              Symbol
+# ........  .............  .................  ..................
+#
+    89.47%  ppical-bad_fs  ppical-bad_fs      [.] Thread_sum_with_fs
+    10.53%  ppical-bad_fs  [kernel.kallsyms]  [k] 0xffffffff810591f3
+
+
+# Events: 197  raw 0x4b8
+#
+# Overhead        Command      Shared Object              Symbol
+# ........  .............  .................  ..................
+#
+    99.78%  ppical-bad_fs  ppical-bad_fs      [.] Thread_sum_with_fs
+     0.22%  ppical-bad_fs  [kernel.kallsyms]  [k] 0xffffffff81278403
+
+
+#
+# (For a higher level overview, try: perf report --sort comm,dso)
+#
