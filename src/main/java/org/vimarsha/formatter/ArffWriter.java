@@ -41,13 +41,13 @@ public class ArffWriter implements OutputWriter {
     public ArffWriter(String fileName, ArrayList<String> headers) throws IOException{
         this.fileName = fileName;
         this.headers = headers;
-        file = new File(fileName);
+        this.file = new File(fileName);
         if(!file.exists()){
             file.createNewFile();
         }
         fileWriter = new FileWriter(file.getAbsoluteFile());
         bufferedWriter = new BufferedWriter(fileWriter);
-        writeHeader(headers);
+        this.writeHeader(headers);
     }
 
     private void writeHeader(ArrayList<String> headers) throws IOException {
@@ -59,7 +59,6 @@ public class ArffWriter implements OutputWriter {
     @Override
     public void write(String stringToWrite) throws IOException {
         bufferedWriter.write(stringToWrite);
-
     }
 
     @Override
