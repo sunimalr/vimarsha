@@ -33,43 +33,31 @@ import java.util.ArrayList;
 
 public class ArffWriter implements OutputWriter {
     private String fileName;
-    private FileWriter fileWriter;
     private BufferedWriter bufferedWriter;
     private ArrayList<String> headers;
-    private File file;
 
     public ArffWriter(String fileName, ArrayList<String> headers) throws IOException{
         this.fileName = fileName;
         this.headers = headers;
-        this.file = new File(fileName);
-        if(!file.exists()){
-            file.createNewFile();
-        }
-        fileWriter = new FileWriter(file.getAbsoluteFile());
-        bufferedWriter = new BufferedWriter(fileWriter);
-        this.writeHeader(headers);
-    }
-
-    private void writeHeader(ArrayList<String> headers) throws IOException {
-        for(String header : headers){
-            bufferedWriter.write(header);
-        }
+        bufferedWriter = new BufferedWriter(new FileWriter(fileName));
+        this.writeLines(headers);
     }
 
     @Override
     public void write(String stringToWrite) throws IOException {
         bufferedWriter.write(stringToWrite);
+        bufferedWriter.newLine();
     }
 
     @Override
     public void writeLines(ArrayList<String> arrayList) throws IOException {
         for(String line : arrayList){
             bufferedWriter.write(line);
+            bufferedWriter.newLine();
         }
     }
 
     public void close() throws IOException {
         bufferedWriter.close();
-        fileWriter.close();
     }
 }
