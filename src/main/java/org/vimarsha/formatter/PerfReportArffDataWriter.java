@@ -15,37 +15,19 @@ import java.util.ArrayList;
  * Created with IntelliJ IDEA.
  * User: gayashan
  */
-public class PerfReportArffDataWriter implements DataWriter {
-    private ArffWriter arffWriter;
+public class PerfReportArffDataWriter extends DataWriter {
     private PerfReportDataHolder perfReportDataHolder;
-    private PerformanceEventsHolder performanceEventsHolder;
-    private ArrayList<String> headers;
 
     public PerfReportArffDataWriter(String fileName, PerformanceEventsHolder performanceEventsHolder, PerfReportDataHolder perfReportDataHolder) throws IOException {
-        this.headers = new ArrayList<String>();
-        this.performanceEventsHolder = performanceEventsHolder;
-        this.headers = generateHeaders(this.performanceEventsHolder);
-        this.arffWriter = new ArffWriter(fileName,this.headers);
+        super(fileName, performanceEventsHolder);
         this.perfReportDataHolder = perfReportDataHolder;
-    }
-
-    //TODO move constants to a configuration file
-    public ArrayList<String> generateHeaders(PerformanceEventsHolder performanceEventsHolder){
-        ArrayList<String> headers = new ArrayList<String>();
-        headers.add("@relation badfs_badma_good_events_"+ performanceEventsHolder.getArchitecture().toString());
-        for(String event: performanceEventsHolder.getPrettyEventsHolder()){
-            headers.add("@attribute "+ event + " numeric");
-        }
-        headers.add("@attribute status {good, badfs, badma}");
-        headers.add("@data");
-        return headers;
     }
 
     @Override
     public void writeToArffFile() throws SymbolNotFoundException, InstructionCountNotSetException, RawEventNotFoundException, IOException {
         int i = 1;
         for(String symbol : this.perfReportDataHolder.getSymbolsList()){
-            for(String event : this.performanceEventsHolder.getEventsHolder()){
+            for(String event : super.getPerformanceEventsHolder().getEventsHolder()){
                 if (!this.perfReportDataHolder.getRawEventsCollection(symbol).contains(event)){
                     this.perfReportDataHolder.addValue(symbol,event,"?");
                 }
