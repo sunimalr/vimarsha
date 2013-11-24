@@ -20,38 +20,9 @@
 
 package org.vimarsha.utils;
 
-import org.vimarsha.exceptions.RawEventNotFoundException;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-
 /**
  * Created with IntelliJ IDEA.
  * User: gayashan
  */
-public class PerfStatDataHolder implements DataHolder{
-    private HashMap<String, String> dataStore;
-
-    public PerfStatDataHolder(){
-        dataStore = new HashMap<String, String>();
-    }
-
-    public void addValue(String rawEvent, String value){
-        dataStore.put(rawEvent, value);
-    }
-
-    public String getValue(String rawEvent) throws RawEventNotFoundException {
-        if(dataStore.containsKey(rawEvent)){
-            return dataStore.get(rawEvent);
-        }
-        throw new RawEventNotFoundException();
-    }
-
-    public ArrayList<String> getRawEventsCollection(){
-        return new ArrayList<String>(dataStore.keySet());
-    }
-
-    public HashMap<String, String> getDataStore(){
-        return dataStore;
-    }
+public interface DataHolder {
 }
