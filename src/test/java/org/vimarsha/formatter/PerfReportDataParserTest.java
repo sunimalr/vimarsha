@@ -24,11 +24,9 @@ import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.internal.runners.JUnit4ClassRunner;
-import org.junit.runner.RunWith;
 import org.vimarsha.exceptions.RawEventNotFoundException;
 import org.vimarsha.exceptions.SymbolNotFoundException;
-import org.vimarsha.utils.PerfDataHolder;
+import org.vimarsha.utils.PerfReportDataHolder;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -43,7 +41,7 @@ import java.util.Arrays;
  */
 public class PerfReportDataParserTest extends TestCase {
     private PerfReportDataParser perfReportDataParser;
-    private PerfDataHolder perfDataHolder;
+    private PerfReportDataHolder perfReportDataHolder;
     private BufferedReader bufferedReader;
     private static final String PROGRAM;
     private ByteArrayOutputStream out;
@@ -56,8 +54,8 @@ public class PerfReportDataParserTest extends TestCase {
         out = new ByteArrayOutputStream();
         System.setOut(new PrintStream(out));
         this.bufferedReader = new BufferedReader(new FileReader("data/ppical-bad_fs_4_1000000.txt"));
-        perfDataHolder = new PerfDataHolder();
-        this.perfReportDataParser = new PerfReportDataParser(bufferedReader, perfDataHolder, PROGRAM);
+        perfReportDataHolder = new PerfReportDataHolder();
+        this.perfReportDataParser = new PerfReportDataParser(bufferedReader, perfReportDataHolder, PROGRAM);
         this.perfReportDataParser.parse();
     }
 
@@ -68,18 +66,18 @@ public class PerfReportDataParserTest extends TestCase {
 
     @Test
     public void testParse() throws Exception {
-        assertEquals("211.28851", perfDataHolder.getValue("Thread_sum_with_fs", "0xc0"));
-        assertEquals("187.5923",perfDataHolder.getValue("Thread_sum_with_fs","0x151"));
-        assertEquals("138.6785",perfDataHolder.getValue("Thread_sum_with_fs","0x20f0"));
-        assertEquals("196.5666",perfDataHolder.getValue("Thread_sum_with_fs","0x4b8"));
-        assertEquals("18.377",perfDataHolder.getValue("Serial_pi","0xc0"));
-        assertEquals(new ArrayList<String>(Arrays.asList("0x20f0","0x151","0x4b8","0xc0")),perfReportDataParser.getPerfDataHolder().getRawEventsCollection("Thread_sum_with_fs"));
+        assertEquals("211.28851", perfReportDataHolder.getValue("Thread_sum_with_fs", "0xc0"));
+        assertEquals("187.5923", perfReportDataHolder.getValue("Thread_sum_with_fs","0x151"));
+        assertEquals("138.6785", perfReportDataHolder.getValue("Thread_sum_with_fs","0x20f0"));
+        assertEquals("196.5666", perfReportDataHolder.getValue("Thread_sum_with_fs","0x4b8"));
+        assertEquals("18.377", perfReportDataHolder.getValue("Serial_pi","0xc0"));
+        assertEquals(new ArrayList<String>(Arrays.asList("0x20f0","0x151","0x4b8","0xc0")),perfReportDataParser.getPerfReportDataHolder().getRawEventsCollection("Thread_sum_with_fs"));
     }
 
     @Test(expected = RawEventNotFoundException.class)
     public void testRawEventNotFounfException() throws SymbolNotFoundException {
         try {
-            perfDataHolder.getValue("Thread_sum_with_fs","0x149");
+            perfReportDataHolder.getValue("Thread_sum_with_fs","0x149");
         } catch (RawEventNotFoundException e) {
         }
     }

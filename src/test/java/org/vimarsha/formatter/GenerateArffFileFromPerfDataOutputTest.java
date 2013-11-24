@@ -33,7 +33,7 @@ import java.io.FileReader;
  */
 public class GenerateArffFileFromPerfDataOutputTest extends TestCase {
     private ConfigurationsLoader configurationsLoader;
-    private PerfDataHolder perfDataHolder;
+    private PerfReportDataHolder perfReportDataHolder;
     private PerformanceEventsHolder performanceEventsHolder;
     private PerfReportDataParser perfReportDataParser;
     private ArffWriter arffWriter;
@@ -51,17 +51,17 @@ public class GenerateArffFileFromPerfDataOutputTest extends TestCase {
         this.configurationsLoader.loadPerformanceEvents(Architecture.INTEL_NEHALEM);
         this.performanceEventsHolder = this.configurationsLoader.getPerformanceEventsHolder();
         this.bufferedReader = new BufferedReader(new FileReader("data/ppical-bad_fs_4_1000000.txt"));
-        this.perfDataHolder = new PerfDataHolder();
-        this.perfReportDataParser = new PerfReportDataParser(this.bufferedReader, this.perfDataHolder, PROGRAM);
+        this.perfReportDataHolder = new PerfReportDataHolder();
+        this.perfReportDataParser = new PerfReportDataParser(this.bufferedReader, this.perfReportDataHolder, PROGRAM);
         this.perfReportDataParser.parse();
-        this.arffDataWriter = new PerfDataArffWriter("output/ppical-test.arff",this.performanceEventsHolder,this.perfDataHolder);
+        this.arffDataWriter = new PerfDataArffWriter("output/ppical-test.arff",this.performanceEventsHolder,this.perfReportDataHolder);
         this.arffDataWriter.writeToArffFile();
     }
 
     @Test
     public void testGenrateArffFileFromPerfDataOutput() throws Exception {
         assertEquals("0xc0",this.performanceEventsHolder.getInstructionCountEvent());
-        assertEquals("211.28851",this.perfDataHolder.getValue("Thread_sum_with_fs","0xc0"));
+        assertEquals("211.28851",this.perfReportDataHolder.getValue("Thread_sum_with_fs","0xc0"));
         assertEquals("@attribute r02a2 numeric",this.arffDataWriter.getHeaders().get(3));
         BufferedReader bufferedReader = new BufferedReader(new FileReader("output/ppical-test.arff"));
 //        assertEquals(this.arffDataWriter.getHeaders().get(0),bufferedReader.readLine());

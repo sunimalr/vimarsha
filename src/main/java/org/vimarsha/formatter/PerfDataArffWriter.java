@@ -3,12 +3,11 @@ package org.vimarsha.formatter;
 import org.vimarsha.exceptions.InstructionCountNotSetException;
 import org.vimarsha.exceptions.RawEventNotFoundException;
 import org.vimarsha.exceptions.SymbolNotFoundException;
-import org.vimarsha.utils.PerfDataHolder;
+import org.vimarsha.utils.PerfReportDataHolder;
 import org.vimarsha.utils.PerformanceEventsHolder;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 
@@ -18,16 +17,16 @@ import java.util.ArrayList;
  */
 public class PerfDataArffWriter implements DataWriter {
     private ArffWriter arffWriter;
-    private PerfDataHolder perfDataHolder;
+    private PerfReportDataHolder perfReportDataHolder;
     private PerformanceEventsHolder performanceEventsHolder;
     private ArrayList<String> headers;
 
-    public PerfDataArffWriter(String fileName, PerformanceEventsHolder performanceEventsHolder, PerfDataHolder perfDataHolder) throws IOException {
+    public PerfDataArffWriter(String fileName, PerformanceEventsHolder performanceEventsHolder, PerfReportDataHolder perfReportDataHolder) throws IOException {
         this.headers = new ArrayList<String>();
         this.performanceEventsHolder = performanceEventsHolder;
         this.headers = generateHeaders(this.performanceEventsHolder);
         this.arffWriter = new ArffWriter(fileName,this.headers);
-        this.perfDataHolder = perfDataHolder;
+        this.perfReportDataHolder = perfReportDataHolder;
     }
 
     //TODO move constants to a configuration file
@@ -45,28 +44,28 @@ public class PerfDataArffWriter implements DataWriter {
     @Override
     public void writeToArffFile() throws SymbolNotFoundException, InstructionCountNotSetException, RawEventNotFoundException, IOException {
         int i = 1;
-        for(String symbol : this.perfDataHolder.getSymbolsList()){
+        for(String symbol : this.perfReportDataHolder.getSymbolsList()){
             for(String event : this.performanceEventsHolder.getEventsHolder()){
-                if (!this.perfDataHolder.getRawEventsCollection(symbol).contains(event)){
-                    this.perfDataHolder.addValue(symbol,event,"?");
+                if (!this.perfReportDataHolder.getRawEventsCollection(symbol).contains(event)){
+                    this.perfReportDataHolder.addValue(symbol,event,"?");
                 }
             }
             //If the instruction_count raw event is set in the performance events and if the instruction count event value is available
             //(not an unknown value "?")
-            if(this.perfDataHolder.getRawEventsCollection(symbol).contains(this.performanceEventsHolder.getInstructionCountEvent()) &&
-                    !(this.perfDataHolder.getValue(symbol,this.performanceEventsHolder.getInstructionCountEvent()).equalsIgnoreCase("?"))){
+            if(this.perfReportDataHolder.getRawEventsCollection(symbol).contains(this.performanceEventsHolder.getInstructionCountEvent()) &&
+                    !(this.perfReportDataHolder.getValue(symbol,this.performanceEventsHolder.getInstructionCountEvent()).equalsIgnoreCase("?"))){
                 String out = "";
                 this.arffWriter.write("%\n% "+ i + " Function: " + symbol + "\n%\n");
                 ++i;
 
                 for (String event: this.performanceEventsHolder.getEventsHolder()){
-                    if(this.perfDataHolder.getValue(symbol,event).equalsIgnoreCase("?")){
-                        out += String.valueOf(this.perfDataHolder.getValue(symbol,event)) + ",";
+                    if(this.perfReportDataHolder.getValue(symbol,event).equalsIgnoreCase("?")){
+                        out += String.valueOf(this.perfReportDataHolder.getValue(symbol,event)) + ",";
                     } else {
-                        out += new BigDecimal(Float.parseFloat(this.perfDataHolder.getValue(symbol,event)) * java.lang.Math.pow(10, 9) /
-                                Float.parseFloat(this.perfDataHolder.getValue(symbol,this.performanceEventsHolder.getInstructionCountEvent()))).setScale(4,RoundingMode.CEILING).toPlainString();
-                        /*out += String.valueOf(Float.parseFloat(this.perfDataHolder.getValue(symbol,event)) * java.lang.Math.pow(10, 9) /
-                                Float.parseFloat(this.perfDataHolder.getValue(symbol,this.performanceEventsHolder.getInstructionCountEvent())));*/
+                        out += new BigDecimal(Float.parseFloat(this.perfReportDataHolder.getValue(symbol,event)) * java.lang.Math.pow(10, 9) /
+                                Float.parseFloat(this.perfReportDataHolder.getValue(symbol,this.performanceEventsHolder.getInstructionCountEvent()))).setScale(4,RoundingMode.CEILING).toPlainString();
+                        /*out += String.valueOf(Float.parseFloat(this.perfReportDataHolder.getValue(symbol,event)) * java.lang.Math.pow(10, 9) /
+                                Float.parseFloat(this.perfReportDataHolder.getValue(symbol,this.performanceEventsHolder.getInstructionCountEvent())));*/
                         out += ",";
                     }
                 }

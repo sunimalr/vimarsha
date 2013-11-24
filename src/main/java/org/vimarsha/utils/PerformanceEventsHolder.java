@@ -80,9 +80,9 @@ public class PerformanceEventsHolder {
         for(String event : this.eventsHolder){
             event = event.split("0x")[1];
             if(event.length()<4){
-                events.add("r0"+event);
+                events.add("r0" + event);
             } else {
-                events.add("r"+event);
+                events.add("r" + event);
             }
         }
         return events;

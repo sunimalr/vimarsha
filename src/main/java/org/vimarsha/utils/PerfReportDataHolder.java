@@ -30,10 +30,10 @@ import java.util.HashMap;
  * Created with IntelliJ IDEA.
  * User: gayashan
  */
-public class PerfDataHolder {
+public class PerfReportDataHolder {
     private HashMap<String, HashMap<String, String>> dataStore;
 
-    public PerfDataHolder(){
+    public PerfReportDataHolder(){
         dataStore = new HashMap<String, HashMap<String, String>>();
     }
 

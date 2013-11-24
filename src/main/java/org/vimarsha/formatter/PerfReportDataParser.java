@@ -20,7 +20,7 @@
 
 package org.vimarsha.formatter;
 
-import org.vimarsha.utils.PerfDataHolder;
+import org.vimarsha.utils.PerfReportDataHolder;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -31,12 +31,12 @@ import java.io.IOException;
  */
 public class PerfReportDataParser implements DataParser {
     private BufferedReader fileReader;
-    private PerfDataHolder perfDataHolder;
+    private PerfReportDataHolder perfReportDataHolder;
     private String programName;
 
-    public PerfReportDataParser(BufferedReader fileReader, PerfDataHolder perfDataHolder, String programName){
+    public PerfReportDataParser(BufferedReader fileReader, PerfReportDataHolder perfReportDataHolder, String programName){
         this.fileReader = fileReader;
-        this.setPerfDataHolder(perfDataHolder);
+        this.setPerfReportDataHolder(perfReportDataHolder);
         this.programName = programName;
     }
 
@@ -83,7 +83,7 @@ public class PerfReportDataParser implements DataParser {
                     }
                     //interpolated value of the performance count event per function = perf count event valu x overhead%
                     interpolatedVal = (float) ((eventCount/100.0) * overhead);
-                    this.getPerfDataHolder().addValue(symbol, rawEvent, String.valueOf(interpolatedVal));
+                    this.getPerfReportDataHolder().addValue(symbol, rawEvent, String.valueOf(interpolatedVal));
                 }
             }
         }
@@ -94,11 +94,11 @@ public class PerfReportDataParser implements DataParser {
         this.fileReader = fileReader;
     }
 
-    public PerfDataHolder getPerfDataHolder() {
-        return perfDataHolder;
+    public PerfReportDataHolder getPerfReportDataHolder() {
+        return perfReportDataHolder;
     }
 
-    public void setPerfDataHolder(PerfDataHolder perfDataHolder) {
-        this.perfDataHolder = perfDataHolder;
+    public void setPerfReportDataHolder(PerfReportDataHolder perfReportDataHolder) {
+        this.perfReportDataHolder = perfReportDataHolder;
     }
 }
