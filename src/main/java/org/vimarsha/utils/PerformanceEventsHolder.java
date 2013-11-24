@@ -53,6 +53,23 @@ public class PerformanceEventsHolder {
         return this.instructionCountEvent;
     }
 
+    /***
+     * Returns the prettified Instruction count raw event id
+     * TODO: Needs proper handling of names.
+     * @return
+     * @throws InstructionCountNotSetException
+     */
+    public String getPrettyInstructionCountEvent() throws InstructionCountNotSetException {
+        if(instructionCountEvent == null){
+            throw new InstructionCountNotSetException();
+        }
+        String event = instructionCountEvent.split("0x")[1];
+        if(event.length()<4){   //TODO Handle properly
+            return new String("r00" + event);
+        }
+        return new String("r" + event);
+    }
+
     public Architecture getArchitecture() {
         return architecture;
     }
