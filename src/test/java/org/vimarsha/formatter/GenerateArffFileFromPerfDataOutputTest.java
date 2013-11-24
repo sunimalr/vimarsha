@@ -37,7 +37,7 @@ public class GenerateArffFileFromPerfDataOutputTest extends TestCase {
     private PerformanceEventsHolder performanceEventsHolder;
     private PerfReportDataParser perfReportDataParser;
     private ArffWriter arffWriter;
-    private ArffDataWriter arffDataWriter;
+    private PerfDataArffWriter arffDataWriter;
     private BufferedReader bufferedReader;
     private static final String PROGRAM;
     static {
@@ -54,7 +54,7 @@ public class GenerateArffFileFromPerfDataOutputTest extends TestCase {
         this.perfDataHolder = new PerfDataHolder();
         this.perfReportDataParser = new PerfReportDataParser(this.bufferedReader, this.perfDataHolder, PROGRAM);
         this.perfReportDataParser.parse();
-        this.arffDataWriter = new ArffDataWriter("output/ppical-test.arff",this.performanceEventsHolder,this.perfDataHolder);
+        this.arffDataWriter = new PerfDataArffWriter("output/ppical-test.arff",this.performanceEventsHolder,this.perfDataHolder);
         this.arffDataWriter.writeToArffFile();
     }
 

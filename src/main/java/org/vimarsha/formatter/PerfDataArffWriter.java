@@ -16,13 +16,13 @@ import java.util.ArrayList;
  * Created with IntelliJ IDEA.
  * User: gayashan
  */
-public class ArffDataWriter implements DataWriter {
+public class PerfDataArffWriter implements DataWriter {
     private ArffWriter arffWriter;
     private PerfDataHolder perfDataHolder;
     private PerformanceEventsHolder performanceEventsHolder;
     private ArrayList<String> headers;
 
-    public ArffDataWriter(String fileName, PerformanceEventsHolder performanceEventsHolder, PerfDataHolder perfDataHolder) throws IOException {
+    public PerfDataArffWriter(String fileName, PerformanceEventsHolder performanceEventsHolder, PerfDataHolder perfDataHolder) throws IOException {
         this.headers = new ArrayList<String>();
         this.performanceEventsHolder = performanceEventsHolder;
         this.headers = generateHeaders(this.performanceEventsHolder);
