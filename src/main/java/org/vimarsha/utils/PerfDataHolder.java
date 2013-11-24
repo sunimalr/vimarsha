@@ -31,17 +31,17 @@ import java.util.HashMap;
  * User: gayashan
  */
 public class PerfDataHolder {
-    private HashMap<String, HashMap<String, Float>> dataStore;
+    private HashMap<String, HashMap<String, String>> dataStore;
 
     public PerfDataHolder(){
-        dataStore = new HashMap<String, HashMap<String, Float>>();
+        dataStore = new HashMap<String, HashMap<String, String>>();
     }
 
-    public void addValue(String symbol, String rawEvent, Float value){
+    public void addValue(String symbol, String rawEvent, String value){
         if(dataStore.containsKey(symbol)){
             dataStore.get(symbol).put(rawEvent,value);
         }else{
-            HashMap<String,Float> tmp = new HashMap<String, Float>();
+            HashMap<String,String> tmp = new HashMap<String, String>();
             tmp.put(rawEvent,value);
             dataStore.put(symbol,tmp);
         }
@@ -58,7 +58,7 @@ public class PerfDataHolder {
         return symbolsList;
     }
 
-    public HashMap<String,Float> getRawEventValueCollection(String symbol) throws SymbolNotFoundException {
+    public HashMap<String,String> getRawEventValueCollection(String symbol) throws SymbolNotFoundException {
         if(dataStore.containsKey(symbol)){
             return dataStore.get(symbol);
         }
@@ -72,7 +72,7 @@ public class PerfDataHolder {
         throw new SymbolNotFoundException();
     }
 
-    public Float getValue(String symbol, String rawEvent) throws SymbolNotFoundException, RawEventNotFoundException {
+    public String getValue(String symbol, String rawEvent) throws SymbolNotFoundException, RawEventNotFoundException {
         if(dataStore.containsKey(symbol)){
             if(dataStore.get(symbol).containsKey(rawEvent)){
                 return dataStore.get(symbol).get(rawEvent);
@@ -83,7 +83,7 @@ public class PerfDataHolder {
         throw new SymbolNotFoundException();
     }
 
-    public HashMap<String, HashMap<String,Float>> getDataStore(){
+    public HashMap<String, HashMap<String, String>> getDataStore(){
         return dataStore;
     }
 }
