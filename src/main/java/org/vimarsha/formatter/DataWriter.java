@@ -26,13 +26,50 @@ import org.vimarsha.exceptions.SymbolNotFoundException;
 import org.vimarsha.utils.PerformanceEventsHolder;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Created with IntelliJ IDEA.
  * User: sunimal
  */
-public interface DataWriter {
-    public void writeToArffFile() throws SymbolNotFoundException, InstructionCountNotSetException, RawEventNotFoundException, IOException;
-    public void setOutputWriter(OutputWriter outputWriter);
-    public void setEventsHolder(PerformanceEventsHolder performanceEventsHolder);
+abstract class DataWriter {
+    protected ArffWriter arffWriter;
+    protected ArrayList<String> headers;
+    protected PerformanceEventsHolder performanceEventsHolder;
+    protected OutputWriter outputWriter;
+
+    public DataWriter(String fileName, PerformanceEventsHolder performanceEventsHolder) throws IOException {
+        this.headers = new ArrayList<String>();
+        this.performanceEventsHolder = performanceEventsHolder;
+        this.headers = generateHeaders(this.performanceEventsHolder);
+        this.arffWriter = new ArffWriter(fileName,this.headers);
+    }
+
+    public abstract void writeToArffFile() throws SymbolNotFoundException, InstructionCountNotSetException, RawEventNotFoundException, IOException;
+
+    public void setOutputWriter(OutputWriter outputWriter){
+        this.arffWriter = (ArffWriter) outputWriter;
+    }
+    public void setEventsHolder(PerformanceEventsHolder performanceEventsHolder){
+        this.performanceEventsHolder = performanceEventsHolder;
+    }
+
+    public ArrayList<String> generateHeaders(PerformanceEventsHolder performanceEventsHolder){
+        ArrayList<String> headers = new ArrayList<String>();
+        headers.add("@relation badfs_badma_good_events_"+ performanceEventsHolder.getArchitecture().toString());
+        for(String event: performanceEventsHolder.getPrettyEventsHolder()){
+            headers.add("@attribute "+ event + " numeric");
+        }
+        headers.add("@attribute status {good, badfs, badma}");
+        headers.add("@data");
+        return headers;
+    }
+
+    public ArffWriter getOutputWriter() {
+        return arffWriter;
+    }
+
+    public PerformanceEventsHolder getPerformanceEventsHolder() {
+        return performanceEventsHolder;
+    }
 }
