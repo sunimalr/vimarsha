@@ -68,11 +68,11 @@ public class PerfReportDataParserTest extends TestCase {
 
     @Test
     public void testParse() throws Exception {
-        assertEquals(211.28851, perfDataHolder.getValue("Thread_sum_with_fs", "0xc0"), 0.000004);
-        assertEquals(187.5923,perfDataHolder.getValue("Thread_sum_with_fs","0x151"),0.0000005);
-        assertEquals(138.67849,perfDataHolder.getValue("Thread_sum_with_fs","0x20f0"), 0.000008);
-        assertEquals(196.56660,perfDataHolder.getValue("Thread_sum_with_fs","0x4b8"), 0.000005);
-        assertEquals(18.377,perfDataHolder.getValue("Serial_pi","0xc0"), 0.0000009);
+        assertEquals("211.28851", perfDataHolder.getValue("Thread_sum_with_fs", "0xc0"));
+        assertEquals("187.5923",perfDataHolder.getValue("Thread_sum_with_fs","0x151"));
+        assertEquals("138.67849",perfDataHolder.getValue("Thread_sum_with_fs","0x20f0"));
+        assertEquals("196.56660",perfDataHolder.getValue("Thread_sum_with_fs","0x4b8"));
+        assertEquals("18.377",perfDataHolder.getValue("Serial_pi","0xc0"));
         assertEquals(new ArrayList<String>(Arrays.asList("0x20f0","0x151","0x4b8","0xc0")),perfReportDataParser.getPerfDataHolder().getRawEventsCollection("Thread_sum_with_fs"));
     }
 
