@@ -27,7 +27,7 @@ public class PerfReportArffDataWriter extends DataWriter {
     public void writeToArffFile() throws SymbolNotFoundException, InstructionCountNotSetException, RawEventNotFoundException, IOException {
         int i = 1;
         for(String symbol : this.perfReportDataHolder.getSymbolsList()){
-            for(String event : super.getPerformanceEventsHolder().getEventsHolder()){
+            for(String event : this.performanceEventsHolder.getEventsHolder()){
                 if (!this.perfReportDataHolder.getRawEventsCollection(symbol).contains(event)){
                     this.perfReportDataHolder.addValue(symbol,event,"?");
                 }
