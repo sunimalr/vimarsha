@@ -68,4 +68,23 @@ public class PerformanceEventsHolder {
     public void setEventsHolder(ArrayList<String> eventsHolder) {
         this.eventsHolder = eventsHolder;
     }
+
+    /**
+     * Returns a prettified events holder.
+     * Needed when creating the arff file headers
+     * Since training files contain headers in the format "r0####" instead of "0x####"
+     * @return ArrayList of prettified events
+     */
+    public ArrayList<String> getPrettyEventsHolder(){
+        ArrayList<String> events = new ArrayList<String>();
+        for(String event : this.eventsHolder){
+            event = event.split("0x")[1];
+            if(event.length()<4){
+                events.add("r0"+event);
+            } else {
+                events.add("r"+event);
+            }
+        }
+        return events;
+    }
 }
