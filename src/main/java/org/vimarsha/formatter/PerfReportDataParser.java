@@ -54,9 +54,9 @@ public class PerfReportDataParser implements DataParser {
         while((line = fileReader.readLine()) != null){
             line = line.trim();
             if (line.contains("Events")){
-                rawEvent = line.split(" +")[4];
+                rawEvent = line.split(" +")[4];     //split the line and acquire raw event name
                 tmp = line.split(" +")[2];
-                if(tmp.contains("K")){
+                if(tmp.contains("K")){              //some raw event counts are scaled in K format eg: 4K = 4000
                     eventCount = Integer.parseInt(tmp.split("K")[0]) * 1000;
                 } else {
                     eventCount = Integer.parseInt(tmp);
@@ -65,7 +65,11 @@ public class PerfReportDataParser implements DataParser {
 
             if ((!line.contains("#")) && (line.split(" +")).length != 1){
                 String [] tokens = line.split(" +");
-                if (tokens[2].equals(this.programName)){
+                //tokens[1] = command which executed the function
+                //tokens[2] = object which function belongs to
+                //tokens[1] gives all the functions (including external libraries, kernel, etc)
+                //tokens[2] gives only the functions available in the program
+                if (tokens[1].equals(this.programName)){
                     int size = tokens.length;
                     overhead = Float.parseFloat(tokens[0].split("%")[0]);
                     if(size <= 5){
@@ -77,10 +81,9 @@ public class PerfReportDataParser implements DataParser {
                             ++i;
                         }
                     }
-
+                    //interpolated value of the performance count event per function = perf count event valu x overhead%
                     interpolatedVal = (float) ((eventCount/100.0) * overhead);
-                    System.out.println(symbol);
-                    this.getPerfDataHolder().addValue(symbol, rawEvent, interpolatedVal);
+                    this.getPerfDataHolder().addValue(symbol, rawEvent, String.valueOf(interpolatedVal));
                 }
             }
         }
