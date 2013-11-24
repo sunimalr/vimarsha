@@ -20,14 +20,19 @@
 
 package org.vimarsha.formatter;
 
+import org.vimarsha.exceptions.InstructionCountNotSetException;
+import org.vimarsha.exceptions.RawEventNotFoundException;
+import org.vimarsha.exceptions.SymbolNotFoundException;
 import org.vimarsha.utils.PerformanceEventsHolder;
+
+import java.io.IOException;
 
 /**
  * Created with IntelliJ IDEA.
  * User: sunimal
  */
 public interface DataWriter {
-    public void writeToArffFile();
+    public void writeToArffFile() throws SymbolNotFoundException, InstructionCountNotSetException, RawEventNotFoundException, IOException;
     public void setOutputWriter(OutputWriter outputWriter);
     public void setEventsHolder(PerformanceEventsHolder performanceEventsHolder);
 }
