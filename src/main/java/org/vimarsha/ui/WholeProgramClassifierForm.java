@@ -31,7 +31,7 @@ public class WholeProgramClassifierForm {
     private JComboBox architectureComboBox;
     private JButton classifyButton;
     private JTextPane classificationTextPane;
-    private JComboBox comboBox1;
+    private JComboBox modelComboBox;
     private JList testDataSetList;
 
     private void createUIComponents() {
