@@ -35,7 +35,7 @@ import java.io.FileReader;
  * Created with IntelliJ IDEA.
  * User: gayashan
  */
-public class PerfStatArffDataWriterTest extends TestCase {
+public class GenerateArffFileFromPerfStatOutputTest extends TestCase {
     private PerfStatArffDataWriter perfStatArffDataWriter;
     private PerformanceEventsHolder performanceEventsHolder;
     private PerfStatDataHolder perfStatDataHolder;
