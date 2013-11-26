@@ -45,6 +45,7 @@ public class UIHandler {
     }
 
     private UIHandler() {
+        this.mediator = new DefaultMediator();
     }
 
     public void setArchitecture(String architecture){
