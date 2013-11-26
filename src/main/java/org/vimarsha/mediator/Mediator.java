@@ -31,7 +31,8 @@ import java.util.ArrayList;
  * User: gayashan
  */
 public interface Mediator {
-    public int setFile(File fileToOpen);
+    public int setRawFile(File fileToOpen);
+    public int setArffFile(File fileToOpen);
     public int setArchitecture(String architecture);
     public int convertRawFileToArff();
     public int saveArffFile(File fileToSave);
