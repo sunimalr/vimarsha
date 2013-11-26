@@ -20,9 +20,26 @@
 
 package org.vimarsha.ui;
 
+import javax.swing.*;
+
 /**
  * Created with IntelliJ IDEA.
- * User: sunimal
+ * User: gayashan
  */
 public class HomePage {
+    private JPanel panel1;
+    private JTabbedPane homeTabbedPane;
+    private DataLoaderForm dataLoaderForm1;
+    private WholeProgramClassifierForm wholeProgramClassifierForm1;
+    private FunctionWiseClassifierForm functionWiseClassifierForm1;
+    private TimeSlicedClassiferForm timeSlicedClassiferForm1;
+    private JPanel dataLoaderPanel;
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("HomePage");
+        frame.setContentPane(new HomePage().panel1);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
+    }
 }

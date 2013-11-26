@@ -48,8 +48,8 @@ public class DataLoaderForm {
     private ChartPanel attributeDetailsChart;
 
     public DataLoaderForm() {
-        this.Tab0 = new JPanel();
-        archComboBox=new JComboBox(UIHandler.getInstance().getArchitectureList().toArray());
+//        this.Tab0 = new JPanel();
+//        archComboBox=new JComboBox(UIHandler.getInstance().getArchitectureList().toArray());
         archComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -87,5 +87,6 @@ public class DataLoaderForm {
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
+        attributeDetailsChart = new ChartPanel(null);
     }
 }

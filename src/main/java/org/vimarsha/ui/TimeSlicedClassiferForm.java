@@ -35,6 +35,6 @@ public class TimeSlicedClassiferForm {
     private ChartPanel chartPanel;
 
     private void createUIComponents() {
-        // TODO: place custom component creation code here
+        this.chartPanel = new ChartPanel(null);
     }
 }
