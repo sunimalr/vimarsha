@@ -25,17 +25,19 @@ import org.jfree.data.xy.XYSeriesCollection;
 import org.vimarsha.classifier.FunctionWiseClassifier;
 import org.vimarsha.classifier.TimeslicedClassifier;
 import org.vimarsha.classifier.WholeProgramClassifier;
+import org.vimarsha.exceptions.InstructionCountNotSetException;
+import org.vimarsha.exceptions.RawEventNotFoundException;
+import org.vimarsha.exceptions.RawFileParseFailedException;
+import org.vimarsha.exceptions.SymbolNotFoundException;
 import org.vimarsha.formatter.*;
 import org.vimarsha.utils.*;
 import org.xml.sax.SAXException;
 
 import javax.swing.table.DefaultTableModel;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created with IntelliJ IDEA.
@@ -71,7 +73,7 @@ public class DefaultMediator implements Mediator{
     public int setRawFile(File fileToOpen) throws IOException {
         this.currentRawFile = fileToOpen;
         this.dataFileType = new DataFileTypeDetector(fileToOpen).getDataFileType();
-        return 0;
+        return 100;
     }
 
     @Override
@@ -88,7 +90,23 @@ public class DefaultMediator implements Mediator{
     }
 
     @Override
-    public int convertRawFileToArff() {
+    public int convertRawFileToArff() throws IOException, SymbolNotFoundException, RawEventNotFoundException, InstructionCountNotSetException, RawFileParseFailedException {
+        switch (this.dataFileType){
+            case PERF_REPORT:
+                this.perfReportDataHolder = new PerfReportDataHolder();
+                this.bufferedReader = new BufferedReader(new FileReader(this.currentRawFile));
+                this.perfReportDataParser = new PerfReportDataParser(this.bufferedReader,this.perfReportDataHolder);
+                this.perfReportDataParser.parse();
+                this.perfReportArffDataWriter = new PerfReportArffDataWriter("output/temp.arff",this.performanceEventsHolder,this.perfReportDataHolder);
+                this.perfReportArffDataWriter.writeToArffFile();
+                this.bufferedReader.close();
+                break;
+            case PERF_STAT:
+
+                break;
+            default:
+
+        }
         return 0;
     }
 
@@ -109,7 +127,11 @@ public class DefaultMediator implements Mediator{
 
     @Override
     public ArrayList<String> getArchitectureList() {
-        return null;
+        ArrayList<String> architectureList = new ArrayList<String>();
+        for(Architecture architecture : Architecture.values()){
+            architectureList.add(architecture.toString());
+        }
+        return architectureList;
     }
 
     @Override
