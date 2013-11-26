@@ -23,6 +23,8 @@ package org.vimarsha.ui;
 import org.jfree.chart.ChartPanel;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created with IntelliJ IDEA.
@@ -38,6 +40,7 @@ public class DataLoaderForm {
     private JTable table1;
     private JTable table2;
     private ChartPanel chartPanel1;
+    private JComboBox archComboBox;
 
     public DataLoaderForm() {
         this.Tab0 = new JPanel();
