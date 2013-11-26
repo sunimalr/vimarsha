@@ -20,17 +20,102 @@
 
 package org.vimarsha.mediator;
 
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.xy.XYSeriesCollection;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.io.File;
+import java.util.ArrayList;
+
 /**
  * Created with IntelliJ IDEA.
  * User: sunimal
  */
 public class UIHandler {
-    private static UIHandler ourInstance = new UIHandler();
+    private static UIHandler uiHandlerInstance = null;
+
+    private Mediator mediator;
 
     public static UIHandler getInstance() {
-        return ourInstance;
+        if(uiHandlerInstance == null){
+            uiHandlerInstance=new UIHandler();
+        }
+        return uiHandlerInstance;
     }
 
     private UIHandler() {
+    }
+
+    private void setArchitecture(String architecture){
+        try{
+            this.mediator.setArchitecture(architecture);
+        }catch (Exception ex){
+            this.showErrorDialog("Architecture Not Set!");
+        }
+    }
+
+    private void setRawFile(File file){
+        try{
+            this.mediator.setRawFile(file);
+        }catch (Exception ex){
+            this.showErrorDialog("Raw file not set!");
+        }
+    }
+
+    private void setArffFile(File file){
+        this.mediator.setArffFile(file);
+    }
+
+    private void convertRawToArff(){
+        this.mediator.convertRawFileToArff();
+    }
+
+    private void saveAsArff(File fileToSave){
+        this.mediator.saveArffFile(fileToSave);
+    }
+
+    private DefaultTableModel getTableModel(){
+        return this.mediator.getTableModel();
+    }
+
+    private DefaultCategoryDataset getBarChartDataSet(){
+        return  this.mediator.getBarChartDataSet();
+    }
+
+    private ArrayList<String> getArchitectureList(){
+        return this.mediator.getArchitectureList();
+    }
+
+    private ArrayList<String> getTrainingModels(){
+        return this.mediator.getTrainingModels();
+    }
+
+    private void classify(){
+        this.mediator.classify();
+    }
+
+    private DefaultTableModel getClassificationResults(){
+        return this.mediator.getClassificationResults();
+    }
+
+    private XYSeriesCollection getXYChartDataSet(){
+        return this.mediator.getXYChartDataSet();
+    }
+
+    private void exportAsCSV(){
+        this.mediator.exportAsCSV();
+    }
+
+    private void exportAsImage(){
+        this.mediator.exportAsImage();
+    }
+
+    private void showErrorDialog(String errorMessage){
+        JOptionPane.showMessageDialog(null,errorMessage,"Error",JOptionPane.ERROR_MESSAGE);
+    }
+
+    private void showInfoDialog(String infoMessage){
+        JOptionPane.showMessageDialog(null,infoMessage,"Error",JOptionPane.INFORMATION_MESSAGE);
     }
 }
