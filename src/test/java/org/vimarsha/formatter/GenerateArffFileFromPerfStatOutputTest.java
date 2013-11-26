@@ -50,7 +50,7 @@ public class GenerateArffFileFromPerfStatOutputTest extends TestCase {
         this.performanceEventsHolder = new PerformanceEventsHolder();
         this.configurationsLoader = new ConfigurationsLoader(this.performanceEventsHolder);
         this.configurationsLoader.loadPerformanceEvents(Architecture.INTEL_NEHALEM);
-        this.performanceEventsHolder = this.configurationsLoader.getPerformanceEventsHolder();
+        //this.performanceEventsHolder = this.configurationsLoader.getPerformanceEventsHolder();
         this.bufferedReader = new BufferedReader(new FileReader("data/perfstat.out"));
         this.perfStatDataHolder = new PerfStatDataHolder();
         this.perfStatDataParser = new PerfStatDataParser(this.bufferedReader,this.perfStatDataHolder);
