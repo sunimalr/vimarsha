@@ -31,6 +31,7 @@ public class FunctionWiseClassifierForm {
     private JComboBox trainingComboBox;
     private JTable functionWiseResultsTable;
     private JPanel Tab2;
+    private JComboBox modelComboBox;
 
     private void createUIComponents() {
         // TODO: place custom component creation code here

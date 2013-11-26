@@ -41,9 +41,15 @@ public class DataLoaderForm {
     private JTable table2;
     private ChartPanel chartPanel1;
     private JComboBox archComboBox;
+    private JTable attributesTable;
+    private JTable attributesSummaryTable;
+    private ChartPanel attributeDetailsChart;
 
     public DataLoaderForm() {
         this.Tab0 = new JPanel();
+    }
 
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
     }
 }
