@@ -47,7 +47,7 @@ public class UIHandler {
     private UIHandler() {
     }
 
-    private void setArchitecture(String architecture){
+    public void setArchitecture(String architecture){
         try{
             this.mediator.setArchitecture(architecture);
         }catch (Exception ex){
@@ -55,59 +55,65 @@ public class UIHandler {
         }
     }
 
-    private void setRawFile(File file){
+    public int setRawFile(File file){
         try{
-            this.mediator.setRawFile(file);
+            return this.mediator.setRawFile(file);
         }catch (Exception ex){
             this.showErrorDialog("Raw file not set!");
+            return -1;
         }
     }
 
-    private void setArffFile(File file){
+    public void setArffFile(File file){
         this.mediator.setArffFile(file);
     }
 
-    private void convertRawToArff(){
-        this.mediator.convertRawFileToArff();
+    public void convertRawToArff(){
+        try{
+            this.mediator.convertRawFileToArff();
+        }catch (Exception ex){
+            this.showErrorDialog("File Conversion Error!");
+        }
+
     }
 
     private void saveAsArff(File fileToSave){
         this.mediator.saveArffFile(fileToSave);
     }
 
-    private DefaultTableModel getTableModel(){
+    public DefaultTableModel getTableModel(){
         return this.mediator.getTableModel();
     }
 
-    private DefaultCategoryDataset getBarChartDataSet(){
+    public DefaultCategoryDataset getBarChartDataSet(){
         return  this.mediator.getBarChartDataSet();
     }
 
-    private ArrayList<String> getArchitectureList(){
+    public ArrayList<String> getArchitectureList(){
         return this.mediator.getArchitectureList();
     }
 
-    private ArrayList<String> getTrainingModels(){
+    public ArrayList<String> getTrainingModels(){
         return this.mediator.getTrainingModels();
     }
 
-    private void classify(){
+    public void classify(){
         this.mediator.classify();
     }
 
-    private DefaultTableModel getClassificationResults(){
+    public DefaultTableModel getClassificationResults(){
         return this.mediator.getClassificationResults();
     }
 
-    private XYSeriesCollection getXYChartDataSet(){
+    public XYSeriesCollection getXYChartDataSet(){
         return this.mediator.getXYChartDataSet();
     }
 
-    private void exportAsCSV(){
+    public void exportAsCSV(){
         this.mediator.exportAsCSV();
     }
 
-    private void exportAsImage(){
+    public void exportAsImage(){
         this.mediator.exportAsImage();
     }
 

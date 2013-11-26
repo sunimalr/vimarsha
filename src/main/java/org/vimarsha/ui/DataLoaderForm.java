@@ -21,10 +21,12 @@
 package org.vimarsha.ui;
 
 import org.jfree.chart.ChartPanel;
+import org.vimarsha.mediator.UIHandler;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 /**
  * Created with IntelliJ IDEA.
@@ -47,6 +49,40 @@ public class DataLoaderForm {
 
     public DataLoaderForm() {
         this.Tab0 = new JPanel();
+        archComboBox=new JComboBox(UIHandler.getInstance().getArchitectureList().toArray());
+        archComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                UIHandler.getInstance().setArchitecture((String)archComboBox.getSelectedItem());
+            }
+        });
+        openRAWFileButton.addActionListener(new ActionListener() {
+            File file=null;
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                JFileChooser fc=new JFileChooser();
+                int returnVal=fc.showOpenDialog(Tab0);
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    file = fc.getSelectedFile();
+                }
+                if(UIHandler.getInstance().setRawFile(file)==100){
+                    convertToARFFFileButton.setEnabled(true);
+                }
+
+            }
+        });
+        openARFFFileButton.addActionListener(new ActionListener() {
+            File file=null;
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                JFileChooser fc=new JFileChooser();
+                int returnVal=fc.showOpenDialog(Tab0);
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    file = fc.getSelectedFile();
+                }
+                UIHandler.getInstance().setArffFile(file);
+            }
+        });
     }
 
     private void createUIComponents() {
