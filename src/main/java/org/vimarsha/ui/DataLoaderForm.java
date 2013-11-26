@@ -48,8 +48,11 @@ public class DataLoaderForm {
     private ChartPanel attributeDetailsChart;
 
     public DataLoaderForm() {
-//        this.Tab0 = new JPanel();
-//        archComboBox=new JComboBox(UIHandler.getInstance().getArchitectureList().toArray());
+
+        for(String str : UIHandler.getInstance().getArchitectureList()){
+            archComboBox.addItem(str);
+        }
+
         archComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
