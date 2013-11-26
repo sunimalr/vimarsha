@@ -20,6 +20,7 @@
 
 package org.vimarsha.formatter;
 
+import org.vimarsha.exceptions.RawFileParseFailedException;
 import org.vimarsha.utils.PerfReportDataHolder;
 
 import java.io.BufferedReader;
@@ -33,15 +34,23 @@ public class PerfReportDataParser implements DataParser {
     private BufferedReader fileReader;
     private PerfReportDataHolder perfReportDataHolder;
     private String programName;
+    private boolean getAll;
 
     public PerfReportDataParser(BufferedReader fileReader, PerfReportDataHolder perfReportDataHolder, String programName){
         this.fileReader = fileReader;
         this.setPerfReportDataHolder(perfReportDataHolder);
         this.programName = programName;
+        this.getAll = false;
+    }
+
+    public PerfReportDataParser(BufferedReader fileReader, PerfReportDataHolder perfReportDataHolder) {
+        this.fileReader = fileReader;
+        this.setPerfReportDataHolder(perfReportDataHolder);
+        this.getAll = true;
     }
 
     @Override
-    public void parse() throws IOException {
+    public void parse() throws IOException, RawFileParseFailedException {
         String line = null;
         String rawEvent = null;
         String tmp = null;
@@ -69,7 +78,7 @@ public class PerfReportDataParser implements DataParser {
                 //tokens[2] = object which function belongs to
                 //tokens[1] gives all the functions (including external libraries, kernel, etc)
                 //tokens[2] gives only the functions available in the program
-                if (tokens[1].equals(this.programName)){
+                if (tokens[1].equals(this.programName) || this.getAll){
                     int size = tokens.length;
                     overhead = Float.parseFloat(tokens[0].split("%")[0]);
                     if(size <= 5){
@@ -84,6 +93,8 @@ public class PerfReportDataParser implements DataParser {
                     //interpolated value of the performance count event per function = perf count event valu x overhead%
                     interpolatedVal = (float) ((eventCount/100.0) * overhead);
                     this.getPerfReportDataHolder().addValue(symbol, rawEvent, String.valueOf(interpolatedVal));
+                } else {
+                    throw new RawFileParseFailedException();
                 }
             }
         }

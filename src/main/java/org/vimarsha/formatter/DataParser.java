@@ -20,6 +20,8 @@
 
 package org.vimarsha.formatter;
 
+import org.vimarsha.exceptions.RawFileParseFailedException;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 
@@ -28,6 +30,6 @@ import java.io.IOException;
  * User: gayashan
  */
 public interface DataParser {
-    public void parse() throws IOException;
+    public void parse() throws IOException, RawFileParseFailedException;
     public void setFileReader(BufferedReader fileReader);
 }
