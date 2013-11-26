@@ -44,6 +44,7 @@ public class PerfStatDataParser implements DataParser {
         String value = null;
 
         line = this.bufferedReader.readLine();  //read header
+        line = this.bufferedReader.readLine();  //read header
         line = this.bufferedReader.readLine();
 
         while ((line = this.bufferedReader.readLine()) != null){
