@@ -22,6 +22,10 @@ package org.vimarsha.mediator;
 
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.xy.XYSeriesCollection;
+import org.vimarsha.exceptions.InstructionCountNotSetException;
+import org.vimarsha.exceptions.RawEventNotFoundException;
+import org.vimarsha.exceptions.RawFileParseFailedException;
+import org.vimarsha.exceptions.SymbolNotFoundException;
 import org.xml.sax.SAXException;
 
 import javax.swing.table.DefaultTableModel;
@@ -39,7 +43,7 @@ public interface Mediator {
     public int setRawFile(File fileToOpen) throws IOException;
     public int setArffFile(File fileToOpen);
     public int setArchitecture(String architecture) throws ParserConfigurationException, SAXException, IOException;
-    public int convertRawFileToArff();
+    public int convertRawFileToArff() throws IOException, SymbolNotFoundException, RawEventNotFoundException, InstructionCountNotSetException, RawFileParseFailedException;
     public int saveArffFile(File fileToSave);
     //Dataset needed to populate jtable instances
     public DefaultTableModel getTableModel();
