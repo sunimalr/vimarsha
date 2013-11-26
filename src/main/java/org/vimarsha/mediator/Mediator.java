@@ -22,8 +22,13 @@ package org.vimarsha.mediator;
 
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.xy.XYSeriesCollection;
+import org.xml.sax.SAXException;
+
 import javax.swing.table.DefaultTableModel;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -31,9 +36,9 @@ import java.util.ArrayList;
  * User: gayashan
  */
 public interface Mediator {
-    public int setRawFile(File fileToOpen);
+    public int setRawFile(File fileToOpen) throws IOException;
     public int setArffFile(File fileToOpen);
-    public int setArchitecture(String architecture);
+    public int setArchitecture(String architecture) throws ParserConfigurationException, SAXException, IOException;
     public int convertRawFileToArff();
     public int saveArffFile(File fileToSave);
     //Dataset needed to populate jtable instances
