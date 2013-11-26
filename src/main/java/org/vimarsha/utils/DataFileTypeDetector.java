@@ -38,7 +38,7 @@ public class DataFileTypeDetector {
     }
 
     /***
-     * Expected header format "@datafiletype=PERF_RECORD"
+     * Expected header format "@datafiletype=PERF_REPORT"
      * @return
      * @throws IOException
      */
@@ -51,8 +51,8 @@ public class DataFileTypeDetector {
         if(line.contains("@datafiletype")){
             if((line.split("=")[1]).equalsIgnoreCase("PERF_STAT")){
                 this.dataFileType = DataFileType.PERF_STAT;
-            } else if((line.split("=")[1]).equalsIgnoreCase("PERF_RECORD")){
-                this.dataFileType = DataFileType.PERF_RECORD;
+            } else if((line.split("=")[1]).equalsIgnoreCase("PERF_REPORT")){
+                this.dataFileType = DataFileType.PERF_REPORT;
             }
         }
         this.bufferedReader.close();
