@@ -29,6 +29,8 @@ import org.vimarsha.exceptions.*;
 import org.vimarsha.formatter.*;
 import org.vimarsha.utils.*;
 import org.xml.sax.SAXException;
+import weka.core.Instances;
+import weka.core.converters.ArffLoader.ArffReader;
 
 import javax.swing.table.DefaultTableModel;
 import javax.xml.parsers.ParserConfigurationException;
@@ -58,6 +60,9 @@ public class DefaultMediator implements Mediator{
     private File currentRawFile;
     private File currentArffFile;
     private DataFileType dataFileType;
+    private ArffReader arffReader;
+    private Instances arffData;
+
 
     public DefaultMediator() {
         this.performanceEventsHolder = new PerformanceEventsHolder();
@@ -74,8 +79,17 @@ public class DefaultMediator implements Mediator{
     }
 
     @Override
-    public int setArffFile(File fileToOpen) {
+    public int setArffFile(File fileToOpen) throws IOException {
         this.currentArffFile = fileToOpen;
+        openArffFile(this.currentArffFile);
+        return 0;
+    }
+
+    private int openArffFile(File fileToOpen) throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(fileToOpen));
+        this.arffReader = new ArffReader(reader);
+        this.arffData = this.arffReader.getData();
+        this.arffData.setClassIndex(this.arffData.numAttributes()-1);
         return 0;
     }
 
@@ -96,7 +110,7 @@ public class DefaultMediator implements Mediator{
                 this.perfReportDataParser.parse();
                 this.perfReportArffDataWriter = new PerfReportArffDataWriter("output/tempreport.arff",this.performanceEventsHolder,this.perfReportDataHolder);
                 this.perfReportArffDataWriter.writeToArffFile();
-                this.currentArffFile = new File("output/tempreport.arff");
+                this.setArffFile(new File("output/tempreport.arff"));
                 this.bufferedReader.close();
                 return 100;
             case PERF_STAT:
@@ -106,7 +120,7 @@ public class DefaultMediator implements Mediator{
                 this.perfStatDataParser.parse();
                 this.perfStatArffDataWriter = new PerfStatArffDataWriter("output/tempstat.arff",this.performanceEventsHolder,this.perfStatDataHolder);
                 this.perfStatArffDataWriter.writeToArffFile();
-                this.currentArffFile = new File("output/tempstat.arff");
+                this.setArffFile(new File("output/tempstat.arff"));
                 this.bufferedReader.close();
                 return 100;
             default:
@@ -129,6 +143,7 @@ public class DefaultMediator implements Mediator{
 
     @Override
     public DefaultTableModel getArffAttributesTableModel() {
+
         return null;
     }
 
@@ -160,6 +175,7 @@ public class DefaultMediator implements Mediator{
     public DefaultTableModel getClassificationResultsTableModel() {
         return null;
     }
+
 
     @Override
     public XYSeriesCollection getXYChartDataSet() {

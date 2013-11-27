@@ -37,7 +37,7 @@ import java.util.ArrayList;
  */
 public interface Mediator {
     public int setRawFile(File fileToOpen) throws IOException, DataFileTypeHeaderNotSetException;
-    public int setArffFile(File fileToOpen);
+    public int setArffFile(File fileToOpen) throws IOException;
     public int setArchitecture(String architecture) throws ParserConfigurationException, SAXException, IOException;
     public int convertRawFileToArff() throws IOException, SymbolNotFoundException, RawEventNotFoundException, InstructionCountNotSetException, RawFileParseFailedException;
     public int saveArffFile(File fileToSave) throws IOException;
