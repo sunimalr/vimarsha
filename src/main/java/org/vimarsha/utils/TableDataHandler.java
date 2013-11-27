@@ -20,29 +20,25 @@
 
 package org.vimarsha.utils;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.nio.channels.FileChannel;
+import weka.core.Instances;
+
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  * Created with IntelliJ IDEA.
  * User: gayashan
  */
-public class FileHandler {
-    private FileChannel sourceFileChannel;
-    private FileChannel destinationFileChannel;
+public class TableDataHandler {
+    private Instances arffInstances;
 
-    public FileHandler() {
-        this.destinationFileChannel = null;
-        this.sourceFileChannel = null;
+    public TableDataHandler(Instances instances) {
+        this.arffInstances = instances;
     }
 
-    public void copy(File source, File destination) throws IOException {
-        this.sourceFileChannel = new FileInputStream(source).getChannel();
-        this.destinationFileChannel = new FileInputStream(destination).getChannel();
-        this.destinationFileChannel.transferFrom(sourceFileChannel, 0, sourceFileChannel.size());
-        this.sourceFileChannel.close();
-        this.destinationFileChannel.close();
+    public TableModel getTableModel(){
+        TableModel tableModel = new DefaultTableModel();
+        tableModel.setValueAt(this.arffInstances.attribute(0),0,0);
+        return tableModel;
     }
 }

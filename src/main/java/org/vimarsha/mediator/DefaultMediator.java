@@ -62,6 +62,7 @@ public class DefaultMediator implements Mediator{
     private DataFileType dataFileType;
     private ArffReader arffReader;
     private Instances arffData;
+    private TableDataHandler tableDataHandler;
 
 
     public DefaultMediator() {
@@ -143,8 +144,8 @@ public class DefaultMediator implements Mediator{
 
     @Override
     public DefaultTableModel getArffAttributesTableModel() {
-
-        return null;
+        this.tableDataHandler = new TableDataHandler(this.arffData);
+        return (DefaultTableModel) this.tableDataHandler.getTableModel();
     }
 
     @Override
