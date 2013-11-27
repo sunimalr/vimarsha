@@ -24,8 +24,11 @@ import org.jfree.chart.ChartPanel;
 import org.vimarsha.mediator.UIHandler;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
@@ -94,6 +97,9 @@ public class DataLoaderForm {
             public void actionPerformed(ActionEvent actionEvent) {
                 if(UIHandler.getInstance().convertRawToArff()==100){
                     saveToARFFFileButton.setEnabled(true);
+                    attributesTable.setModel(UIHandler.getInstance().getArffAttribiutesTableModel());
+
+
                 }
             }
         });
@@ -110,10 +116,15 @@ public class DataLoaderForm {
 
             }
         });
-        attributesTable.addPropertyChangeListener(new PropertyChangeListener() {
+
+        attributesTable.addMouseListener(new MouseAdapter() {
             @Override
-            public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
-                //To change body of implemented methods use File | Settings | File Templates.
+            public void mouseClicked(MouseEvent e) {
+                if(e.getClickCount()==2){
+                    JTable target=(JTable)e.getSource();
+                    int row=target.getSelectedRow();
+                    System.out.println("Row Selected : "+row);
+                }
             }
         });
     }

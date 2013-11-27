@@ -116,7 +116,9 @@
               </grid>
             </constraints>
             <properties>
-              <cellSelectionEnabled value="false"/>
+              <cellSelectionEnabled value="true"/>
+              <enabled value="false"/>
+              <fillsViewportHeight value="false"/>
               <rowSelectionAllowed value="true"/>
             </properties>
           </component>
