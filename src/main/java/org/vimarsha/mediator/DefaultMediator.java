@@ -117,7 +117,13 @@ public class DefaultMediator implements Mediator{
 
     @Override
     public int saveArffFile(File fileToSave) throws IOException {
-        new FileHandler().copy(this.currentArffFile,fileToSave);
+        //TODO thrown FileNotFoundException - fileToSave doesn't exist
+        File dest = fileToSave;
+        if(!dest.exists()){
+            dest = new File(fileToSave.getAbsolutePath());
+        }
+        System.out.println(dest.getAbsolutePath() + dest.exists());
+        new FileHandler().copy(this.currentArffFile,dest);
         return 0;
     }
 
