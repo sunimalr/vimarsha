@@ -86,6 +86,12 @@ public class DataLoaderForm {
                 UIHandler.getInstance().setArffFile(file);
             }
         });
+        convertToARFFFileButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                UIHandler.getInstance().convertRawToArff();
+            }
+        });
     }
 
     private void createUIComponents() {
