@@ -59,9 +59,9 @@ public class DefaultMediator implements Mediator{
     private File currentRawFile;
     private File currentArffFile;
     private DataFileType dataFileType;
-    private ArffReader arffReader;
-    private Instances arffData;
+    private ArffHandler arffHandler;
     private TableDataHandler tableDataHandler;
+    private boolean rawfileconverted;
 
 
     public DefaultMediator() {
@@ -69,10 +69,12 @@ public class DefaultMediator implements Mediator{
         this.configurationsLoader = new ConfigurationsLoader(this.performanceEventsHolder);
         this.perfStatDataHolder = new PerfStatDataHolder();
         this.perfReportDataHolder = new PerfReportDataHolder();
+        this.rawfileconverted = false;
     }
 
     @Override
     public int setRawFile(File fileToOpen) throws IOException, DataFileTypeHeaderNotSetException {
+        this.rawfileconverted = true;
         this.currentRawFile = fileToOpen;
         this.dataFileType = new DataFileTypeDetector(fileToOpen).getDataFileType();
         return 100;
@@ -80,6 +82,7 @@ public class DefaultMediator implements Mediator{
 
     @Override
     public int setArffFile(File fileToOpen) throws IOException {
+        this.rawfileconverted = false;
         this.currentArffFile = fileToOpen;
         setLocalArffFile(this.currentArffFile);
         return 0;
@@ -87,9 +90,7 @@ public class DefaultMediator implements Mediator{
 
     private int setLocalArffFile(File fileToOpen) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(fileToOpen));
-        this.arffReader = new ArffReader(reader);
-        this.arffData = this.arffReader.getData();
-        this.arffData.setClassIndex(this.arffData.numAttributes()-1);
+        this.arffHandler = new ArffHandler(reader,this.performanceEventsHolder);
         return 0;
     }
 
@@ -110,7 +111,7 @@ public class DefaultMediator implements Mediator{
                 this.perfReportDataParser.parse();
                 this.perfReportArffDataWriter = new PerfReportArffDataWriter("output/tempreport.arff",this.performanceEventsHolder,this.perfReportDataHolder);
                 this.perfReportArffDataWriter.writeToArffFile();
-                this.setArffFile(new File("output/tempreport.arff"));
+                this.setLocalArffFile(new File("output/tempreport.arff"));
                 this.bufferedReader.close();
                 return 100;
             case PERF_STAT:
@@ -120,7 +121,7 @@ public class DefaultMediator implements Mediator{
                 this.perfStatDataParser.parse();
                 this.perfStatArffDataWriter = new PerfStatArffDataWriter("output/tempstat.arff",this.performanceEventsHolder,this.perfStatDataHolder);
                 this.perfStatArffDataWriter.writeToArffFile();
-                this.setArffFile(new File("output/tempstat.arff"));
+                this.setLocalArffFile(new File("output/tempstat.arff"));
                 this.bufferedReader.close();
                 return 100;
             default:
@@ -143,7 +144,7 @@ public class DefaultMediator implements Mediator{
 
     @Override
     public DefaultTableModel getArffAttributesTableModel() {
-        this.tableDataHandler = new TableDataHandler(this.performanceEventsHolder);
+        this.tableDataHandler = new TableDataHandler(this.arffHandler.getPerformanceEventsList(this.rawfileconverted));
         return this.tableDataHandler.getTableModel();
     }
 
