@@ -100,14 +100,20 @@ public class DefaultMediator implements Mediator{
                 this.perfReportArffDataWriter = new PerfReportArffDataWriter("output/temp.arff",this.performanceEventsHolder,this.perfReportDataHolder);
                 this.perfReportArffDataWriter.writeToArffFile();
                 this.bufferedReader.close();
-                break;
+                return 100;
             case PERF_STAT:
-
-                break;
+                this.perfStatDataHolder = new PerfStatDataHolder();
+                this.bufferedReader = new BufferedReader(new FileReader(this.currentRawFile));
+                this.perfStatDataParser = new PerfStatDataParser(this.bufferedReader,this.perfStatDataHolder);
+                this.perfStatDataParser.parse();
+                this.perfStatArffDataWriter = new PerfStatArffDataWriter("output/tempstat.arff",this.performanceEventsHolder,this.perfStatDataHolder);
+                this.perfStatArffDataWriter.writeToArffFile();
+                this.bufferedReader.close();
+                return 100;
             default:
 
         }
-        return 0;
+        return -1;
     }
 
     @Override
