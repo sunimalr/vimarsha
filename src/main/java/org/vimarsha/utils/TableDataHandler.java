@@ -34,7 +34,13 @@ public class TableDataHandler {
     }
 
     public DefaultTableModel getTableModel(){
-        DefaultTableModel tableModel = new DefaultTableModel();
+        DefaultTableModel tableModel = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column){
+                return false;
+            }
+        };
+
         tableModel.addColumn("Attributes",this.performanceEventsHolder.getPrettyEventsHolder().toArray());
         return tableModel;
     }
