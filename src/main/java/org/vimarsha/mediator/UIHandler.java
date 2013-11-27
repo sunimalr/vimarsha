@@ -26,6 +26,7 @@ import org.jfree.data.xy.XYSeriesCollection;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -38,8 +39,8 @@ public class UIHandler {
     private Mediator mediator;
 
     public static UIHandler getInstance() {
-        if(uiHandlerInstance == null){
-            uiHandlerInstance=new UIHandler();
+        if (uiHandlerInstance == null) {
+            uiHandlerInstance = new UIHandler();
         }
         return uiHandlerInstance;
     }
@@ -48,82 +49,88 @@ public class UIHandler {
         this.mediator = new DefaultMediator();
     }
 
-    public void setArchitecture(String architecture){
-        try{
+    public void setArchitecture(String architecture) {
+        try {
             this.mediator.setArchitecture(architecture);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             this.showErrorDialog("Architecture Not Set!");
         }
     }
 
-    public int setRawFile(File file){
-        try{
+    public int setRawFile(File file) {
+        try {
             return this.mediator.setRawFile(file);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             this.showErrorDialog("Raw file not set!");
             return -1;
         }
     }
 
-    public void setArffFile(File file){
+    public void setArffFile(File file) {
         this.mediator.setArffFile(file);
     }
 
-    public int convertRawToArff(){
-        try{
+    public int convertRawToArff() {
+        try {
             this.showInfoDialog("File Conversion Successful!");
             return this.mediator.convertRawFileToArff();
-        }catch (Exception ex){
+        } catch (Exception ex) {
             this.showErrorDialog("File Conversion Error!");
             return -1;
         }
     }
 
-    public void saveAsArff(File fileToSave){
-        this.mediator.saveArffFile(fileToSave);
+    public void saveAsArff(File fileToSave) {
+
+        try {
+            this.mediator.saveArffFile(fileToSave);
+        } catch (IOException e) {
+            this.showErrorDialog("File Save Failed!");
+        }
     }
 
-    public DefaultTableModel getTableModel(){
+
+    public DefaultTableModel getTableModel() {
         return this.mediator.getTableModel();
     }
 
-    public DefaultCategoryDataset getBarChartDataSet(){
-        return  this.mediator.getBarChartDataSet();
+    public DefaultCategoryDataset getBarChartDataSet() {
+        return this.mediator.getBarChartDataSet();
     }
 
-    public ArrayList<String> getArchitectureList(){
+    public ArrayList<String> getArchitectureList() {
         return this.mediator.getArchitectureList();
     }
 
-    public ArrayList<String> getTrainingModels(){
+    public ArrayList<String> getTrainingModels() {
         return this.mediator.getTrainingModels();
     }
 
-    public void classify(){
+    public void classify() {
         this.mediator.classify();
     }
 
-    public DefaultTableModel getClassificationResults(){
+    public DefaultTableModel getClassificationResults() {
         return this.mediator.getClassificationResults();
     }
 
-    public XYSeriesCollection getXYChartDataSet(){
+    public XYSeriesCollection getXYChartDataSet() {
         return this.mediator.getXYChartDataSet();
     }
 
-    public void exportAsCSV(){
+    public void exportAsCSV() {
         this.mediator.exportAsCSV();
     }
 
-    public void exportAsImage(){
+    public void exportAsImage() {
         this.mediator.exportAsImage();
     }
 
-    private void showErrorDialog(String errorMessage){
-        JOptionPane.showMessageDialog(null,errorMessage,"Error",JOptionPane.ERROR_MESSAGE);
+    private void showErrorDialog(String errorMessage) {
+        JOptionPane.showMessageDialog(null, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
-    private void showInfoDialog(String infoMessage){
-        JOptionPane.showMessageDialog(null,infoMessage,"Error",JOptionPane.INFORMATION_MESSAGE);
+    private void showInfoDialog(String infoMessage) {
+        JOptionPane.showMessageDialog(null, infoMessage, "Error", JOptionPane.INFORMATION_MESSAGE);
     }
 }
