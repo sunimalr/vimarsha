@@ -94,7 +94,7 @@ public class UIHandler {
     }
 
 
-    public DefaultTableModel getTableModel() {
+    public DefaultTableModel getArffAttribiutesTableModel() {
         return this.mediator.getArffAttributesTableModel();
     }
 

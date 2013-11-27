@@ -26,6 +26,8 @@ import org.vimarsha.mediator.UIHandler;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.File;
 
 /**
@@ -84,6 +86,7 @@ public class DataLoaderForm {
                     file = fc.getSelectedFile();
                 }
                 UIHandler.getInstance().setArffFile(file);
+                attributesTable.setModel(UIHandler.getInstance().getArffAttribiutesTableModel());
             }
         });
         convertToARFFFileButton.addActionListener(new ActionListener() {
@@ -105,6 +108,12 @@ public class DataLoaderForm {
                     UIHandler.getInstance().saveAsArff(fc.getSelectedFile());
                 }
 
+            }
+        });
+        attributesTable.addPropertyChangeListener(new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
+                //To change body of implemented methods use File | Settings | File Templates.
             }
         });
     }

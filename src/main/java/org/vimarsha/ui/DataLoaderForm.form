@@ -115,7 +115,10 @@
                 <preferred-size width="150" height="50"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <cellSelectionEnabled value="false"/>
+              <rowSelectionAllowed value="true"/>
+            </properties>
           </component>
           <component id="4474f" class="javax.swing.JTable" binding="attributesSummaryTable">
             <constraints>
