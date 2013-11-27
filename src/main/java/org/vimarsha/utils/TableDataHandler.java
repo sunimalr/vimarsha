@@ -20,25 +20,22 @@
 
 package org.vimarsha.utils;
 
-import weka.core.Instances;
-
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 /**
  * Created with IntelliJ IDEA.
  * User: gayashan
  */
 public class TableDataHandler {
-    private Instances arffInstances;
+    private PerformanceEventsHolder performanceEventsHolder;
 
-    public TableDataHandler(Instances instances) {
-        this.arffInstances = instances;
+    public TableDataHandler(PerformanceEventsHolder performanceEventsHolder) {
+        this.performanceEventsHolder = performanceEventsHolder;
     }
 
-    public TableModel getTableModel(){
-        TableModel tableModel = new DefaultTableModel();
-        tableModel.setValueAt(this.arffInstances.attribute(0),0,0);
+    public DefaultTableModel getTableModel(){
+        DefaultTableModel tableModel = new DefaultTableModel();
+        tableModel.addColumn("Attributes",this.performanceEventsHolder.getPrettyEventsHolder().toArray());
         return tableModel;
     }
 }

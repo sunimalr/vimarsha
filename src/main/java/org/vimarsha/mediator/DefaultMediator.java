@@ -36,7 +36,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Created with IntelliJ IDEA.
@@ -82,11 +81,11 @@ public class DefaultMediator implements Mediator{
     @Override
     public int setArffFile(File fileToOpen) throws IOException {
         this.currentArffFile = fileToOpen;
-        openArffFile(this.currentArffFile);
+        setLocalArffFile(this.currentArffFile);
         return 0;
     }
 
-    private int openArffFile(File fileToOpen) throws IOException {
+    private int setLocalArffFile(File fileToOpen) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(fileToOpen));
         this.arffReader = new ArffReader(reader);
         this.arffData = this.arffReader.getData();
@@ -144,8 +143,8 @@ public class DefaultMediator implements Mediator{
 
     @Override
     public DefaultTableModel getArffAttributesTableModel() {
-        this.tableDataHandler = new TableDataHandler(this.arffData);
-        return (DefaultTableModel) this.tableDataHandler.getTableModel();
+        this.tableDataHandler = new TableDataHandler(this.performanceEventsHolder);
+        return this.tableDataHandler.getTableModel();
     }
 
     @Override
