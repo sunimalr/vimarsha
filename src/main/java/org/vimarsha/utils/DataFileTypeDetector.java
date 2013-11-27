@@ -20,6 +20,8 @@
 
 package org.vimarsha.utils;
 
+import org.vimarsha.exceptions.DataFileTypeHeaderNotSetException;
+
 import java.io.*;
 
 /**
@@ -42,7 +44,7 @@ public class DataFileTypeDetector {
      * @return
      * @throws IOException
      */
-    public DataFileType getDataFileType() throws IOException {
+    public DataFileType getDataFileType() throws IOException, DataFileTypeHeaderNotSetException {
         String line = bufferedReader.readLine();
         while(line.startsWith("#")){
             line = bufferedReader.readLine();
@@ -54,6 +56,8 @@ public class DataFileTypeDetector {
             } else if((line.split("=")[1]).equalsIgnoreCase("PERF_REPORT")){
                 this.dataFileType = DataFileType.PERF_REPORT;
             }
+        } else {
+            throw new DataFileTypeHeaderNotSetException();
         }
         this.bufferedReader.close();
         return this.dataFileType;
