@@ -69,16 +69,17 @@ public class UIHandler {
         this.mediator.setArffFile(file);
     }
 
-    public void convertRawToArff(){
+    public int convertRawToArff(){
         try{
-            this.mediator.convertRawFileToArff();
+            this.showInfoDialog("File Conversion Successful!");
+            return this.mediator.convertRawFileToArff();
         }catch (Exception ex){
             this.showErrorDialog("File Conversion Error!");
+            return -1;
         }
-
     }
 
-    private void saveAsArff(File fileToSave){
+    public void saveAsArff(File fileToSave){
         this.mediator.saveArffFile(fileToSave);
     }
 

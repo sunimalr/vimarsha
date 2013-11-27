@@ -89,7 +89,22 @@ public class DataLoaderForm {
         convertToARFFFileButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                UIHandler.getInstance().convertRawToArff();
+                if(UIHandler.getInstance().convertRawToArff()==100){
+                    saveToARFFFileButton.setEnabled(true);
+                }
+            }
+        });
+        saveToARFFFileButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                File file=null;
+                JFileChooser fc=new JFileChooser();
+                int returnVal= fc.showSaveDialog(Tab0);
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    System.out.println(fc.getSelectedFile());
+                    UIHandler.getInstance().saveAsArff(fc.getSelectedFile());
+                }
+
             }
         });
     }
