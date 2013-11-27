@@ -42,14 +42,14 @@ public interface Mediator {
     public int convertRawFileToArff() throws IOException, SymbolNotFoundException, RawEventNotFoundException, InstructionCountNotSetException, RawFileParseFailedException;
     public int saveArffFile(File fileToSave) throws IOException;
     //Dataset needed to populate jtable instances
-    public DefaultTableModel getTableModel();
+    public DefaultTableModel getArffAttributesTableModel();
     //Dataset needed to create bar charts
     public DefaultCategoryDataset getBarChartDataSet();
 
     public ArrayList<String> getArchitectureList();
     public ArrayList<String> getTrainingModels();
     public int classify();
-    public DefaultTableModel getClassificationResults();
+    public DefaultTableModel getClassificationResultsTableModel();
 
     //Dataset needed to create time sliced chart
     public XYSeriesCollection getXYChartDataSet();

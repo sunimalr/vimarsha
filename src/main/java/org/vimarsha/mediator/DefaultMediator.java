@@ -128,7 +128,7 @@ public class DefaultMediator implements Mediator{
     }
 
     @Override
-    public DefaultTableModel getTableModel() {
+    public DefaultTableModel getArffAttributesTableModel() {
         return null;
     }
 
@@ -157,7 +157,7 @@ public class DefaultMediator implements Mediator{
     }
 
     @Override
-    public DefaultTableModel getClassificationResults() {
+    public DefaultTableModel getClassificationResultsTableModel() {
         return null;
     }
 
