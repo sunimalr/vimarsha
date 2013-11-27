@@ -67,7 +67,11 @@ public class UIHandler {
     }
 
     public void setArffFile(File file) {
-        this.mediator.setArffFile(file);
+        try {
+            this.mediator.setArffFile(file);
+        } catch (IOException e) {
+            this.showErrorDialog("ARFF File Not Set!");
+        }
     }
 
     public int convertRawToArff() {
@@ -91,7 +95,7 @@ public class UIHandler {
 
 
     public DefaultTableModel getTableModel() {
-        return this.mediator.getTableModel();
+        return this.mediator.getArffAttributesTableModel();
     }
 
     public DefaultCategoryDataset getBarChartDataSet() {
@@ -111,7 +115,7 @@ public class UIHandler {
     }
 
     public DefaultTableModel getClassificationResults() {
-        return this.mediator.getClassificationResults();
+        return this.mediator.getClassificationResultsTableModel();
     }
 
     public XYSeriesCollection getXYChartDataSet() {
