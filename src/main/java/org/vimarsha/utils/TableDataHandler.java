@@ -21,16 +21,17 @@
 package org.vimarsha.utils;
 
 import javax.swing.table.DefaultTableModel;
+import java.util.ArrayList;
 
 /**
  * Created with IntelliJ IDEA.
  * User: gayashan
  */
 public class TableDataHandler {
-    private PerformanceEventsHolder performanceEventsHolder;
+    private ArrayList<String> eventsList;
 
-    public TableDataHandler(PerformanceEventsHolder performanceEventsHolder) {
-        this.performanceEventsHolder = performanceEventsHolder;
+    public TableDataHandler(ArrayList<String> eventsList) {
+        this.eventsList = eventsList;
     }
 
     public DefaultTableModel getTableModel(){
@@ -41,7 +42,7 @@ public class TableDataHandler {
             }
         };
 
-        tableModel.addColumn("Attributes",this.performanceEventsHolder.getPrettyEventsHolder().toArray());
+        tableModel.addColumn("Attributes",this.eventsList.toArray());
         return tableModel;
     }
 }
