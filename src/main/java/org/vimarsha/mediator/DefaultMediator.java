@@ -25,10 +25,7 @@ import org.jfree.data.xy.XYSeriesCollection;
 import org.vimarsha.classifier.FunctionWiseClassifier;
 import org.vimarsha.classifier.TimeslicedClassifier;
 import org.vimarsha.classifier.WholeProgramClassifier;
-import org.vimarsha.exceptions.InstructionCountNotSetException;
-import org.vimarsha.exceptions.RawEventNotFoundException;
-import org.vimarsha.exceptions.RawFileParseFailedException;
-import org.vimarsha.exceptions.SymbolNotFoundException;
+import org.vimarsha.exceptions.*;
 import org.vimarsha.formatter.*;
 import org.vimarsha.utils.*;
 import org.xml.sax.SAXException;
@@ -70,7 +67,7 @@ public class DefaultMediator implements Mediator{
     }
 
     @Override
-    public int setRawFile(File fileToOpen) throws IOException {
+    public int setRawFile(File fileToOpen) throws IOException, DataFileTypeHeaderNotSetException {
         this.currentRawFile = fileToOpen;
         this.dataFileType = new DataFileTypeDetector(fileToOpen).getDataFileType();
         return 100;
@@ -97,8 +94,9 @@ public class DefaultMediator implements Mediator{
                 this.bufferedReader = new BufferedReader(new FileReader(this.currentRawFile));
                 this.perfReportDataParser = new PerfReportDataParser(this.bufferedReader,this.perfReportDataHolder);
                 this.perfReportDataParser.parse();
-                this.perfReportArffDataWriter = new PerfReportArffDataWriter("output/temp.arff",this.performanceEventsHolder,this.perfReportDataHolder);
+                this.perfReportArffDataWriter = new PerfReportArffDataWriter("output/tempreport.arff",this.performanceEventsHolder,this.perfReportDataHolder);
                 this.perfReportArffDataWriter.writeToArffFile();
+                this.currentArffFile = new File("output/tempreport.arff");
                 this.bufferedReader.close();
                 return 100;
             case PERF_STAT:
@@ -108,6 +106,7 @@ public class DefaultMediator implements Mediator{
                 this.perfStatDataParser.parse();
                 this.perfStatArffDataWriter = new PerfStatArffDataWriter("output/tempstat.arff",this.performanceEventsHolder,this.perfStatDataHolder);
                 this.perfStatArffDataWriter.writeToArffFile();
+                this.currentArffFile = new File("output/tempstat.arff");
                 this.bufferedReader.close();
                 return 100;
             default:
@@ -117,7 +116,8 @@ public class DefaultMediator implements Mediator{
     }
 
     @Override
-    public int saveArffFile(File fileToSave) {
+    public int saveArffFile(File fileToSave) throws IOException {
+        new FileHandler().copy(this.currentArffFile,fileToSave);
         return 0;
     }
 
