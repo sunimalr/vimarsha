@@ -53,7 +53,11 @@ public class FunctionWiseClassifier extends AbstractClassifier {
             fc.buildClassifier(trainSet);
             for (int i = 0; i < testSet.numInstances(); i++) {
                 double pred = fc.classifyInstance(testSet.instance(i));
-                output.put(list.get(i), testSet.classAttribute().value((int) pred));
+                if(list == null){
+                    output.put(String.valueOf(i+1), testSet.classAttribute().value((int) pred));
+                } else {
+                    output.put(list.get(i), testSet.classAttribute().value((int) pred));
+                }
             }
         } catch (Exception ex) {
             throw new ClassificationFailedException();
