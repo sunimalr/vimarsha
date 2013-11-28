@@ -113,9 +113,19 @@ public class UIHandler {
         return this.mediator.getTrainingModels();
     }
 
-    public void classify() {
-        this.mediator.classify();
+    public void classifyFunctionWise() {
+        this.mediator.classifyFunctionWise();
     }
+
+    public void classifyWholeProgram() {
+        this.mediator.classifyWholeProgram();
+    }
+
+
+    public void classifyTimeSliced() {
+        this.mediator.classifyTimeSliced();
+    }
+
 
     public DefaultTableModel getClassificationResults() {
         return this.mediator.getClassificationResultsTableModel();

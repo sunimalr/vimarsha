@@ -21,6 +21,7 @@ package org.vimarsha.classifier;
 import org.vimarsha.exceptions.ClassificationFailedException;
 import weka.core.Instances;
 import weka.core.converters.ConverterUtils;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -38,14 +39,8 @@ abstract class AbstractClassifier {
     protected ConverterUtils.DataSource trainingDataSource;
     protected ConverterUtils.DataSource testingDataSource;
 
-    public void setTrainingDataSource(String dataSource) {
-        try {
-            this.trainSet = new Instances(new BufferedReader(new FileReader(dataSource)));
-            if (trainSet.classIndex() == -1)
-                trainSet.setClassIndex(trainSet.numAttributes() - 1);
-        } catch (Exception ex) {
-            System.out.println(ex.toString());
-        }
+    public void setTrainingDataSource(Instances dataSource) {
+        this.trainSet = dataSource;
     }
 
     public void setTestingDataSource(String dataSource) {
@@ -62,7 +57,7 @@ abstract class AbstractClassifier {
         return null;
     }
 
-    public HashMap<String,String> classify(ArrayList<String> list) throws ClassificationFailedException {
+    public HashMap<String, String> classify(ArrayList<String> list) throws ClassificationFailedException {
         return null;
     }
 }

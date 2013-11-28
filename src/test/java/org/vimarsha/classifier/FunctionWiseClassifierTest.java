@@ -21,7 +21,10 @@ package org.vimarsha.classifier;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
+import weka.core.Instances;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -32,11 +35,15 @@ import java.util.HashMap;
 public class FunctionWiseClassifierTest extends TestCase {
 
     private FunctionWiseClassifier cls;
+    private Instances testSet;
 
     @Before
     public void setUp() throws Exception {
         cls = new FunctionWiseClassifier();
-        cls.setTrainingDataSource("resources/intel_nehalem_training.arff");
+        testSet = new Instances(new BufferedReader(new FileReader("resources/intel_nehalem_training.arff")));
+        if (testSet.classIndex() == -1)
+            testSet.setClassIndex(testSet.numAttributes() - 1);
+        cls.setTrainingDataSource(testSet);
         cls.setTestingDataSource("resources/functionwise_test.arff");
     }
 

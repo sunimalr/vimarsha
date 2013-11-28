@@ -22,6 +22,10 @@ import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import weka.core.Instances;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
 
 /**
  * Created with IntelliJ IDEA.
@@ -30,12 +34,16 @@ import org.junit.Test;
 public class WholeProgramClassifierTest extends TestCase {
 
     WholeProgramClassifier cls;
+    Instances testSet;
 
 
     @Before
     public void setUp() throws Exception {
         cls = new WholeProgramClassifier();
-        cls.setTrainingDataSource("resources/intel_nehalem_training.arff");
+        testSet = new Instances(new BufferedReader(new FileReader("resources/intel_nehalem_training.arff")));
+        if (testSet.classIndex() == -1)
+            testSet.setClassIndex(testSet.numAttributes() - 1);
+        cls.setTrainingDataSource(testSet);
         cls.setTestingDataSource("resources/wholeprogram_testset_badfs.arff");
     }
 
@@ -46,9 +54,9 @@ public class WholeProgramClassifierTest extends TestCase {
 
     @Test
     public void testClassify() throws Exception {
-        assertEquals("badfs",cls.classify());
+        assertEquals("badfs", cls.classify());
         cls.setTestingDataSource("resources/wholeprogram_testset_good.arff");
-        assertEquals("good",cls.classify());
+        assertEquals("good", cls.classify());
     }
 
 }
