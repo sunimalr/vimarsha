@@ -57,6 +57,7 @@ public class DataLoaderForm {
 
     public DataLoaderForm() {
 
+
         for (String str : UIHandler.getInstance().getArchitectureList()) {
             archComboBox.addItem(str);
         }

@@ -22,8 +22,8 @@ import org.jfree.chart.ChartPanel;
 import org.vimarsha.mediator.UIHandler;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
+import java.awt.event.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -43,6 +43,18 @@ public class WholeProgramClassifierForm {
             architectureComboBox.addItem(str);
         }
 
+        architectureComboBox.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent focusEvent) {
+                System.out.println("focus");
+            }
+
+            @Override
+            public void focusLost(FocusEvent focusEvent) {
+                //To change body of implemented methods use File | Settings | File Templates.
+            }
+        });
+
         architectureComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -56,6 +68,11 @@ public class WholeProgramClassifierForm {
                 UIHandler.getInstance().classifyWholeProgram();
             }
         });
+
+    }
+
+    public Component getCombobox() {
+        return this.architectureComboBox;
     }
 
     private void createUIComponents() {
