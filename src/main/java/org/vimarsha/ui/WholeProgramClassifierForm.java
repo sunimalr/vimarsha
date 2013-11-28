@@ -36,7 +36,6 @@ public class WholeProgramClassifierForm {
     private JComboBox architectureComboBox;
     private JButton classifyButton;
     private JTextPane classificationTextPane;
-    private JComboBox modelComboBox;
     private JList testDataSetList;
 
     public WholeProgramClassifierForm() {
@@ -44,18 +43,6 @@ public class WholeProgramClassifierForm {
         for (String str : UIHandler.getInstance().getArchitectureList()) {
             architectureComboBox.addItem(str);
         }
-
-        architectureComboBox.addFocusListener(new FocusListener() {
-            @Override
-            public void focusGained(FocusEvent focusEvent) {
-                System.out.println("focus");
-            }
-
-            @Override
-            public void focusLost(FocusEvent focusEvent) {
-                //To change body of implemented methods use File | Settings | File Templates.
-            }
-        });
 
         architectureComboBox.addActionListener(new ActionListener() {
             @Override

@@ -36,27 +36,27 @@ public class FunctionWiseClassifierForm {
     private JComboBox trainingComboBox;
     private JTable functionWiseResultsTable;
     private JPanel Tab2;
-    private JComboBox modelComboBox;
 
     public FunctionWiseClassifierForm() {
 
-        for(String str : UIHandler.getInstance().getArchitectureList()){
-           architectureComboBox.addItem(str);
+        for (String str : UIHandler.getInstance().getArchitectureList()) {
+            architectureComboBox.addItem(str);
         }
 
         //for(String str : UIHandler.getInstance().getTrainingModels()){
-            //trainingComboBox.addItem(str);
+        //trainingComboBox.addItem(str);
         //}
 
         architectureComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                UIHandler.getInstance().setArchitecture((String)architectureComboBox.getSelectedItem());
+                UIHandler.getInstance().setArchitecture((String) architectureComboBox.getSelectedItem());
             }
         });
         classifyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                UIHandler.getInstance().classifyFunctionWise();
                 TableModel tmp = UIHandler.getInstance().getClassificationResults();
                 functionWiseResultsTable.setModel(tmp);
             }

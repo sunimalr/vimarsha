@@ -32,7 +32,6 @@ import java.awt.event.ActionListener;
 public class TimeSlicedClassiferForm {
     private JPanel Tab3;
     private JComboBox archComboBox;
-    private JComboBox trainingSetComboBox;
     private JButton classifyButton;
     private JButton exportButton;
     private ChartPanel chartPanel;
