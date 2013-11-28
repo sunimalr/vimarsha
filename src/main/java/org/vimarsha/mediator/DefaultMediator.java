@@ -72,6 +72,7 @@ public class DefaultMediator implements Mediator{
         this.perfReportDataHolder = new PerfReportDataHolder();
         this.rawfileconverted = false;
         this.currentTrainingModel = null;
+        this.currentArchitecture = null;
     }
 
     @Override
@@ -132,6 +133,14 @@ public class DefaultMediator implements Mediator{
     }
 
     @Override
+    public String getArchitecture() throws ArchitectureNotSetException {
+        if(this.currentArchitecture == null){
+            throw new ArchitectureNotSetException();
+        }
+        return this.currentArchitecture.name();
+    }
+
+    @Override
     public int convertRawFileToArff() throws IOException, SymbolNotFoundException, RawEventNotFoundException, InstructionCountNotSetException, RawFileParseFailedException {
         switch (this.dataFileType){
             case PERF_REPORT:
@@ -142,6 +151,7 @@ public class DefaultMediator implements Mediator{
                 this.perfReportArffDataWriter = new PerfReportArffDataWriter("output/tempreport.arff",this.performanceEventsHolder,this.perfReportDataHolder);
                 this.perfReportArffDataWriter.writeToArffFile();
                 this.setLocalArffFile(new File("output/tempreport.arff"));
+                this.currentArffFile = new File("output/tempreport.arff");
                 this.bufferedReader.close();
                 return 100;
             case PERF_STAT:
@@ -152,6 +162,7 @@ public class DefaultMediator implements Mediator{
                 this.perfStatArffDataWriter = new PerfStatArffDataWriter("output/tempstat.arff",this.performanceEventsHolder,this.perfStatDataHolder);
                 this.perfStatArffDataWriter.writeToArffFile();
                 this.setLocalArffFile(new File("output/tempstat.arff"));
+                this.currentArffFile = new File("output/tempreport.arff");
                 this.bufferedReader.close();
                 return 100;
             default:
@@ -162,20 +173,13 @@ public class DefaultMediator implements Mediator{
 
     @Override
     public int saveArffFile(File fileToSave) throws IOException {
-        //TODO thrown FileNotFoundException - fileToSave doesn't exist
-        File dest = fileToSave;
-        if(!dest.exists()){
-            dest = new File(fileToSave.getAbsolutePath());
-        }
-        System.out.println(dest.getAbsolutePath() + dest.exists());
-        new FileHandler().copy(this.currentArffFile,dest);
+        new FileHandler().copy(this.currentArffFile,fileToSave.getAbsolutePath());
         return 0;
     }
 
     @Override
-    public DefaultTableModel getArffAttributesTableModel() {
-        this.tableDataHandler = new TableDataHandler(this.arffHandler.getPerformanceEventsList(this.rawfileconverted));
-        return this.tableDataHandler.getTableModel();
+    public ArrayList<String> getArffAttributesList(){
+        return this.performanceEventsHolder.getPrettyEventsHolder();
     }
 
     @Override
@@ -199,7 +203,9 @@ public class DefaultMediator implements Mediator{
 
     @Override
     public int classifyWholeProgram() {
-
+        this.wholeProgramClassifier = new WholeProgramClassifier();
+        this.wholeProgramClassifier.setTrainingDataSource(this.currentTrainingModel);
+        this.wholeProgramClassifier.setTestingDataSource(this.currentArffFile.getAbsolutePath());
         return 0;
     }
 

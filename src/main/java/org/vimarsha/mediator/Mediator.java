@@ -42,7 +42,7 @@ public interface Mediator {
     public int convertRawFileToArff() throws IOException, SymbolNotFoundException, RawEventNotFoundException, InstructionCountNotSetException, RawFileParseFailedException;
     public int saveArffFile(File fileToSave) throws IOException;
     //Dataset needed to populate jtable instances
-    public DefaultTableModel getArffAttributesTableModel();
+    public ArrayList<String> getArffAttributesList();
     //Dataset needed to create bar charts
     public DefaultCategoryDataset getBarChartDataSet();
 
