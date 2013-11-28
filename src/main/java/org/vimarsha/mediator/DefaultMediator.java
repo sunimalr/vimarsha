@@ -73,8 +73,6 @@ public class DefaultMediator implements Mediator{
     public DefaultMediator() {
         this.performanceEventsHolder = new PerformanceEventsHolder();
         this.configurationsLoader = new ConfigurationsLoader(this.performanceEventsHolder);
-        this.perfStatDataHolder = new PerfStatDataHolder();
-        this.perfReportDataHolder = new PerfReportDataHolder();
         this.rawfileconverted = false;
         this.currentTrainingModel = null;
         this.currentArchitecture = null;
@@ -83,6 +81,8 @@ public class DefaultMediator implements Mediator{
 
     @Override
     public int setRawFile(File fileToOpen) throws IOException, DataFileTypeHeaderNotSetException {
+        this.perfStatDataHolder = new PerfStatDataHolder();
+        this.perfReportDataHolder = new PerfReportDataHolder();
         this.rawfileconverted = true;
         this.currentRawFile = fileToOpen;
         this.dataFileType = new DataFileTypeDetector(fileToOpen).getDataFileType();
@@ -91,6 +91,8 @@ public class DefaultMediator implements Mediator{
 
     @Override
     public int setArffFile(File fileToOpen) throws IOException {
+        this.perfStatDataHolder = new PerfStatDataHolder();
+        this.perfReportDataHolder = new PerfReportDataHolder();
         this.rawfileconverted = false;
         this.currentArffFile = fileToOpen;
         setLocalArffFile(this.currentArffFile);
@@ -105,6 +107,8 @@ public class DefaultMediator implements Mediator{
 
     @Override
     public int setArchitecture(String architecture) throws ParserConfigurationException, SAXException, IOException {
+        this.performanceEventsHolder = new PerformanceEventsHolder();
+        this.configurationsLoader = new ConfigurationsLoader(this.performanceEventsHolder);
         this.currentArchitecture = Architecture.valueOf(architecture);
         this.configurationsLoader.loadPerformanceEvents(this.currentArchitecture);
         loadTrainingModel(Architecture.valueOf(architecture));
