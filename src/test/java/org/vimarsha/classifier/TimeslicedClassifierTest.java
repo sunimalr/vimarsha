@@ -21,7 +21,10 @@ package org.vimarsha.classifier;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
+import weka.core.Instances;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.ArrayList;
 
 /**
@@ -31,28 +34,32 @@ import java.util.ArrayList;
 public class TimeslicedClassifierTest extends TestCase {
 
     private TimeslicedClassifier cls;
+    Instances testSet;
 
     @Before
     public void setUp() throws Exception {
         cls = new TimeslicedClassifier();
-        cls.setTrainingDataSource("resources/intel_nehalem_timesliced_training.arff");
+        testSet = new Instances(new BufferedReader(new FileReader("resources/intel_nehalem_timesliced_training.arff")));
+        if (testSet.classIndex() == -1)
+            testSet.setClassIndex(testSet.numAttributes() - 1);
+        cls.setTrainingDataSource(testSet);
         cls.setTestingDataSource("resources/timesliced_testing.arff");
     }
 
     @Test
     public void testClassify() throws Exception {
         ArrayList<String> res;
-        res=cls.classify();
-        assertEquals("badfs",res.get(0));
-        assertEquals("badfs",res.get(1));
-        assertEquals("badfs",res.get(2));
-        assertEquals("badfs",res.get(3));
-        assertEquals("badfs",res.get(4));
-        assertEquals("badfs",res.get(5));
-        assertEquals("badfs",res.get(6));
-        assertEquals("good",res.get(7));
-        assertEquals("good",res.get(8));
-        assertEquals("good",res.get(9));
-        assertEquals("good",res.get(10));
+        res = cls.classify();
+        assertEquals("badfs", res.get(0));
+        assertEquals("badfs", res.get(1));
+        assertEquals("badfs", res.get(2));
+        assertEquals("badfs", res.get(3));
+        assertEquals("badfs", res.get(4));
+        assertEquals("badfs", res.get(5));
+        assertEquals("badfs", res.get(6));
+        assertEquals("good", res.get(7));
+        assertEquals("good", res.get(8));
+        assertEquals("good", res.get(9));
+        assertEquals("good", res.get(10));
     }
 }

@@ -41,7 +41,7 @@ import java.util.ArrayList;
  * Created with IntelliJ IDEA.
  * User: gayashan
  */
-public class DefaultMediator implements Mediator{
+public class DefaultMediator implements Mediator {
     private PerformanceEventsHolder performanceEventsHolder;
     private ConfigurationsLoader configurationsLoader;
     private ArffWriter arffWriter;
@@ -90,7 +90,7 @@ public class DefaultMediator implements Mediator{
 
     private int setLocalArffFile(File fileToOpen) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(fileToOpen));
-        this.arffHandler = new ArffHandler(reader,this.performanceEventsHolder);
+        this.arffHandler = new ArffHandler(reader, this.performanceEventsHolder);
         return 0;
     }
 
@@ -103,13 +103,13 @@ public class DefaultMediator implements Mediator{
 
     @Override
     public int convertRawFileToArff() throws IOException, SymbolNotFoundException, RawEventNotFoundException, InstructionCountNotSetException, RawFileParseFailedException {
-        switch (this.dataFileType){
+        switch (this.dataFileType) {
             case PERF_REPORT:
                 this.perfReportDataHolder = new PerfReportDataHolder();
                 this.bufferedReader = new BufferedReader(new FileReader(this.currentRawFile));
-                this.perfReportDataParser = new PerfReportDataParser(this.bufferedReader,this.perfReportDataHolder);
+                this.perfReportDataParser = new PerfReportDataParser(this.bufferedReader, this.perfReportDataHolder);
                 this.perfReportDataParser.parse();
-                this.perfReportArffDataWriter = new PerfReportArffDataWriter("output/tempreport.arff",this.performanceEventsHolder,this.perfReportDataHolder);
+                this.perfReportArffDataWriter = new PerfReportArffDataWriter("output/tempreport.arff", this.performanceEventsHolder, this.perfReportDataHolder);
                 this.perfReportArffDataWriter.writeToArffFile();
                 this.setLocalArffFile(new File("output/tempreport.arff"));
                 this.bufferedReader.close();
@@ -117,9 +117,9 @@ public class DefaultMediator implements Mediator{
             case PERF_STAT:
                 this.perfStatDataHolder = new PerfStatDataHolder();
                 this.bufferedReader = new BufferedReader(new FileReader(this.currentRawFile));
-                this.perfStatDataParser = new PerfStatDataParser(this.bufferedReader,this.perfStatDataHolder);
+                this.perfStatDataParser = new PerfStatDataParser(this.bufferedReader, this.perfStatDataHolder);
                 this.perfStatDataParser.parse();
-                this.perfStatArffDataWriter = new PerfStatArffDataWriter("output/tempstat.arff",this.performanceEventsHolder,this.perfStatDataHolder);
+                this.perfStatArffDataWriter = new PerfStatArffDataWriter("output/tempstat.arff", this.performanceEventsHolder, this.perfStatDataHolder);
                 this.perfStatArffDataWriter.writeToArffFile();
                 this.setLocalArffFile(new File("output/tempstat.arff"));
                 this.bufferedReader.close();
@@ -134,11 +134,11 @@ public class DefaultMediator implements Mediator{
     public int saveArffFile(File fileToSave) throws IOException {
         //TODO thrown FileNotFoundException - fileToSave doesn't exist
         File dest = fileToSave;
-        if(!dest.exists()){
+        if (!dest.exists()) {
             dest = new File(fileToSave.getAbsolutePath());
         }
         System.out.println(dest.getAbsolutePath() + dest.exists());
-        new FileHandler().copy(this.currentArffFile,dest);
+        new FileHandler().copy(this.currentArffFile, dest);
         return 0;
     }
 
@@ -156,7 +156,7 @@ public class DefaultMediator implements Mediator{
     @Override
     public ArrayList<String> getArchitectureList() {
         ArrayList<String> architectureList = new ArrayList<String>();
-        for(Architecture architecture : Architecture.values()){
+        for (Architecture architecture : Architecture.values()) {
             architectureList.add(architecture.toString());
         }
         return architectureList;
@@ -168,8 +168,18 @@ public class DefaultMediator implements Mediator{
     }
 
     @Override
-    public int classify() {
-        return 0;
+    public int classifyWholeProgram() {
+        return 0;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public int classifyFunctionWise() {
+        return 0;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public int classifyTimeSliced() {
+        return 0;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override

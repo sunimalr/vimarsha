@@ -22,6 +22,7 @@ import org.vimarsha.exceptions.ClassificationFailedException;
 import weka.classifiers.meta.FilteredClassifier;
 import weka.classifiers.trees.J48;
 import weka.filters.unsupervised.attribute.Remove;
+
 import java.util.ArrayList;
 
 /**
@@ -36,7 +37,7 @@ public class TimeslicedClassifier extends AbstractClassifier {
     @Override
     public ArrayList<String> classify() throws ClassificationFailedException {
 
-        ArrayList<String> output=new ArrayList<String>();
+        ArrayList<String> output = new ArrayList<String>();
         J48 j48 = new J48();
         Remove rm = new Remove();
         rm.setAttributeIndices("1");
@@ -45,11 +46,15 @@ public class TimeslicedClassifier extends AbstractClassifier {
         fc.setClassifier(j48);
         try {
             fc.buildClassifier(trainSet);
+
+
             for (int i = 0; i < testSet.numInstances(); i++) {
+                //System.out.println(testSet.instance(i));
                 double pred = fc.classifyInstance(testSet.instance(i));
                 output.add(testSet.classAttribute().value((int) pred));
             }
         } catch (Exception ex) {
+            System.out.println(ex.toString());
             throw new ClassificationFailedException();
         }
         return output;
