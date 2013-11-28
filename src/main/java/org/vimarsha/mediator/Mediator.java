@@ -48,6 +48,7 @@ public interface Mediator {
 
     public ArrayList<String> getArchitectureList();
     public ArrayList<String> getTrainingModels();
+    public String getTrainingModel() throws TrainingModelNotSetException;
     public int classifyWholeProgram();
     public int classifyFunctionWise();
     public int classifyTimeSliced();
