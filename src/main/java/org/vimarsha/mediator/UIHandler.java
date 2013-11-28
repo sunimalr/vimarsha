@@ -143,6 +143,10 @@ public class UIHandler {
         this.mediator.exportAsImage();
     }
 
+    public DefaultTableModel getArffAttributeInfo(String attr) {
+        return mediator.getArffAttributeInfo(attr);
+    }
+
     private void showErrorDialog(String errorMessage) {
         JOptionPane.showMessageDialog(null, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
     }

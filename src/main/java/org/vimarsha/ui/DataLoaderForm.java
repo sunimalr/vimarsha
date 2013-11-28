@@ -132,7 +132,7 @@ public class DataLoaderForm {
         attributeList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent listSelectionEvent) {
-                System.out.println("val = " + (String) attributeList.getSelectedValue());
+                UIHandler.getInstance().getArffAttributeInfo((String) attributeList.getSelectedValue());
             }
         });
     }
