@@ -19,8 +19,11 @@
 package org.vimarsha.ui;
 
 import org.jfree.chart.ChartPanel;
+import org.vimarsha.mediator.UIHandler;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created with IntelliJ IDEA.
@@ -33,6 +36,26 @@ public class WholeProgramClassifierForm {
     private JTextPane classificationTextPane;
     private JComboBox modelComboBox;
     private JList testDataSetList;
+
+    public WholeProgramClassifierForm() {
+
+        for (String str : UIHandler.getInstance().getArchitectureList()) {
+            architectureComboBox.addItem(str);
+        }
+
+        architectureComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                UIHandler.getInstance().setArchitecture((String) architectureComboBox.getSelectedItem());
+            }
+        });
+        classifyButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                UIHandler.getInstance().classifyWholeProgram();
+            }
+        });
+    }
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
