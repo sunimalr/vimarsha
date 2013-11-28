@@ -34,13 +34,15 @@ import java.util.HashMap;
  */
 public class FunctionWiseClassifier extends AbstractClassifier {
 
+    private HashMap<String, String> output;
+
     public FunctionWiseClassifier() {
         super();
     }
 
     @Override
     public HashMap<String, String> classify(ArrayList<String> list) throws ClassificationFailedException {
-        HashMap<String,String> output=new HashMap<String, String>();
+        output = new HashMap<String, String>();
         J48 j48 = new J48();
         Remove rm = new Remove();
         rm.setAttributeIndices("1");
@@ -51,11 +53,16 @@ public class FunctionWiseClassifier extends AbstractClassifier {
             fc.buildClassifier(trainSet);
             for (int i = 0; i < testSet.numInstances(); i++) {
                 double pred = fc.classifyInstance(testSet.instance(i));
-                output.put(list.get(i),testSet.classAttribute().value((int) pred));
+                output.put(list.get(i), testSet.classAttribute().value((int) pred));
             }
         } catch (Exception ex) {
             throw new ClassificationFailedException();
         }
         return output;
+    }
+
+    @Override
+    public Object getClassificationResult() {
+        return output;  //To change body of implemented methods use File | Settings | File Templates.
     }
 }

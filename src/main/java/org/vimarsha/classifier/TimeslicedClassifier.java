@@ -30,6 +30,9 @@ import java.util.ArrayList;
  * User: sunimal
  */
 public class TimeslicedClassifier extends AbstractClassifier {
+
+    private ArrayList<String> output;
+
     public TimeslicedClassifier() {
         super();
     }
@@ -37,7 +40,7 @@ public class TimeslicedClassifier extends AbstractClassifier {
     @Override
     public ArrayList<String> classify() throws ClassificationFailedException {
 
-        ArrayList<String> output = new ArrayList<String>();
+        output = new ArrayList<String>();
         J48 j48 = new J48();
         Remove rm = new Remove();
         rm.setAttributeIndices("1");
@@ -57,6 +60,11 @@ public class TimeslicedClassifier extends AbstractClassifier {
             System.out.println(ex.toString());
             throw new ClassificationFailedException();
         }
+        return output;
+    }
+
+    @Override
+    public Object getClassificationResult() {
         return output;
     }
 }

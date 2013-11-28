@@ -33,15 +33,17 @@ import java.rmi.Remote;
  */
 public class WholeProgramClassifier extends AbstractClassifier {
 
+    private String classificationResult;
+
     public WholeProgramClassifier() {
         super();
     }
 
     @Override
     public String classify() throws ClassificationFailedException {
-        J48 j48=new J48();
-        Remove rm=new Remove();
-        String output=null;
+        J48 j48 = new J48();
+        Remove rm = new Remove();
+        String output = null;
         rm.setAttributeIndices("1");
         FilteredClassifier fc = new FilteredClassifier();
         fc.setFilter(rm);
@@ -49,10 +51,16 @@ public class WholeProgramClassifier extends AbstractClassifier {
         try {
             fc.buildClassifier(trainSet);
             double pred = fc.classifyInstance(testSet.instance(0));
-            output=testSet.classAttribute().value((int)pred);
-        }catch (Exception ex){
+            output = testSet.classAttribute().value((int) pred);
+            classificationResult = output;
+        } catch (Exception ex) {
             throw new ClassificationFailedException();
         }
         return output;
+    }
+
+    @Override
+    public Object getClassificationResult() {
+        return classificationResult;
     }
 }

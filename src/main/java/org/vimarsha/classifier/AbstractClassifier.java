@@ -23,7 +23,9 @@ import weka.core.Instances;
 import weka.core.converters.ConverterUtils;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -43,14 +45,10 @@ abstract class AbstractClassifier {
         this.trainSet = dataSource;
     }
 
-    public void setTestingDataSource(String dataSource) {
-        try {
-            this.testSet = new Instances(new BufferedReader(new FileReader(dataSource)));
-            if (testSet.classIndex() == -1)
-                testSet.setClassIndex(testSet.numAttributes() - 1);
-        } catch (Exception ex) {
-            System.out.println(ex.toString());
-        }
+    public void setTestingDataSource(String dataSource) throws IOException {
+        this.testSet = new Instances(new BufferedReader(new FileReader(dataSource)));
+        if (testSet.classIndex() == -1)
+            testSet.setClassIndex(testSet.numAttributes() - 1);
     }
 
     public Object classify() throws ClassificationFailedException {
@@ -60,4 +58,6 @@ abstract class AbstractClassifier {
     public HashMap<String, String> classify(ArrayList<String> list) throws ClassificationFailedException {
         return null;
     }
+
+    public abstract Object getClassificationResult();
 }
