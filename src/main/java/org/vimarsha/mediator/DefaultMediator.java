@@ -252,7 +252,7 @@ public class DefaultMediator implements Mediator{
 
 
     @Override
-    public DefaultTableModel getClassificationResultsTableModel() {
+    public DefaultTableModel getFunctionWiseClassificationResultsTableModel() {
         TableDataHandler tableDataHandler1 = new TableDataHandler(new ArrayList<String>(((HashMap<String,String>)this.classificationResult).keySet()));
         return tableDataHandler1.getFunctionwiseTableModel(new ArrayList<String>(((HashMap<String,String>)this.classificationResult).values()));
     }

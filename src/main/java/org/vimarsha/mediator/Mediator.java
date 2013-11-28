@@ -58,7 +58,7 @@ public interface Mediator {
 
     public int classifyFunctionWise() throws IOException, ClassificationFailedException;
     public int classifyTimeSliced();
-    public DefaultTableModel getClassificationResultsTableModel();
+    public DefaultTableModel getFunctionWiseClassificationResultsTableModel();
 
     //Dataset needed to create time sliced chart
     public XYSeriesCollection getXYChartDataSet();
