@@ -23,6 +23,7 @@ package org.vimarsha.mediator;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.vimarsha.exceptions.ClassificationFailedException;
+import org.vimarsha.exceptions.TimestampNotFoundException;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -115,7 +116,13 @@ public class UIHandler {
     }
 
     public void classifyFunctionWise() {
-        this.mediator.classifyFunctionWise();
+        try {
+            this.mediator.classifyFunctionWise();
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (ClassificationFailedException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
     }
 
     public void classifyWholeProgram() {
@@ -156,6 +163,16 @@ public class UIHandler {
 
     public DefaultTableModel getArffAttributeInfo(int attrNo) {
         return mediator.getArffAttributeInfo(attrNo);
+    }
+
+    public String getWholeProgramClassificationResult(String timestamp) {
+        String tmp = null;
+        try {
+            tmp = mediator.getWholeProgramClassificationResult(timestamp);
+        } catch (TimestampNotFoundException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+        return tmp;
     }
 
     private void showErrorDialog(String errorMessage) {

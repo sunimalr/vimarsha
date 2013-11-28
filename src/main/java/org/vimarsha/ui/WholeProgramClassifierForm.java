@@ -22,6 +22,8 @@ import org.jfree.chart.ChartPanel;
 import org.vimarsha.mediator.UIHandler;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -70,6 +72,12 @@ public class WholeProgramClassifierForm {
             }
         });
 
+        testDataSetList.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent listSelectionEvent) {
+                classificationTextPane.setText(UIHandler.getInstance().getWholeProgramClassificationResult((String) testDataSetList.getSelectedValue()));
+            }
+        });
     }
 
     public Component getCombobox() {
