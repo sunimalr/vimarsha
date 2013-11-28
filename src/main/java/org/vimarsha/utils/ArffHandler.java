@@ -71,4 +71,8 @@ public class ArffHandler {
         defaultTableModel.addColumn("Value", tmp.toArray());
         return defaultTableModel;
     }
+
+    public int getNumberOfInstances(){
+        return this.arffData.numInstances();
+    }
 }
