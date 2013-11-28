@@ -146,7 +146,7 @@ public class UIHandler {
 
 
     public DefaultTableModel getClassificationResults() {
-        return this.mediator.getClassificationResultsTableModel();
+        return this.mediator.getFunctionWiseClassificationResultsTableModel();
     }
 
     public XYSeriesCollection getXYChartDataSet() {
