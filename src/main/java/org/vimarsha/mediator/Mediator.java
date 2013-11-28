@@ -43,7 +43,7 @@ public interface Mediator {
     public int saveArffFile(File fileToSave) throws IOException;
     //Dataset needed to populate jtable instances
     public ArrayList<String> getArffAttributesList();
-    public DefaultTableModel getArffAttributeInfo(String attribute);
+    public DefaultTableModel getArffAttributeInfo(int index);
     //Dataset needed to create bar charts
     public DefaultCategoryDataset getBarChartDataSet();
 

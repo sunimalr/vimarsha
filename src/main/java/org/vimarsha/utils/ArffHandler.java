@@ -59,13 +59,15 @@ public class ArffHandler {
         }
     }
 
-    public DefaultTableModel getArffAttributeInfo(String attribute) {
+    public DefaultTableModel getArffAttributeInfo(int index) {
         DefaultTableModel defaultTableModel = new DefaultTableModel();
-        defaultTableModel.addRow(new String[]{"Statistics","Value"});
-        defaultTableModel.addRow(new String[]{"Variance", String.valueOf(this.arffData.variance(new Attribute(attribute)))});
-        defaultTableModel.addRow(new String[]{"Mean", String.valueOf(this.arffData.meanOrMode(new Attribute(attribute)))});
-        defaultTableModel.addRow(new String[]{"Min", String.valueOf(this.arffData.kthSmallestValue(new Attribute(attribute),1))});
-        defaultTableModel.addRow(new String[]{"Max", String.valueOf(this.arffData.kthSmallestValue(new Attribute(attribute),this.arffData.numInstances()))});
+        ArrayList<String> tmp = new ArrayList<String>();
+        defaultTableModel.addColumn("Statistics",new String[]{"Variance","min","max","mean"});
+        tmp.add(String.valueOf(this.arffData.variance(index)));
+        tmp.add(String.valueOf(this.arffData.kthSmallestValue(index, 1)));
+        tmp.add(String.valueOf(this.arffData.kthSmallestValue(index, this.arffData.numInstances())));
+        tmp.add(String.valueOf(this.arffData.meanOrMode(index)));
+        defaultTableModel.addColumn("Value", tmp.toArray());
         return defaultTableModel;
     }
 }

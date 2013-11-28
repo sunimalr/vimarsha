@@ -183,8 +183,8 @@ public class DefaultMediator implements Mediator{
     }
 
     @Override
-    public DefaultTableModel getArffAttributeInfo(String attribute) {
-        return this.arffHandler.getArffAttributeInfo(attribute);
+    public DefaultTableModel getArffAttributeInfo(int index) {
+        return this.arffHandler.getArffAttributeInfo(index);
     }
 
     @Override
