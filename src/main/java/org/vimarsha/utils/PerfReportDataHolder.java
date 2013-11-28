@@ -32,9 +32,15 @@ import java.util.HashMap;
  */
 public class PerfReportDataHolder implements DataHolder{
     private HashMap<String, HashMap<String, String>> dataStore;
+    private ArrayList<String> finalSymbolsList;
 
     public PerfReportDataHolder(){
-        dataStore = new HashMap<String, HashMap<String, String>>();
+        this.dataStore = new HashMap<String, HashMap<String, String>>();
+        this.finalSymbolsList = new ArrayList<String>();
+    }
+
+    public void addToFinalSymbolsList(String symbol){
+        this.finalSymbolsList.add(symbol);
     }
 
     public void addValue(String symbol, String rawEvent, String value){
@@ -85,5 +91,9 @@ public class PerfReportDataHolder implements DataHolder{
 
     public HashMap<String, HashMap<String, String>> getDataStore(){
         return dataStore;
+    }
+
+    public ArrayList<String> getFinalSymbolsList() {
+        return finalSymbolsList;
     }
 }
