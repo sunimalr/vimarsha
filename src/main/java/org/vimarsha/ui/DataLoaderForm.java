@@ -101,7 +101,7 @@ public class DataLoaderForm {
             public void actionPerformed(ActionEvent actionEvent) {
                 if (UIHandler.getInstance().convertRawToArff() == 100) {
                     saveToARFFFileButton.setEnabled(true);
-                    //attributesTable.setModel(UIHandler.getInstance().getArffAttribiutesTableModel());
+                    attributeList.setListData(UIHandler.getInstance().getArffAttribiutesTableModel().toArray());
                 }
             }
         });
