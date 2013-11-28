@@ -179,7 +179,12 @@ public class DefaultMediator implements Mediator{
 
     @Override
     public ArrayList<String> getArffAttributesList(){
-        return this.performanceEventsHolder.getPrettyEventsHolder();
+        return this.arffHandler.getPerformanceEventsList(this.rawfileconverted);
+    }
+
+    @Override
+    public DefaultTableModel getArffAttributeInfo(String attribute) {
+        return this.arffHandler.getArffAttributeInfo(attribute);
     }
 
     @Override

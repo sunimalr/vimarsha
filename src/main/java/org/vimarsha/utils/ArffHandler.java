@@ -20,9 +20,12 @@
 
 package org.vimarsha.utils;
 
+import com.sun.org.apache.xalan.internal.xsltc.compiler.util.StringStack;
+import weka.core.Attribute;
 import weka.core.Instances;
 import weka.core.converters.ArffLoader;
 
+import javax.swing.table.DefaultTableModel;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -54,5 +57,15 @@ public class ArffHandler {
         } else {
             return this.performanceEventsHolder.getPrettyEventsHolder();
         }
+    }
+
+    public DefaultTableModel getArffAttributeInfo(String attribute) {
+        DefaultTableModel defaultTableModel = new DefaultTableModel();
+        defaultTableModel.addRow(new String[]{"Statistics","Value"});
+        defaultTableModel.addRow(new String[]{"Variance", String.valueOf(this.arffData.variance(new Attribute(attribute)))});
+        defaultTableModel.addRow(new String[]{"Mean", String.valueOf(this.arffData.meanOrMode(new Attribute(attribute)))});
+        defaultTableModel.addRow(new String[]{"Min", String.valueOf(this.arffData.kthSmallestValue(new Attribute(attribute),1))});
+        defaultTableModel.addRow(new String[]{"Max", String.valueOf(this.arffData.kthSmallestValue(new Attribute(attribute),this.arffData.numInstances()))});
+        return defaultTableModel;
     }
 }
