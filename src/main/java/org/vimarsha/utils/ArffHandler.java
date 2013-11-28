@@ -62,7 +62,8 @@ public class ArffHandler {
     public DefaultTableModel getArffAttributeInfo(int index) {
         DefaultTableModel defaultTableModel = new DefaultTableModel();
         ArrayList<String> tmp = new ArrayList<String>();
-        defaultTableModel.addColumn("Statistics",new String[]{"Variance","min","max","mean"});
+        defaultTableModel.addColumn("Statistics",new String[]{"Name","Variance","Min","Max","Mean"});
+        tmp.add(this.arffData.attribute(index).name());
         tmp.add(String.valueOf(this.arffData.variance(index)));
         tmp.add(String.valueOf(this.arffData.kthSmallestValue(index, 1)));
         tmp.add(String.valueOf(this.arffData.kthSmallestValue(index, this.arffData.numInstances())));
