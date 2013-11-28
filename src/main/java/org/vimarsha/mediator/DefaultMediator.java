@@ -168,7 +168,7 @@ public class DefaultMediator implements Mediator{
                 this.perfStatArffDataWriter = new PerfStatArffDataWriter("output/tempstat.arff",this.performanceEventsHolder,this.perfStatDataHolder);
                 this.perfStatArffDataWriter.writeToArffFile();
                 this.setLocalArffFile(new File("output/tempstat.arff"));
-                this.currentArffFile = new File("output/tempreport.arff");
+                this.currentArffFile = new File("output/tempstat.arff");
                 this.bufferedReader.close();
                 return 100;
             default:
