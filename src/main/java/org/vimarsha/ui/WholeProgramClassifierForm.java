@@ -66,6 +66,7 @@ public class WholeProgramClassifierForm {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 UIHandler.getInstance().classifyWholeProgram();
+                testDataSetList.setListData(UIHandler.getInstance().getWholeProgramTestSetList().toArray());
             }
         });
 

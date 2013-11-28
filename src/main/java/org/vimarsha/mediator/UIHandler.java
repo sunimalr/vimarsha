@@ -22,6 +22,7 @@ package org.vimarsha.mediator;
 
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.xy.XYSeriesCollection;
+import org.vimarsha.exceptions.ClassificationFailedException;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -118,7 +119,17 @@ public class UIHandler {
     }
 
     public void classifyWholeProgram() {
-        this.mediator.classifyWholeProgram();
+        try {
+            this.mediator.classifyWholeProgram();
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (ClassificationFailedException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+    }
+
+    public ArrayList<String> getWholeProgramTestSetList() {
+        return mediator.getWholeProgramTimestamps();
     }
 
 
