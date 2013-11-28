@@ -240,7 +240,7 @@ public class DefaultMediator implements Mediator{
         this.functionWiseClassifier = new FunctionWiseClassifier();
         this.functionWiseClassifier.setTrainingDataSource(this.currentTrainingModel);
         this.functionWiseClassifier.setTestingDataSource(this.currentArffFile.getAbsolutePath());
-        this.functionWiseClassifier.classify();
+        this.functionWiseClassifier.classify(this.perfReportDataHolder.getFinalSymbolsList());
         this.classificationResult = this.functionWiseClassifier.getClassificationResult();
         return 0;
     }
@@ -253,8 +253,8 @@ public class DefaultMediator implements Mediator{
 
     @Override
     public DefaultTableModel getFunctionWiseClassificationResultsTableModel() {
-        TableDataHandler tableDataHandler1 = new TableDataHandler(new ArrayList<String>(((HashMap<String,String>)this.classificationResult).keySet()));
-        return tableDataHandler1.getFunctionwiseTableModel(new ArrayList<String>(((HashMap<String,String>)this.classificationResult).values()));
+        tableDataHandler = new TableDataHandler(new ArrayList<String>(((HashMap<String,String>)this.classificationResult).keySet()));
+        return tableDataHandler.getFunctionwiseTableModel(new ArrayList<String>(((HashMap<String,String>)this.classificationResult).values()));
     }
 
 
