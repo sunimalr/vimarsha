@@ -35,7 +35,10 @@ import weka.core.converters.ArffLoader.ArffReader;
 import javax.swing.table.DefaultTableModel;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 
 /**
  * Created with IntelliJ IDEA.
@@ -55,6 +58,8 @@ public class DefaultMediator implements Mediator{
     private WholeProgramClassifier wholeProgramClassifier;
     private FunctionWiseClassifier functionWiseClassifier;
     private TimeslicedClassifier timeslicedClassifier;
+    private Object classificationResult;
+    private HashMap<String,String> wholeProgramClassificationResultsBuffer;
     private Architecture currentArchitecture;
     private Instances currentTrainingModel;
     private File currentRawFile;
@@ -73,6 +78,7 @@ public class DefaultMediator implements Mediator{
         this.rawfileconverted = false;
         this.currentTrainingModel = null;
         this.currentArchitecture = null;
+        this.wholeProgramClassificationResultsBuffer = new HashMap<String, String>();
     }
 
     @Override
@@ -207,11 +213,26 @@ public class DefaultMediator implements Mediator{
     }
 
     @Override
-    public int classifyWholeProgram() {
+    public int classifyWholeProgram() throws IOException, ClassificationFailedException {
         this.wholeProgramClassifier = new WholeProgramClassifier();
         this.wholeProgramClassifier.setTrainingDataSource(this.currentTrainingModel);
         this.wholeProgramClassifier.setTestingDataSource(this.currentArffFile.getAbsolutePath());
+        this.wholeProgramClassifier.classify();
+        this.wholeProgramClassificationResultsBuffer.put(new Timestamp(new Date().getTime()).toString(),(String)this.wholeProgramClassifier.getClassificationResult());
         return 0;
+    }
+
+    @Override
+    public ArrayList<String> getWholeProgramTimestamps() {
+        return new ArrayList<String>(this.wholeProgramClassificationResultsBuffer.keySet());
+    }
+
+    @Override
+    public String getWholeProgramClassificationResult(String timestamp) throws TimestampNotFoundException {
+        if(!this.wholeProgramClassificationResultsBuffer.containsKey(timestamp)){
+            throw new TimestampNotFoundException();
+        }
+        return this.wholeProgramClassificationResultsBuffer.get(timestamp);
     }
 
     @Override

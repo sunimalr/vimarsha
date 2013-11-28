@@ -51,7 +51,11 @@ public interface Mediator {
     public ArrayList<String> getTrainingModels();
     public String getTrainingModel() throws TrainingModelNotSetException;
     public String getArchitecture() throws ArchitectureNotSetException;
-    public int classifyWholeProgram();
+    public int classifyWholeProgram() throws IOException, ClassificationFailedException;
+    public ArrayList<String> getWholeProgramTimestamps();
+    public String getWholeProgramClassificationResult(String timestamp) throws TimestampNotFoundException;
+
+
     public int classifyFunctionWise();
     public int classifyTimeSliced();
     public DefaultTableModel getClassificationResultsTableModel();
