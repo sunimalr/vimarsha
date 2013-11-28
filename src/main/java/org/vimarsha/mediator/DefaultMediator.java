@@ -56,6 +56,7 @@ public class DefaultMediator implements Mediator{
     private FunctionWiseClassifier functionWiseClassifier;
     private TimeslicedClassifier timeslicedClassifier;
     private Architecture currentArchitecture;
+    private Instances currentTrainingModel;
     private File currentRawFile;
     private File currentArffFile;
     private DataFileType dataFileType;
@@ -70,6 +71,7 @@ public class DefaultMediator implements Mediator{
         this.perfStatDataHolder = new PerfStatDataHolder();
         this.perfReportDataHolder = new PerfReportDataHolder();
         this.rawfileconverted = false;
+        this.currentTrainingModel = null;
     }
 
     @Override
@@ -98,7 +100,35 @@ public class DefaultMediator implements Mediator{
     public int setArchitecture(String architecture) throws ParserConfigurationException, SAXException, IOException {
         this.currentArchitecture = Architecture.valueOf(architecture);
         this.configurationsLoader.loadPerformanceEvents(this.currentArchitecture);
+        loadTrainingModel(Architecture.valueOf(architecture));
         return 0;
+    }
+
+    private int loadTrainingModel(Architecture architecture) throws IOException {
+        switch (architecture){
+            case INTEL_NEHALEM:
+                this.currentTrainingModel = new Instances(new BufferedReader(new FileReader("resources/intel_nehalem_training.arff")));
+                if(this.currentTrainingModel.classIndex() == -1){
+                    this.currentTrainingModel.setClassIndex(this.currentTrainingModel.numAttributes() - 1);
+                }
+                return 100;
+            case POWER7:
+                this.currentTrainingModel = new Instances(new BufferedReader(new FileReader("resources/ibm_power7_training.arff")));
+                if(this.currentTrainingModel.classIndex() == -1){
+                    this.currentTrainingModel.setClassIndex(this.currentTrainingModel.numAttributes() - 1);
+                }
+                return 100;
+            default:
+                this.currentTrainingModel = null;
+        }
+        return -1;
+    }
+
+    public String getTrainingModel() throws TrainingModelNotSetException {
+        if(this.currentTrainingModel == null){
+            throw new TrainingModelNotSetException();
+        }
+        return this.currentTrainingModel.relationName();
     }
 
     @Override
@@ -168,9 +198,21 @@ public class DefaultMediator implements Mediator{
     }
 
     @Override
-    public int classify() {
+    public int classifyWholeProgram() {
+
         return 0;
     }
+
+    @Override
+    public int classifyFunctionWise() {
+        return 0;
+    }
+
+    @Override
+    public int classifyTimeSliced() {
+        return 0;
+    }
+
 
     @Override
     public DefaultTableModel getClassificationResultsTableModel() {
