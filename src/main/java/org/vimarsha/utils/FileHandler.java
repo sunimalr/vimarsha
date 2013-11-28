@@ -20,9 +20,10 @@
 
 package org.vimarsha.utils;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import weka.core.Instances;
+import weka.core.converters.ArffSaver;
+
+import java.io.*;
 import java.nio.channels.FileChannel;
 
 /**
@@ -38,11 +39,11 @@ public class FileHandler {
         this.sourceFileChannel = null;
     }
 
-    public void copy(File source, File destination) throws IOException {
-        this.sourceFileChannel = new FileInputStream(source).getChannel();
-        this.destinationFileChannel = new FileInputStream(destination).getChannel();
-        this.destinationFileChannel.transferFrom(sourceFileChannel, 0, sourceFileChannel.size());
-        this.sourceFileChannel.close();
-        this.destinationFileChannel.close();
+    public void copy(File source, String destination) throws IOException {
+        Instances instances = new Instances(new BufferedReader(new FileReader(source)));
+        ArffSaver arffSaver = new ArffSaver();
+        arffSaver.setInstances(instances);
+        arffSaver.setFile(new File(destination));
+        arffSaver.writeBatch();
     }
 }
