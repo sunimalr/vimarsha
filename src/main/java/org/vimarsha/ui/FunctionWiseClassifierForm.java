@@ -18,7 +18,12 @@
 
 package org.vimarsha.ui;
 
+import org.vimarsha.mediator.UIHandler;
+
 import javax.swing.*;
+import javax.swing.table.TableModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created with IntelliJ IDEA.
@@ -32,6 +37,37 @@ public class FunctionWiseClassifierForm {
     private JTable functionWiseResultsTable;
     private JPanel Tab2;
     private JComboBox modelComboBox;
+
+    public FunctionWiseClassifierForm() {
+
+        for(String str : UIHandler.getInstance().getArchitectureList()){
+           architectureComboBox.addItem(str);
+        }
+
+        //for(String str : UIHandler.getInstance().getTrainingModels()){
+            //trainingComboBox.addItem(str);
+        //}
+
+        architectureComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                UIHandler.getInstance().setArchitecture((String)architectureComboBox.getSelectedItem());
+            }
+        });
+        classifyButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                TableModel tmp = UIHandler.getInstance().getClassificationResults();
+                functionWiseResultsTable.setModel(tmp);
+            }
+        });
+        exportButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                UIHandler.getInstance().exportAsCSV();
+            }
+        });
+    }
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
