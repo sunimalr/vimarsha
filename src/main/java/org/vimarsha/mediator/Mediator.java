@@ -48,7 +48,9 @@ public interface Mediator {
 
     public ArrayList<String> getArchitectureList();
     public ArrayList<String> getTrainingModels();
-    public int classify();
+    public int classifyWholeProgram();
+    public int classifyFunctionWise();
+    public int classifyTimeSliced();
     public DefaultTableModel getClassificationResultsTableModel();
 
     //Dataset needed to create time sliced chart
