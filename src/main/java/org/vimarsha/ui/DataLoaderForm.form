@@ -109,19 +109,6 @@
         <properties/>
         <border type="none" title="Attributes"/>
         <children>
-          <component id="a056a" class="javax.swing.JTable" binding="attributesTable">
-            <constraints>
-              <grid row="0" column="0" row-span="2" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="50"/>
-              </grid>
-            </constraints>
-            <properties>
-              <cellSelectionEnabled value="true"/>
-              <enabled value="false"/>
-              <fillsViewportHeight value="false"/>
-              <rowSelectionAllowed value="true"/>
-            </properties>
-          </component>
           <component id="4474f" class="javax.swing.JTable" binding="attributesSummaryTable">
             <constraints>
               <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
@@ -139,6 +126,14 @@
             <border type="none"/>
             <children/>
           </grid>
+          <component id="6dc70" class="javax.swing.JList" binding="attributeList">
+            <constraints>
+              <grid row="0" column="0" row-span="2" col-span="1" vsize-policy="6" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="50"/>
+              </grid>
+            </constraints>
+            <properties/>
+          </component>
         </children>
       </grid>
       <component id="b0297" class="javax.swing.JComboBox" binding="archComboBox">

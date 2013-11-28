@@ -24,6 +24,8 @@ import org.jfree.chart.ChartPanel;
 import org.vimarsha.mediator.UIHandler;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -51,6 +53,7 @@ public class DataLoaderForm {
     private JTable attributesTable;
     private JTable attributesSummaryTable;
     private ChartPanel attributeDetailsChart;
+    private JList attributeList;
 
     public DataLoaderForm() {
 
@@ -90,8 +93,7 @@ public class DataLoaderForm {
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     file = fc.getSelectedFile();
                 }
-                UIHandler.getInstance().setArffFile(file);
-                attributesTable.setModel(UIHandler.getInstance().getArffAttribiutesTableModel());
+                attributeList.setListData(UIHandler.getInstance().getArffAttribiutesTableModel().toArray());
             }
         });
         convertToARFFFileButton.addActionListener(new ActionListener() {
@@ -99,7 +101,7 @@ public class DataLoaderForm {
             public void actionPerformed(ActionEvent actionEvent) {
                 if (UIHandler.getInstance().convertRawToArff() == 100) {
                     saveToARFFFileButton.setEnabled(true);
-                    attributesTable.setModel(UIHandler.getInstance().getArffAttribiutesTableModel());
+                    //attributesTable.setModel(UIHandler.getInstance().getArffAttribiutesTableModel());
                 }
             }
         });
@@ -117,14 +119,20 @@ public class DataLoaderForm {
             }
         });
 
-        attributesTable.addMouseListener(new MouseAdapter() {
+//        attributesTable.addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mouseClicked(MouseEvent e) {
+//                if (e.getClickCount() == 2) {
+//                    JTable target = (JTable) e.getSource();
+//                    int row = target.getSelectedRow();
+//                    System.out.println("Row Selected : " + row);
+//                }
+//            }
+//        });
+        attributeList.addListSelectionListener(new ListSelectionListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 2) {
-                    JTable target = (JTable) e.getSource();
-                    int row = target.getSelectedRow();
-                    System.out.println("Row Selected : " + row);
-                }
+            public void valueChanged(ListSelectionEvent listSelectionEvent) {
+                System.out.println("val = " + (String) attributeList.getSelectedValue());
             }
         });
     }

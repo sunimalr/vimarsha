@@ -97,8 +97,8 @@ public class UIHandler {
     }
 
 
-    public DefaultTableModel getArffAttribiutesTableModel() {
-        return this.mediator.getArffAttributesTableModel();
+    public ArrayList<String> getArffAttribiutesTableModel() {
+        return this.mediator.getArffAttributesList();
     }
 
     public DefaultCategoryDataset getBarChartDataSet() {
