@@ -54,37 +54,39 @@ public class DataLoaderForm {
 
     public DataLoaderForm() {
 
-        for(String str : UIHandler.getInstance().getArchitectureList()){
+        for (String str : UIHandler.getInstance().getArchitectureList()) {
             archComboBox.addItem(str);
         }
 
         archComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                UIHandler.getInstance().setArchitecture((String)archComboBox.getSelectedItem());
+                UIHandler.getInstance().setArchitecture((String) archComboBox.getSelectedItem());
             }
         });
         openRAWFileButton.addActionListener(new ActionListener() {
-            File file=null;
+            File file = null;
+
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                JFileChooser fc=new JFileChooser();
-                int returnVal=fc.showOpenDialog(Tab0);
+                JFileChooser fc = new JFileChooser();
+                int returnVal = fc.showOpenDialog(Tab0);
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     file = fc.getSelectedFile();
                 }
-                if(UIHandler.getInstance().setRawFile(file)==100){
+                if (UIHandler.getInstance().setRawFile(file) == 100) {
                     convertToARFFFileButton.setEnabled(true);
                 }
 
             }
         });
         openARFFFileButton.addActionListener(new ActionListener() {
-            File file=null;
+            File file = null;
+
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                JFileChooser fc=new JFileChooser();
-                int returnVal=fc.showOpenDialog(Tab0);
+                JFileChooser fc = new JFileChooser();
+                int returnVal = fc.showOpenDialog(Tab0);
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     file = fc.getSelectedFile();
                 }
@@ -95,20 +97,18 @@ public class DataLoaderForm {
         convertToARFFFileButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                if(UIHandler.getInstance().convertRawToArff()==100){
+                if (UIHandler.getInstance().convertRawToArff() == 100) {
                     saveToARFFFileButton.setEnabled(true);
                     attributesTable.setModel(UIHandler.getInstance().getArffAttribiutesTableModel());
-
-
                 }
             }
         });
         saveToARFFFileButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                File file=null;
-                JFileChooser fc=new JFileChooser();
-                int returnVal= fc.showSaveDialog(Tab0);
+                File file = null;
+                JFileChooser fc = new JFileChooser();
+                int returnVal = fc.showSaveDialog(Tab0);
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     System.out.println(fc.getSelectedFile());
                     UIHandler.getInstance().saveAsArff(fc.getSelectedFile());
@@ -120,10 +120,10 @@ public class DataLoaderForm {
         attributesTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if(e.getClickCount()==2){
-                    JTable target=(JTable)e.getSource();
-                    int row=target.getSelectedRow();
-                    System.out.println("Row Selected : "+row);
+                if (e.getClickCount() == 2) {
+                    JTable target = (JTable) e.getSource();
+                    int row = target.getSelectedRow();
+                    System.out.println("Row Selected : " + row);
                 }
             }
         });
@@ -133,4 +133,6 @@ public class DataLoaderForm {
         // TODO: place custom component creation code here
         attributeDetailsChart = new ChartPanel(null);
     }
+
+
 }

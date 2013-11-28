@@ -76,8 +76,11 @@ public class UIHandler {
 
     public int convertRawToArff() {
         try {
-            this.showInfoDialog("File Conversion Successful!");
-            return this.mediator.convertRawFileToArff();
+            int res = this.mediator.convertRawFileToArff();
+            if (res == 100) {
+                this.showInfoDialog("File Conversion Successful!");
+            }
+            return res;
         } catch (Exception ex) {
             this.showErrorDialog("File Conversion Error!");
             return -1;
@@ -135,6 +138,6 @@ public class UIHandler {
     }
 
     private void showInfoDialog(String infoMessage) {
-        JOptionPane.showMessageDialog(null, infoMessage, "Error", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, infoMessage, "Info", JOptionPane.INFORMATION_MESSAGE);
     }
 }
