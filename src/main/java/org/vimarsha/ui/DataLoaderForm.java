@@ -92,8 +92,11 @@ public class DataLoaderForm {
                 int returnVal = fc.showOpenDialog(Tab0);
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     file = fc.getSelectedFile();
+                    UIHandler.getInstance().setArffFile(file);
+                    attributeList.setListData(UIHandler.getInstance().getArffAttribiutesTableModel().toArray());
+                    saveToARFFFileButton.setEnabled(true);
                 }
-                attributeList.setListData(UIHandler.getInstance().getArffAttribiutesTableModel().toArray());
+
             }
         });
         convertToARFFFileButton.addActionListener(new ActionListener() {
