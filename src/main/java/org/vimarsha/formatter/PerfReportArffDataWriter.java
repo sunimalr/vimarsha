@@ -38,6 +38,7 @@ public class PerfReportArffDataWriter extends DataWriter {
                     !(this.perfReportDataHolder.getValue(symbol,this.performanceEventsHolder.getInstructionCountEvent()).equalsIgnoreCase("?"))){
                 String out = "";
                 this.arffWriter.write("%\n% "+ i + " Function: " + symbol + "\n%\n");
+                this.perfReportDataHolder.addToFinalSymbolsList(symbol);
                 ++i;
 
                 for (String event: this.performanceEventsHolder.getEventsHolder()){
