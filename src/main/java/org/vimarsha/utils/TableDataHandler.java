@@ -28,21 +28,16 @@ import java.util.ArrayList;
  * User: gayashan
  */
 public class TableDataHandler {
-    private ArrayList<String> eventsList;
+    private ArrayList<String> firstColumn;
 
-    public TableDataHandler(ArrayList<String> eventsList) {
-        this.eventsList = eventsList;
+    public TableDataHandler(ArrayList<String> firstColumn) {
+        this.firstColumn = firstColumn;
     }
 
-    public DefaultTableModel getTableModel(){
-        DefaultTableModel tableModel = new DefaultTableModel(){
-            @Override
-            public boolean isCellEditable(int row, int column){
-                return false;
-            }
-        };
-
-        tableModel.addColumn("Attributes",this.eventsList.toArray());
+    public DefaultTableModel getFunctionwiseTableModel(ArrayList<String> secondColumn){
+        DefaultTableModel tableModel = new DefaultTableModel();
+        tableModel.addColumn("Function",firstColumn.toArray());
+        tableModel.addColumn("Classification",secondColumn.toArray());
         return tableModel;
     }
 }
