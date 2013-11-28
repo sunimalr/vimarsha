@@ -132,7 +132,7 @@ public class DataLoaderForm {
         attributeList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent listSelectionEvent) {
-                UIHandler.getInstance().getArffAttributeInfo((String) attributeList.getSelectedValue());
+                attributesSummaryTable.setModel(UIHandler.getInstance().getArffAttributeInfo(attributeList.getSelectedIndex()));
             }
         });
     }
