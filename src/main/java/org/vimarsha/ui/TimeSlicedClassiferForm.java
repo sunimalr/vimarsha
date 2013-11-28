@@ -19,8 +19,11 @@
 package org.vimarsha.ui;
 
 import org.jfree.chart.ChartPanel;
+import org.vimarsha.mediator.UIHandler;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,11 +31,31 @@ import javax.swing.*;
  */
 public class TimeSlicedClassiferForm {
     private JPanel Tab3;
-    private JComboBox comboBox1;
-    private JComboBox comboBox2;
+    private JComboBox archComboBox;
+    private JComboBox trainingSetComboBox;
     private JButton classifyButton;
     private JButton exportButton;
     private ChartPanel chartPanel;
+
+    public TimeSlicedClassiferForm() {
+
+        for (String str : UIHandler.getInstance().getArchitectureList()) {
+            archComboBox.addItem(str);
+        }
+
+        archComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                UIHandler.getInstance().setArchitecture((String) archComboBox.getSelectedItem());
+            }
+        });
+        classifyButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                UIHandler.getInstance().classifyTimeSliced();
+            }
+        });
+    }
 
     private void createUIComponents() {
         this.chartPanel = new ChartPanel(null);
