@@ -49,6 +49,7 @@ public class WholeProgramClassifierForm {
                 UIHandler.getInstance().setArchitecture((String) architectureComboBox.getSelectedItem());
             }
         });
+
         classifyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
