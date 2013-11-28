@@ -56,7 +56,7 @@ public interface Mediator {
     public String getWholeProgramClassificationResult(String timestamp) throws TimestampNotFoundException;
 
 
-    public int classifyFunctionWise();
+    public int classifyFunctionWise() throws IOException, ClassificationFailedException;
     public int classifyTimeSliced();
     public DefaultTableModel getClassificationResultsTableModel();
 
