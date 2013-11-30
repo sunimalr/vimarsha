@@ -18,10 +18,15 @@
 
 package org.vimarsha.ui;
 
+import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.xy.XYSeriesCollection;
 import org.vimarsha.mediator.UIHandler;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -35,6 +40,7 @@ public class TimeSlicedClassiferForm {
     private JButton classifyButton;
     private JButton exportButton;
     private ChartPanel chartPanel;
+    private JPanel timeSlicedGraph;
 
     public TimeSlicedClassiferForm() {
 
@@ -48,12 +54,37 @@ public class TimeSlicedClassiferForm {
                 UIHandler.getInstance().setArchitecture((String) archComboBox.getSelectedItem());
             }
         });
+
         classifyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 UIHandler.getInstance().classifyTimeSliced();
+                XYSeriesCollection data = UIHandler.getInstance().getXYChartDataSet();
+                displayTimeSlicedChart(data);
             }
         });
+    }
+
+    private void displayTimeSlicedChart(XYSeriesCollection dataSet) {
+        JFreeChart chart = createChart(dataSet,"Time sliced classification results");
+        this.chartPanel.setChart(chart);
+        this.chartPanel.setRangeZoomable(false);
+        this.chartPanel.setDomainZoomable(true);
+        this.chartPanel.setVisible(true);
+    }
+
+    private JFreeChart createChart(XYSeriesCollection dataSet, String chartTitle) {
+        JFreeChart chart = ChartFactory.createXYLineChart(
+                chartTitle,
+                "Time slice number",
+                "Classification",
+                dataSet,
+                PlotOrientation.VERTICAL,
+                true,
+                true,
+                false
+        );
+        return chart;
     }
 
     private void createUIComponents() {

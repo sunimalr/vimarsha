@@ -21,6 +21,7 @@
 package org.vimarsha.mediator;
 
 import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.vimarsha.classifier.FunctionWiseClassifier;
 import org.vimarsha.classifier.TimeslicedClassifier;
@@ -264,7 +265,40 @@ public class DefaultMediator implements Mediator{
 
     @Override
     public XYSeriesCollection getXYChartDataSet() {
-        return null;
+        XYSeries series =  new XYSeries("Classified result");
+        series.add(1,1);
+        series.add(2,0);
+        series.add(3,1);
+        series.add(4,1);
+        series.add(6,0);
+        series.add(7,1);
+        series.add(8,0);
+        series.add(9,1);
+        series.add(10,1);
+        series.add(11,0);
+        series.add(12,1);
+        series.add(13,0);
+        series.add(14,1);
+        series.add(15,1);
+        series.add(16,0);
+        series.add(17,0);
+        series.add(18,0);
+        series.add(19,1);
+        series.add(20,1);
+        series.add(21,0);
+        series.add(22,1);
+        series.add(23,0);
+        series.add(24,1);
+        series.add(25,1);
+        series.add(26,0);
+        series.add(27,0);
+        series.add(28,0);
+        series.add(29,1);
+        series.add(30,1);
+
+        XYSeriesCollection dataset = new XYSeriesCollection();
+        dataset.addSeries(series);
+        return dataset;
     }
 
     @Override
