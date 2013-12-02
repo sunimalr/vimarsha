@@ -21,7 +21,6 @@
 package org.vimarsha.mediator;
 
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.vimarsha.classifier.FunctionWiseClassifier;
 import org.vimarsha.classifier.TimeslicedClassifier;
@@ -39,10 +38,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -70,7 +66,8 @@ public class DefaultMediator implements Mediator {
     private File currentArffFile;
     private DataFileType dataFileType;
     private ArffHandler arffHandler;
-    private TableDataHandler tableDataHandler;
+    private TableDataGenerator tableDataGenerator;
+    private ChartDataGenerator chartDataGenerator;
     private boolean rawfileconverted;
 
 
@@ -242,58 +239,32 @@ public class DefaultMediator implements Mediator {
     }
 
     @Override
-    public int classifyTimeSliced() {
+    public int classifyTimeSliced() throws IOException, ClassificationFailedException {
+        this.timeslicedClassifier = new TimeslicedClassifier();
+        this.timeslicedClassifier.setTrainingDataSource(this.currentTrainingModel);
+        this.timeslicedClassifier.setTestingDataSource(this.currentArffFile.getAbsolutePath());
+        this.timeslicedClassifier.classify();
+        this.classificationResult = this.timeslicedClassifier.getClassificationResult();
         return 0;
     }
 
 
     @Override
     public DefaultTableModel getFunctionWiseClassificationResultsTableModel() {
-        tableDataHandler = new TableDataHandler();
-        return tableDataHandler.getFunctionwiseTableModel((TreeMap<String, String>) this.classificationResult);
+        this.tableDataGenerator = new TableDataGenerator();
+        return tableDataGenerator.getFunctionwiseTableModel((TreeMap<String, String>) this.classificationResult);
     }
 
 
     @Override
     public XYSeriesCollection getXYChartDataSet() {
-        XYSeries series = new XYSeries("Classified result");
-        series.add(1, 1);
-        series.add(2, 0);
-        series.add(3, 1);
-        series.add(4, 1);
-        series.add(6, 0);
-        series.add(7, 1);
-        series.add(8, 0);
-        series.add(9, 1);
-        series.add(10, 1);
-        series.add(11, 0);
-        series.add(12, 1);
-        series.add(13, 0);
-        series.add(14, 1);
-        series.add(15, 1);
-        series.add(16, 0);
-        series.add(17, 0);
-        series.add(18, 0);
-        series.add(19, 1);
-        series.add(20, 1);
-        series.add(21, 0);
-        series.add(22, 1);
-        series.add(23, 0);
-        series.add(24, 1);
-        series.add(25, 1);
-        series.add(26, 0);
-        series.add(27, 0);
-        series.add(28, 0);
-        series.add(29, 1);
-        series.add(30, 1);
-
-        XYSeriesCollection dataset = new XYSeriesCollection();
-        dataset.addSeries(series);
-        return dataset;
+        this.chartDataGenerator = new ChartDataGenerator();
+        return this.chartDataGenerator.getTimeSlicedChartDataSet((LinkedList<String>) this.classificationResult, "Classification result");
     }
 
     @Override
     public int exportAsCSV() {
+
         return 0;
     }
 

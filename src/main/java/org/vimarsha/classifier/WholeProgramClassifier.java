@@ -25,8 +25,6 @@ import weka.classifiers.meta.FilteredClassifier;
 import weka.classifiers.trees.J48;
 import weka.filters.unsupervised.attribute.Remove;
 
-import java.rmi.Remote;
-
 /**
  * Created with IntelliJ IDEA.
  * User: sunimal
@@ -40,7 +38,7 @@ public class WholeProgramClassifier extends AbstractClassifier {
     }
 
     @Override
-    public String classify() throws ClassificationFailedException {
+    public Object classify() throws ClassificationFailedException {
         J48 j48 = new J48();
         Remove rm = new Remove();
         String output = null;

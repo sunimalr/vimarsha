@@ -23,7 +23,7 @@ import weka.classifiers.meta.FilteredClassifier;
 import weka.classifiers.trees.J48;
 import weka.filters.unsupervised.attribute.Remove;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * Created with IntelliJ IDEA.
@@ -31,16 +31,16 @@ import java.util.ArrayList;
  */
 public class TimeslicedClassifier extends AbstractClassifier {
 
-    private ArrayList<String> output;
+    private LinkedList<String> output;
 
     public TimeslicedClassifier() {
         super();
     }
 
     @Override
-    public ArrayList<String> classify() throws ClassificationFailedException {
+    public Object classify() throws ClassificationFailedException {
 
-        output = new ArrayList<String>();
+        output = new LinkedList<String>();
         J48 j48 = new J48();
         Remove rm = new Remove();
         rm.setAttributeIndices("1");

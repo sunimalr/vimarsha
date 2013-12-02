@@ -37,32 +37,48 @@ import java.util.ArrayList;
  */
 public interface Mediator {
     public int setRawFile(File fileToOpen) throws IOException, DataFileTypeHeaderNotSetException;
+
     public int setArffFile(File fileToOpen) throws IOException;
+
     public int setArchitecture(String architecture) throws ParserConfigurationException, SAXException, IOException;
+
     public int convertRawFileToArff() throws IOException, SymbolNotFoundException, RawEventNotFoundException, InstructionCountNotSetException, RawFileParseFailedException;
+
     public int saveArffFile(File fileToSave) throws IOException;
+
     //Dataset needed to populate jtable instances
     public ArrayList<String> getArffAttributesList();
+
     public DefaultTableModel getArffAttributeInfo(int index);
+
     //Dataset needed to create bar charts
     public DefaultCategoryDataset getBarChartDataSet();
 
     public ArrayList<String> getArchitectureList();
+
     public ArrayList<String> getTrainingModels();
+
     public String getTrainingModel() throws TrainingModelNotSetException;
+
     public String getArchitecture() throws ArchitectureNotSetException;
+
     public int classifyWholeProgram() throws IOException, ClassificationFailedException;
+
     public ArrayList<String> getWholeProgramTimestamps();
+
     public String getWholeProgramClassificationResult(String timestamp) throws TimestampNotFoundException;
 
 
     public int classifyFunctionWise() throws IOException, ClassificationFailedException;
-    public int classifyTimeSliced();
+
+    public int classifyTimeSliced() throws IOException, ClassificationFailedException;
+
     public DefaultTableModel getFunctionWiseClassificationResultsTableModel();
 
     //Dataset needed to create time sliced chart
     public XYSeriesCollection getXYChartDataSet();
 
     public int exportAsCSV();
+
     public int exportAsImage();
 }
