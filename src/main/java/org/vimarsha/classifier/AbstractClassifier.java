@@ -23,11 +23,10 @@ import weka.core.Instances;
 import weka.core.converters.ConverterUtils;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.TreeMap;
 
 /**
  * Created with IntelliJ IDEA.
@@ -55,7 +54,7 @@ abstract class AbstractClassifier {
         return null;
     }
 
-    public HashMap<String, String> classify(ArrayList<String> list) throws ClassificationFailedException {
+    public TreeMap<String, String> classify(ArrayList<String> list) throws ClassificationFailedException {
         return null;
     }
 

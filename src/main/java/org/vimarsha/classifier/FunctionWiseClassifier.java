@@ -19,14 +19,12 @@
 package org.vimarsha.classifier;
 
 import org.vimarsha.exceptions.ClassificationFailedException;
-import weka.classifiers.Evaluation;
 import weka.classifiers.meta.FilteredClassifier;
 import weka.classifiers.trees.J48;
-import weka.core.FastVector;
 import weka.filters.unsupervised.attribute.Remove;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.TreeMap;
 
 /**
  * Created with IntelliJ IDEA.
@@ -34,15 +32,15 @@ import java.util.HashMap;
  */
 public class FunctionWiseClassifier extends AbstractClassifier {
 
-    private HashMap<String, String> output;
+    private TreeMap<String, String> output;
 
     public FunctionWiseClassifier() {
         super();
     }
 
     @Override
-    public HashMap<String, String> classify(ArrayList<String> list) throws ClassificationFailedException {
-        output = new HashMap<String, String>();
+    public TreeMap<String, String> classify(ArrayList<String> list) throws ClassificationFailedException {
+        output = new TreeMap<String, String>();
         J48 j48 = new J48();
         Remove rm = new Remove();
         rm.setAttributeIndices("1");
@@ -53,8 +51,8 @@ public class FunctionWiseClassifier extends AbstractClassifier {
             fc.buildClassifier(trainSet);
             for (int i = 0; i < testSet.numInstances(); i++) {
                 double pred = fc.classifyInstance(testSet.instance(i));
-                if(list.isEmpty()){
-                    output.put(String.valueOf(i+1), testSet.classAttribute().value((int) pred));
+                if (list.isEmpty()) {
+                    output.put(String.valueOf(i + 1), testSet.classAttribute().value((int) pred));
                 } else {
                     output.put(list.get(i), testSet.classAttribute().value((int) pred));
                 }
