@@ -71,6 +71,8 @@ public class XMLArchitectureConfigurationsLoader extends DefaultHandler {
             performanceEventsHolder.setInstructionCountEvent(content);
         } else if (qName.equalsIgnoreCase("event") && selected) {
             performanceEventsHolder.addRawEvent(content);
+        } else if (qName.equalsIgnoreCase("training-model") && selected) {
+            performanceEventsHolder.setTrainingModel(content);
         }
     }
 
