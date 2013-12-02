@@ -25,7 +25,7 @@ import weka.core.Instances;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * Created with IntelliJ IDEA.
@@ -34,7 +34,7 @@ import java.util.ArrayList;
 public class TimeslicedClassifierTest extends TestCase {
 
     private TimeslicedClassifier cls;
-    Instances testSet;
+    private Instances testSet;
 
     @Before
     public void setUp() throws Exception {
@@ -48,8 +48,8 @@ public class TimeslicedClassifierTest extends TestCase {
 
     @Test
     public void testClassify() throws Exception {
-        ArrayList<String> res;
-        res = cls.classify();
+        LinkedList<String> res;
+        res = (LinkedList<String>) cls.classify();
         assertEquals("badfs", res.get(0));
         assertEquals("badfs", res.get(1));
         assertEquals("badfs", res.get(2));
