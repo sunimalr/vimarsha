@@ -58,11 +58,15 @@ public class PropertiesLoader {
     }
 
     public String getAttributeHeader() {
-        return this.properties.getProperty("attribute");
+        return this.properties.getProperty("attribute") + " ";
+    }
+
+    public String getRelationHeader() {
+        return this.properties.getProperty("relation") + " ";
     }
 
     public String getNumericValueHeaderName() {
-        return this.properties.getProperty("numeric");
+        return " " + this.properties.getProperty("numeric");
     }
 
     public String getStatusHeader() {
@@ -86,7 +90,11 @@ public class PropertiesLoader {
     }
 
     public String getSpacesRegex() {
-        return this.properties.getProperty("spaces");
+        return " " + this.properties.getProperty("spaces");
+    }
+
+    public String getFunctionIDString() {
+        return " " + this.properties.getProperty("function_id_string") + " ";
     }
 
     public String getMissingValueIndicator() {
@@ -97,7 +105,63 @@ public class PropertiesLoader {
         return this.properties.getProperty("value_separator");
     }
 
+    public String getARFFCommentString() {
+        return this.properties.getProperty("arff_comment");
+    }
+
     public String getNotCountedValueIndicator() {
         return this.properties.getProperty("not_counted_value");
+    }
+
+    public String getBADMAClass() {
+        return this.properties.getProperty("badma");
+    }
+
+    public String getBADFSClass() {
+        return this.properties.getProperty("badfs");
+    }
+
+    public String getGOODClass() {
+        return this.properties.getProperty("good");
+    }
+
+    public String getPerfEventPrettyPrefix1() {
+        return this.properties.getProperty("perf_event_pretty_prefix1");
+    }
+
+    public String getPerfEventPrettyPrefix2() {
+        return this.properties.getProperty("perf_event_pretty_prefix2");
+    }
+
+    public String getPerfEventPrettyPrefix3() {
+        return this.properties.getProperty("perf_event_pretty_prefix3");
+    }
+
+    public String getPerfEventPrefix() {
+        return this.properties.getProperty("perf_event_prefix");
+    }
+
+    public String getXMLTagArchitecture() {
+        return this.properties.getProperty("architecture");
+    }
+
+    public String getXMLTagID() {
+        return this.properties.getProperty("id");
+    }
+
+    public String getXMLTagInsCount() {
+        return this.properties.getProperty("instruction-count");
+    }
+
+    public String getXMLTagEvent() {
+        return this.properties.getProperty("event");
+    }
+
+    public String getXMLTagTrainingModel() {
+        return this.properties.getProperty("training-model");
+    }
+
+    public String getXMLTagRelationHeader() {
+        return this.properties.getProperty("relation-header");
     }
 }
