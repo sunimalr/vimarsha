@@ -23,7 +23,6 @@ import org.vimarsha.mediator.impl.UIHandler;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -37,19 +36,13 @@ public class WholeProgramClassifierForm {
     private JButton classifyButton;
     private JTextPane classificationTextPane;
     private JList testDataSetList;
+    private JTextField trainingModelTextBox;
 
     public WholeProgramClassifierForm() {
 
         for (String str : UIHandler.getInstance().getArchitectureList()) {
             architectureComboBox.addItem(str);
         }
-
-        architectureComboBox.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                UIHandler.getInstance().setArchitecture((String) architectureComboBox.getSelectedItem());
-            }
-        });
 
         classifyButton.addActionListener(new ActionListener() {
             @Override
@@ -67,9 +60,23 @@ public class WholeProgramClassifierForm {
         });
     }
 
-    public Component getCombobox() {
-        return this.architectureComboBox;
+    public JComboBox getArchitectureComboBox() {
+        return architectureComboBox;
     }
+
+    public void setArchitectureComboBox(JComboBox architectureComboBox) {
+        this.architectureComboBox = architectureComboBox;
+    }
+
+
+    public JTextField getTrainingModelTextBox() {
+        return trainingModelTextBox;
+    }
+
+    public void setTrainingModelTextBox(JTextField trainingModelTextBox) {
+        this.trainingModelTextBox = trainingModelTextBox;
+    }
+
 
     private void createUIComponents() {
         // TODO: place custom component creation code here

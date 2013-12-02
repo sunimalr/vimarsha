@@ -38,30 +38,30 @@ public class DataLoaderForm {
     private JPanel Tab0;
     private JButton openRAWFileButton;
     private JButton openARFFFileButton;
-    private JButton convertToARFFFileButton;
     private JButton saveToARFFFileButton;
-    private JLabel fileNameLabel;
     private JTable table1;
     private JTable table2;
     private ChartPanel chartPanel1;
-    private JComboBox archComboBox;
+    private JComboBox architectureComboBox;
     private JTable attributesTable;
     private JTable attributesSummaryTable;
     private ChartPanel attributeDetailsChart;
     private JList attributeList;
+    private JTextField trainingModelTextBox;
 
     public DataLoaderForm() {
 
 
         for (String str : UIHandler.getInstance().getArchitectureList()) {
-            archComboBox.addItem(str);
-            archComboBox.setSelectedItem(null);
+            architectureComboBox.addItem(str);
+            architectureComboBox.setSelectedItem(null);
         }
 
-        archComboBox.addActionListener(new ActionListener() {
+        architectureComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                UIHandler.getInstance().setArchitecture((String) archComboBox.getSelectedItem());
+                UIHandler.getInstance().setArchitecture((String) architectureComboBox.getSelectedItem());
+                trainingModelTextBox.setText(UIHandler.getInstance().getTrainingModel());
             }
         });
         openRAWFileButton.addActionListener(new ActionListener() {
@@ -74,8 +74,9 @@ public class DataLoaderForm {
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     file = fc.getSelectedFile();
                 }
-                if (UIHandler.getInstance().setRawFile(file) == 100) {
-                    convertToARFFFileButton.setEnabled(true);
+                if ((UIHandler.getInstance().setRawFile(file) == 100) && (UIHandler.getInstance().convertRawToArff() == 100)) {
+                    saveToARFFFileButton.setEnabled(true);
+                    attributeList.setListData(UIHandler.getInstance().getArffAttribiutesTableModel().toArray());
                 }
 
             }
@@ -96,15 +97,6 @@ public class DataLoaderForm {
 
             }
         });
-        convertToARFFFileButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                if (UIHandler.getInstance().convertRawToArff() == 100) {
-                    saveToARFFFileButton.setEnabled(true);
-                    attributeList.setListData(UIHandler.getInstance().getArffAttribiutesTableModel().toArray());
-                }
-            }
-        });
         saveToARFFFileButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -119,16 +111,6 @@ public class DataLoaderForm {
             }
         });
 
-//        attributesTable.addMouseListener(new MouseAdapter() {
-//            @Override
-//            public void mouseClicked(MouseEvent e) {
-//                if (e.getClickCount() == 2) {
-//                    JTable target = (JTable) e.getSource();
-//                    int row = target.getSelectedRow();
-//                    System.out.println("Row Selected : " + row);
-//                }
-//            }
-//        });
         attributeList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent listSelectionEvent) {
@@ -143,4 +125,20 @@ public class DataLoaderForm {
     }
 
 
+    public JTextField getTrainingModelTextBox() {
+        return trainingModelTextBox;
+    }
+
+    public void setTrainingModelTextBox(JTextField trainingModelTextBox) {
+        this.trainingModelTextBox = trainingModelTextBox;
+    }
+
+
+    public JComboBox getArchitectureComboBox() {
+        return architectureComboBox;
+    }
+
+    public void setArchitectureComboBox(JComboBox architectureComboBox) {
+        this.architectureComboBox = architectureComboBox;
+    }
 }

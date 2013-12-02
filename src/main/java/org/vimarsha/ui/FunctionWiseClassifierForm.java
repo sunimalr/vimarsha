@@ -37,6 +37,8 @@ public class FunctionWiseClassifierForm {
     private JTable functionWiseResultsTable;
     private JPanel Tab2;
 
+    private JTextField trainingModelTextBox;
+
     public FunctionWiseClassifierForm() {
 
         for (String str : UIHandler.getInstance().getArchitectureList()) {
@@ -47,12 +49,12 @@ public class FunctionWiseClassifierForm {
         //trainingComboBox.addItem(str);
         //}
 
-        architectureComboBox.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                UIHandler.getInstance().setArchitecture((String) architectureComboBox.getSelectedItem());
-            }
-        });
+//        architectureComboBox.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent actionEvent) {
+//                UIHandler.getInstance().setArchitecture((String) architectureComboBox.getSelectedItem());
+//            }
+//        });
         classifyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -68,6 +70,24 @@ public class FunctionWiseClassifierForm {
             }
         });
     }
+
+    public JComboBox getArchitectureComboBox() {
+        return architectureComboBox;
+    }
+
+    public void setArchitectureComboBox(JComboBox architectureComboBox) {
+        this.architectureComboBox = architectureComboBox;
+    }
+
+
+    public JTextField getTrainingModelTextBox() {
+        return trainingModelTextBox;
+    }
+
+    public void setTrainingModelTextBox(JTextField trainingModelTextBox) {
+        this.trainingModelTextBox = trainingModelTextBox;
+    }
+
 
     private void createUIComponents() {
         // TODO: place custom component creation code here

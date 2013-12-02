@@ -42,24 +42,19 @@ import java.text.FieldPosition;
  */
 public class TimeSlicedClassiferForm {
     private JPanel Tab3;
-    private JComboBox archComboBox;
+    private JComboBox architectureComboBox;
     private JButton classifyButton;
     private JButton exportButton;
     private ChartPanel chartPanel;
     private JPanel timeSlicedGraph;
 
+    private JTextField trainingModelTextBox;
+
     public TimeSlicedClassiferForm() {
 
         for (String str : UIHandler.getInstance().getArchitectureList()) {
-            archComboBox.addItem(str);
+            architectureComboBox.addItem(str);
         }
-
-        archComboBox.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                UIHandler.getInstance().setArchitecture((String) archComboBox.getSelectedItem());
-            }
-        });
 
         classifyButton.addActionListener(new ActionListener() {
             @Override
@@ -120,4 +115,23 @@ public class TimeSlicedClassiferForm {
     private void createUIComponents() {
         this.chartPanel = new ChartPanel(null);
     }
+
+
+    public JComboBox getArchitectureComboBox() {
+        return architectureComboBox;
+    }
+
+    public void setArchitectureComboBox(JComboBox architectureComboBox) {
+        this.architectureComboBox = architectureComboBox;
+    }
+
+
+    public JTextField getTrainingModelTextBox() {
+        return trainingModelTextBox;
+    }
+
+    public void setTrainingModelTextBox(JTextField trainingModelTextBox) {
+        this.trainingModelTextBox = trainingModelTextBox;
+    }
+
 }
