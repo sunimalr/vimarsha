@@ -26,7 +26,7 @@ import weka.core.Instances;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.TreeMap;
 
 /**
  * Created with IntelliJ IDEA.
@@ -52,7 +52,7 @@ public class FunctionWiseClassifierTest extends TestCase {
         ArrayList<String> fucntionlist = new ArrayList<String>();
         fucntionlist.add("pspeedy(Points*,float,long*,int,parsec_barrier_t*)");
         fucntionlist.add("dist(Point,Point,int)");
-        HashMap<String, String> res = cls.classify(fucntionlist);
+        TreeMap<String, String> res = cls.classify(fucntionlist);
         String tmp = fucntionlist.remove(0);
         assertEquals("badfs", res.get(tmp));
         tmp = fucntionlist.remove(0);
