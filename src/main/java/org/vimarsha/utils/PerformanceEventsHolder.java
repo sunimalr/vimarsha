@@ -32,39 +32,42 @@ public class PerformanceEventsHolder {
     private ArrayList<String> eventsHolder;
     private String instructionCountEvent;
     private Architecture architecture;
+    private String trainingModel;
 
-    public PerformanceEventsHolder(){
+    public PerformanceEventsHolder() {
         setEventsHolder(new ArrayList<String>());
         instructionCountEvent = null;
     }
 
-    public void setInstructionCountEvent(String instructionCountEvent){
+    public void setInstructionCountEvent(String instructionCountEvent) {
         this.instructionCountEvent = instructionCountEvent;
     }
 
-    public void addRawEvent(String rawEvent){
+    public void addRawEvent(String rawEvent) {
         getEventsHolder().add(rawEvent);
     }
 
-    public String getInstructionCountEvent() throws InstructionCountNotSetException{
-        if(instructionCountEvent == null){
+    public String getInstructionCountEvent() throws InstructionCountNotSetException {
+        if (instructionCountEvent == null) {
             throw new InstructionCountNotSetException();
         }
         return this.instructionCountEvent;
     }
 
-    /***
+    /**
      * Returns the prettified Instruction count raw event id
      * TODO: Needs proper handling of names.
+     *
      * @return
      * @throws InstructionCountNotSetException
+     *
      */
     public String getPrettyInstructionCountEvent() throws InstructionCountNotSetException {
-        if(instructionCountEvent == null){
+        if (instructionCountEvent == null) {
             throw new InstructionCountNotSetException();
         }
         String event = instructionCountEvent.split("0x")[1];
-        if(event.length()<4){   //TODO Handle properly
+        if (event.length() < 4) {   //TODO Handle properly
             return new String("r00" + event);
         }
         return new String("r" + event);
@@ -90,18 +93,27 @@ public class PerformanceEventsHolder {
      * Returns a prettified events holder.
      * Needed when creating the arff file headers
      * Since training files contain headers in the format "r0####" instead of "0x####"
+     *
      * @return ArrayList of prettified events
      */
-    public ArrayList<String> getPrettyEventsHolder(){
+    public ArrayList<String> getPrettyEventsHolder() {
         ArrayList<String> events = new ArrayList<String>();
-        for(String event : this.eventsHolder){
+        for (String event : this.eventsHolder) {
             event = event.split("0x")[1];
-            if(event.length()<4){
+            if (event.length() < 4) {
                 events.add("r0" + event);
             } else {
                 events.add("r" + event);
             }
         }
         return events;
+    }
+
+    public String getTrainingModel() {
+        return trainingModel;
+    }
+
+    public void setTrainingModel(String trainingModel) {
+        this.trainingModel = trainingModel;
     }
 }
