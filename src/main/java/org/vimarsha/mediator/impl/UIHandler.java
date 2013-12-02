@@ -22,8 +22,10 @@ package org.vimarsha.mediator.impl;
 
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.xy.XYSeriesCollection;
+import org.vimarsha.exceptions.ArchitectureNotSetException;
 import org.vimarsha.exceptions.ClassificationFailedException;
 import org.vimarsha.exceptions.TimestampNotFoundException;
+import org.vimarsha.exceptions.TrainingModelNotSetException;
 import org.vimarsha.mediator.Mediator;
 
 import javax.swing.*;
@@ -111,6 +113,26 @@ public class UIHandler {
     public ArrayList<String> getArchitectureList() {
         return this.mediator.getArchitectureList();
     }
+
+    public String getArchitecture() {
+        try {
+            return this.mediator.getArchitecture();
+        } catch (ArchitectureNotSetException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+        return null;
+    }
+
+
+    public String getTrainingModel() {
+        try {
+            return this.mediator.getTrainingModel();
+        } catch (TrainingModelNotSetException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+        return null;
+    }
+
 
     public ArrayList<String> getTrainingModels() {
         return this.mediator.getTrainingModels();
