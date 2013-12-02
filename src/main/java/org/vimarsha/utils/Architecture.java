@@ -25,5 +25,5 @@ package org.vimarsha.utils;
  * User: gayashan
  */
 public enum Architecture {
-    X86, X86_64, POWER7, INTEL_NEHALEM
+    X86, X86_64, POWER7, INTEL_NEHALEM, INTEL_NEHALEM_REDUCED
 }
