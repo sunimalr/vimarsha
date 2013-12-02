@@ -18,7 +18,7 @@
 
 package org.vimarsha.ui;
 
-import org.vimarsha.mediator.UIHandler;
+import org.vimarsha.mediator.impl.UIHandler;
 
 import javax.swing.*;
 import javax.swing.table.TableModel;

@@ -18,12 +18,13 @@
  * /
  */
 
-package org.vimarsha.mediator;
+package org.vimarsha.mediator.impl;
 
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.vimarsha.exceptions.ClassificationFailedException;
 import org.vimarsha.exceptions.TimestampNotFoundException;
+import org.vimarsha.mediator.Mediator;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -141,7 +142,13 @@ public class UIHandler {
 
 
     public void classifyTimeSliced() {
-        this.mediator.classifyTimeSliced();
+        try {
+            this.mediator.classifyTimeSliced();
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (ClassificationFailedException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
     }
 
 

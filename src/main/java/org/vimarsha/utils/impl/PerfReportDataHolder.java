@@ -18,10 +18,11 @@
  * /
  */
 
-package org.vimarsha.utils;
+package org.vimarsha.utils.impl;
 
 import org.vimarsha.exceptions.RawEventNotFoundException;
 import org.vimarsha.exceptions.SymbolNotFoundException;
+import org.vimarsha.utils.DataHolder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,57 +31,58 @@ import java.util.HashMap;
  * Created with IntelliJ IDEA.
  * User: gayashan
  */
-public class PerfReportDataHolder implements DataHolder{
+public class PerfReportDataHolder implements DataHolder {
     private HashMap<String, HashMap<String, String>> dataStore;
     private ArrayList<String> finalSymbolsList;
 
-    public PerfReportDataHolder(){
+    public PerfReportDataHolder() {
         this.dataStore = new HashMap<String, HashMap<String, String>>();
         this.finalSymbolsList = new ArrayList<String>();
     }
 
-    public void addToFinalSymbolsList(String symbol){
+    public void addToFinalSymbolsList(String symbol) {
         this.finalSymbolsList.add(symbol);
     }
 
-    public void addValue(String symbol, String rawEvent, String value){
-        if(dataStore.containsKey(symbol)){
-            dataStore.get(symbol).put(rawEvent,value);
-        }else{
-            HashMap<String,String> tmp = new HashMap<String, String>();
-            tmp.put(rawEvent,value);
-            dataStore.put(symbol,tmp);
+    public void addValue(String symbol, String rawEvent, String value) {
+        if (dataStore.containsKey(symbol)) {
+            dataStore.get(symbol).put(rawEvent, value);
+        } else {
+            HashMap<String, String> tmp = new HashMap<String, String>();
+            tmp.put(rawEvent, value);
+            dataStore.put(symbol, tmp);
         }
     }
 
-    /***
+    /**
      * Get the list of functions/programs
      * TODO: Check whether it is in order.
+     *
      * @return
      */
-    public ArrayList<String> getSymbolsList(){
+    public ArrayList<String> getSymbolsList() {
         ArrayList<String> symbolsList = new ArrayList<String>();
         symbolsList.addAll(dataStore.keySet());
         return symbolsList;
     }
 
-    public HashMap<String,String> getRawEventValueCollection(String symbol) throws SymbolNotFoundException {
-        if(dataStore.containsKey(symbol)){
+    public HashMap<String, String> getRawEventValueCollection(String symbol) throws SymbolNotFoundException {
+        if (dataStore.containsKey(symbol)) {
             return dataStore.get(symbol);
         }
         throw new SymbolNotFoundException();
     }
 
     public ArrayList<String> getRawEventsCollection(String symbol) throws SymbolNotFoundException {
-        if(dataStore.containsKey(symbol)){
+        if (dataStore.containsKey(symbol)) {
             return new ArrayList<String>(dataStore.get(symbol).keySet());
         }
         throw new SymbolNotFoundException();
     }
 
     public String getValue(String symbol, String rawEvent) throws SymbolNotFoundException, RawEventNotFoundException {
-        if(dataStore.containsKey(symbol)){
-            if(dataStore.get(symbol).containsKey(rawEvent)){
+        if (dataStore.containsKey(symbol)) {
+            if (dataStore.get(symbol).containsKey(rawEvent)) {
                 return dataStore.get(symbol).get(rawEvent);
             } else {
                 throw new RawEventNotFoundException();
@@ -89,7 +91,7 @@ public class PerfReportDataHolder implements DataHolder{
         throw new SymbolNotFoundException();
     }
 
-    public HashMap<String, HashMap<String, String>> getDataStore(){
+    public HashMap<String, HashMap<String, String>> getDataStore() {
         return dataStore;
     }
 

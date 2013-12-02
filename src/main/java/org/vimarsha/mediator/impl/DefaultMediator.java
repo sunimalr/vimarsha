@@ -18,16 +18,19 @@
  * /
  */
 
-package org.vimarsha.mediator;
+package org.vimarsha.mediator.impl;
 
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.xy.XYSeriesCollection;
-import org.vimarsha.classifier.FunctionWiseClassifier;
-import org.vimarsha.classifier.TimeslicedClassifier;
-import org.vimarsha.classifier.WholeProgramClassifier;
+import org.vimarsha.classifier.impl.FunctionWiseClassifier;
+import org.vimarsha.classifier.impl.TimeslicedClassifier;
+import org.vimarsha.classifier.impl.WholeProgramClassifier;
 import org.vimarsha.exceptions.*;
-import org.vimarsha.formatter.*;
-import org.vimarsha.utils.*;
+import org.vimarsha.formatter.impl.*;
+import org.vimarsha.mediator.Mediator;
+import org.vimarsha.utils.Architecture;
+import org.vimarsha.utils.DataFileType;
+import org.vimarsha.utils.impl.*;
 import org.xml.sax.SAXException;
 import weka.core.Instances;
 

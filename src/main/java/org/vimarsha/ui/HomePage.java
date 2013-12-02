@@ -20,13 +20,7 @@
 
 package org.vimarsha.ui;
 
-import org.vimarsha.mediator.UIHandler;
-
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 
 /**
  * Created with IntelliJ IDEA.

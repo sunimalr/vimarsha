@@ -16,31 +16,31 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.vimarsha.classifier;
+package org.vimarsha.classifier.impl;
 
 import org.vimarsha.exceptions.ClassificationFailedException;
 import weka.classifiers.meta.FilteredClassifier;
 import weka.classifiers.trees.J48;
 import weka.filters.unsupervised.attribute.Remove;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.TreeMap;
 
 /**
  * Created with IntelliJ IDEA.
  * User: sunimal
  */
-public class TimeslicedClassifier extends AbstractClassifier {
+public class FunctionWiseClassifier extends AbstractClassifier {
 
-    private LinkedList<String> output;
+    private TreeMap<String, String> output;
 
-    public TimeslicedClassifier() {
+    public FunctionWiseClassifier() {
         super();
     }
 
     @Override
-    public Object classify() throws ClassificationFailedException {
-
-        output = new LinkedList<String>();
+    public TreeMap<String, String> classify(ArrayList<String> list) throws ClassificationFailedException {
+        output = new TreeMap<String, String>();
         J48 j48 = new J48();
         Remove rm = new Remove();
         rm.setAttributeIndices("1");
@@ -49,15 +49,15 @@ public class TimeslicedClassifier extends AbstractClassifier {
         fc.setClassifier(j48);
         try {
             fc.buildClassifier(trainSet);
-
-
             for (int i = 0; i < testSet.numInstances(); i++) {
-                //System.out.println(testSet.instance(i));
                 double pred = fc.classifyInstance(testSet.instance(i));
-                output.add(testSet.classAttribute().value((int) pred));
+                if (list.isEmpty()) {
+                    output.put(String.valueOf(i + 1), testSet.classAttribute().value((int) pred));
+                } else {
+                    output.put(list.get(i), testSet.classAttribute().value((int) pred));
+                }
             }
         } catch (Exception ex) {
-            System.out.println(ex.toString());
             throw new ClassificationFailedException();
         }
         return output;
@@ -65,6 +65,6 @@ public class TimeslicedClassifier extends AbstractClassifier {
 
     @Override
     public Object getClassificationResult() {
-        return output;
+        return output;  //To change body of implemented methods use File | Settings | File Templates.
     }
 }

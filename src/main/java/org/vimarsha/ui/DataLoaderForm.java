@@ -21,18 +21,13 @@
 package org.vimarsha.ui;
 
 import org.jfree.chart.ChartPanel;
-import org.vimarsha.mediator.UIHandler;
+import org.vimarsha.mediator.impl.UIHandler;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.File;
 
 /**

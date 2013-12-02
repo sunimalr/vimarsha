@@ -18,10 +18,11 @@
  * /
  */
 
-package org.vimarsha.formatter;
+package org.vimarsha.formatter.impl;
+
+import org.vimarsha.formatter.OutputWriter;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class ArffWriter implements OutputWriter {
     private BufferedWriter bufferedWriter;
     private ArrayList<String> headers;
 
-    public ArffWriter(String fileName, ArrayList<String> headers) throws IOException{
+    public ArffWriter(String fileName, ArrayList<String> headers) throws IOException {
         this.fileName = fileName;
         this.headers = headers;
         bufferedWriter = new BufferedWriter(new FileWriter(fileName));
@@ -51,7 +52,7 @@ public class ArffWriter implements OutputWriter {
 
     @Override
     public void writeLines(ArrayList<String> arrayList) throws IOException {
-        for(String line : arrayList){
+        for (String line : arrayList) {
             bufferedWriter.write(line);
             bufferedWriter.newLine();
         }

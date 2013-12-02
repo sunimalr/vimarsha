@@ -28,7 +28,7 @@ import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.xy.XYSeriesCollection;
-import org.vimarsha.mediator.UIHandler;
+import org.vimarsha.mediator.impl.UIHandler;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -72,7 +72,7 @@ public class TimeSlicedClassiferForm {
     }
 
     private void displayTimeSlicedChart(XYSeriesCollection dataSet) {
-        JFreeChart chart = createChart(dataSet,"Time sliced classification results");
+        JFreeChart chart = createChart(dataSet, "Time sliced classification results");
         this.chartPanel.setChart(chart);
         this.chartPanel.setRangeZoomable(false);
         this.chartPanel.setDomainZoomable(true);
@@ -96,19 +96,19 @@ public class TimeSlicedClassiferForm {
         //ValueAxis range = plot.getRangeAxis();
         ValueAxis domain = plot.getDomainAxis();
 
-        range.setRange(0,1.1);
+        range.setRange(0, 1.1);
         TickUnits units = new TickUnits();
         units.add(new NumberTickUnit(0));
         units.add(new NumberTickUnit(0.5));
         units.add(new NumberTickUnit(1));
 
         range.setStandardTickUnits(units);
-        range.setNumberFormatOverride( new DecimalFormat(){
-            public StringBuffer format( double number, StringBuffer toAppendTo, FieldPosition pos){
-                if(number==1)
+        range.setNumberFormatOverride(new DecimalFormat() {
+            public StringBuffer format(double number, StringBuffer toAppendTo, FieldPosition pos) {
+                if (number == 1)
                     return toAppendTo.append("badfs");
-                else if(number==0.5)
-                    return  toAppendTo.append("badma");
+                else if (number == 0.5)
+                    return toAppendTo.append("badma");
                 else
                     return toAppendTo.append("good");
             }

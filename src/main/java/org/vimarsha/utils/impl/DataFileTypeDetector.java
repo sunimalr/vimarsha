@@ -18,9 +18,10 @@
  * /
  */
 
-package org.vimarsha.utils;
+package org.vimarsha.utils.impl;
 
 import org.vimarsha.exceptions.DataFileTypeHeaderNotSetException;
+import org.vimarsha.utils.DataFileType;
 
 import java.io.*;
 
@@ -39,21 +40,22 @@ public class DataFileTypeDetector {
         this.dataFileType = DataFileType.UNKNOWN;
     }
 
-    /***
+    /**
      * Expected header format "@datafiletype=PERF_REPORT"
+     *
      * @return
      * @throws IOException
      */
     public DataFileType getDataFileType() throws IOException, DataFileTypeHeaderNotSetException {
         String line = bufferedReader.readLine();
-        while(line.startsWith("#")){
+        while (line.startsWith("#")) {
             line = bufferedReader.readLine();
         }
         line = line.trim();
-        if(line.contains("@datafiletype")){
-            if((line.split("=")[1]).equalsIgnoreCase("PERF_STAT")){
+        if (line.contains("@datafiletype")) {
+            if ((line.split("=")[1]).equalsIgnoreCase("PERF_STAT")) {
                 this.dataFileType = DataFileType.PERF_STAT;
-            } else if((line.split("=")[1]).equalsIgnoreCase("PERF_REPORT")){
+            } else if ((line.split("=")[1]).equalsIgnoreCase("PERF_REPORT")) {
                 this.dataFileType = DataFileType.PERF_REPORT;
             }
         } else {

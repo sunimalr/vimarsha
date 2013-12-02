@@ -18,9 +18,10 @@
  * /
  */
 
-package org.vimarsha.utils;
+package org.vimarsha.utils.impl;
 
 import org.vimarsha.exceptions.InstructionCountNotSetException;
+import org.vimarsha.utils.Architecture;
 
 import java.util.ArrayList;
 

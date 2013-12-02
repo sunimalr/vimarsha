@@ -18,13 +18,13 @@
  * /
  */
 
-package org.vimarsha.formatter;
+package org.vimarsha.formatter.impl;
 
 import org.vimarsha.exceptions.InstructionCountNotSetException;
 import org.vimarsha.exceptions.RawEventNotFoundException;
 import org.vimarsha.exceptions.SymbolNotFoundException;
-import org.vimarsha.utils.PerfStatDataHolder;
-import org.vimarsha.utils.PerformanceEventsHolder;
+import org.vimarsha.utils.impl.PerfStatDataHolder;
+import org.vimarsha.utils.impl.PerformanceEventsHolder;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -38,7 +38,7 @@ public class PerfStatArffDataWriter extends DataWriter {
     private PerfStatDataHolder perfStatDataHolder;
 
     public PerfStatArffDataWriter(String fileName, PerformanceEventsHolder performanceEventsHolder, PerfStatDataHolder perfStatDataHolder) throws IOException {
-        super(fileName,performanceEventsHolder);
+        super(fileName, performanceEventsHolder);
         this.perfStatDataHolder = perfStatDataHolder;
     }
 
@@ -46,14 +46,14 @@ public class PerfStatArffDataWriter extends DataWriter {
     public void writeToArffFile() throws SymbolNotFoundException, InstructionCountNotSetException, RawEventNotFoundException, IOException {
         String out = "";
         float instructionCount;
-        if(!this.perfStatDataHolder.getValue(this.performanceEventsHolder.getPrettyInstructionCountEvent()).equalsIgnoreCase("<not counted>")){
+        if (!this.perfStatDataHolder.getValue(this.performanceEventsHolder.getPrettyInstructionCountEvent()).equalsIgnoreCase("<not counted>")) {
             instructionCount = Float.parseFloat(this.perfStatDataHolder.getValue(this.performanceEventsHolder.getPrettyInstructionCountEvent()));
         } else {
             throw new InstructionCountNotSetException();
         }
-        for(String rawEvent : this.performanceEventsHolder.getPrettyEventsHolder()){
-            if(!this.perfStatDataHolder.getValue(rawEvent).equalsIgnoreCase("<not counted>")){
-                out += new BigDecimal(Float.parseFloat(this.perfStatDataHolder.getValue(rawEvent)) * java.lang.Math.pow(10,9) / instructionCount).setScale(4, RoundingMode.CEILING).toPlainString();
+        for (String rawEvent : this.performanceEventsHolder.getPrettyEventsHolder()) {
+            if (!this.perfStatDataHolder.getValue(rawEvent).equalsIgnoreCase("<not counted>")) {
+                out += new BigDecimal(Float.parseFloat(this.perfStatDataHolder.getValue(rawEvent)) * java.lang.Math.pow(10, 9) / instructionCount).setScale(4, RoundingMode.CEILING).toPlainString();
             } else {
                 out += "?";
             }

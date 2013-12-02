@@ -16,31 +16,31 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.vimarsha.classifier;
+package org.vimarsha.classifier.impl;
 
 import org.vimarsha.exceptions.ClassificationFailedException;
 import weka.classifiers.meta.FilteredClassifier;
 import weka.classifiers.trees.J48;
 import weka.filters.unsupervised.attribute.Remove;
 
-import java.util.ArrayList;
-import java.util.TreeMap;
+import java.util.LinkedList;
 
 /**
  * Created with IntelliJ IDEA.
  * User: sunimal
  */
-public class FunctionWiseClassifier extends AbstractClassifier {
+public class TimeslicedClassifier extends AbstractClassifier {
 
-    private TreeMap<String, String> output;
+    private LinkedList<String> output;
 
-    public FunctionWiseClassifier() {
+    public TimeslicedClassifier() {
         super();
     }
 
     @Override
-    public TreeMap<String, String> classify(ArrayList<String> list) throws ClassificationFailedException {
-        output = new TreeMap<String, String>();
+    public Object classify() throws ClassificationFailedException {
+
+        output = new LinkedList<String>();
         J48 j48 = new J48();
         Remove rm = new Remove();
         rm.setAttributeIndices("1");
@@ -49,15 +49,15 @@ public class FunctionWiseClassifier extends AbstractClassifier {
         fc.setClassifier(j48);
         try {
             fc.buildClassifier(trainSet);
+
+
             for (int i = 0; i < testSet.numInstances(); i++) {
+                //System.out.println(testSet.instance(i));
                 double pred = fc.classifyInstance(testSet.instance(i));
-                if (list.isEmpty()) {
-                    output.put(String.valueOf(i + 1), testSet.classAttribute().value((int) pred));
-                } else {
-                    output.put(list.get(i), testSet.classAttribute().value((int) pred));
-                }
+                output.add(testSet.classAttribute().value((int) pred));
             }
         } catch (Exception ex) {
+            System.out.println(ex.toString());
             throw new ClassificationFailedException();
         }
         return output;
@@ -65,6 +65,6 @@ public class FunctionWiseClassifier extends AbstractClassifier {
 
     @Override
     public Object getClassificationResult() {
-        return output;  //To change body of implemented methods use File | Settings | File Templates.
+        return output;
     }
 }

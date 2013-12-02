@@ -18,9 +18,10 @@
  * /
  */
 
-package org.vimarsha.utils;
+package org.vimarsha.utils.impl;
 
 import org.vimarsha.exceptions.RawEventNotFoundException;
+import org.vimarsha.utils.DataHolder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,29 +30,29 @@ import java.util.HashMap;
  * Created with IntelliJ IDEA.
  * User: gayashan
  */
-public class PerfStatDataHolder implements DataHolder{
+public class PerfStatDataHolder implements DataHolder {
     private HashMap<String, String> dataStore;
 
-    public PerfStatDataHolder(){
+    public PerfStatDataHolder() {
         dataStore = new HashMap<String, String>();
     }
 
-    public void addValue(String rawEvent, String value){
+    public void addValue(String rawEvent, String value) {
         dataStore.put(rawEvent, value);
     }
 
     public String getValue(String rawEvent) throws RawEventNotFoundException {
-        if(dataStore.containsKey(rawEvent)){
+        if (dataStore.containsKey(rawEvent)) {
             return dataStore.get(rawEvent);
         }
         throw new RawEventNotFoundException();
     }
 
-    public ArrayList<String> getRawEventsCollection(){
+    public ArrayList<String> getRawEventsCollection() {
         return new ArrayList<String>(dataStore.keySet());
     }
 
-    public HashMap<String, String> getDataStore(){
+    public HashMap<String, String> getDataStore() {
         return dataStore;
     }
 }

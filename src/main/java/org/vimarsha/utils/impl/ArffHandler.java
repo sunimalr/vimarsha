@@ -18,10 +18,8 @@
  * /
  */
 
-package org.vimarsha.utils;
+package org.vimarsha.utils.impl;
 
-import com.sun.org.apache.xalan.internal.xsltc.compiler.util.StringStack;
-import weka.core.Attribute;
 import weka.core.Instances;
 import weka.core.converters.ArffLoader;
 
@@ -62,7 +60,7 @@ public class ArffHandler {
     public DefaultTableModel getArffAttributeInfo(int index) {
         DefaultTableModel defaultTableModel = new DefaultTableModel();
         ArrayList<String> tmp = new ArrayList<String>();
-        defaultTableModel.addColumn("Statistics",new String[]{"Name","Variance","Min","Max","Mean"});
+        defaultTableModel.addColumn("Statistics", new String[]{"Name", "Variance", "Min", "Max", "Mean"});
         tmp.add(this.arffData.attribute(index).name());
         tmp.add(String.valueOf(this.arffData.variance(index)));
         tmp.add(String.valueOf(this.arffData.kthSmallestValue(index, 1)));
@@ -72,7 +70,7 @@ public class ArffHandler {
         return defaultTableModel;
     }
 
-    public int getNumberOfInstances(){
+    public int getNumberOfInstances() {
         return this.arffData.numInstances();
     }
 }

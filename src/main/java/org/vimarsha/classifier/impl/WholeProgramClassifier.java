@@ -18,7 +18,7 @@
  * /
  */
 
-package org.vimarsha.classifier;
+package org.vimarsha.classifier.impl;
 
 import org.vimarsha.exceptions.ClassificationFailedException;
 import weka.classifiers.meta.FilteredClassifier;

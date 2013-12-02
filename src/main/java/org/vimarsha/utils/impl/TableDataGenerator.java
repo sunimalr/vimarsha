@@ -18,7 +18,7 @@
  * /
  */
 
-package org.vimarsha.utils;
+package org.vimarsha.utils.impl;
 
 import javax.swing.table.DefaultTableModel;
 import java.util.TreeMap;

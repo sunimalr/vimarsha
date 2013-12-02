@@ -18,12 +18,15 @@
  * /
  */
 
-package org.vimarsha.utils;
+package org.vimarsha.utils.impl;
 
 import weka.core.Instances;
 import weka.core.converters.ArffSaver;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.nio.channels.FileChannel;
 
 /**

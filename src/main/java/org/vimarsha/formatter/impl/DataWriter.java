@@ -18,12 +18,13 @@
  * /
  */
 
-package org.vimarsha.formatter;
+package org.vimarsha.formatter.impl;
 
 import org.vimarsha.exceptions.InstructionCountNotSetException;
 import org.vimarsha.exceptions.RawEventNotFoundException;
 import org.vimarsha.exceptions.SymbolNotFoundException;
-import org.vimarsha.utils.PerformanceEventsHolder;
+import org.vimarsha.formatter.OutputWriter;
+import org.vimarsha.utils.impl.PerformanceEventsHolder;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,23 +43,24 @@ abstract class DataWriter {
         this.headers = new ArrayList<String>();
         this.performanceEventsHolder = performanceEventsHolder;
         this.headers = generateHeaders(this.performanceEventsHolder);
-        this.arffWriter = new ArffWriter(fileName,this.headers);
+        this.arffWriter = new ArffWriter(fileName, this.headers);
     }
 
     public abstract void writeToArffFile() throws SymbolNotFoundException, InstructionCountNotSetException, RawEventNotFoundException, IOException;
 
-    public void setOutputWriter(OutputWriter outputWriter){
+    public void setOutputWriter(OutputWriter outputWriter) {
         this.arffWriter = (ArffWriter) outputWriter;
     }
-    public void setEventsHolder(PerformanceEventsHolder performanceEventsHolder){
+
+    public void setEventsHolder(PerformanceEventsHolder performanceEventsHolder) {
         this.performanceEventsHolder = performanceEventsHolder;
     }
 
-    public ArrayList<String> generateHeaders(PerformanceEventsHolder performanceEventsHolder){
+    public ArrayList<String> generateHeaders(PerformanceEventsHolder performanceEventsHolder) {
         ArrayList<String> headers = new ArrayList<String>();
-        headers.add("@relation badfs_badma_good_events_"+ performanceEventsHolder.getArchitecture().toString());
-        for(String event: performanceEventsHolder.getPrettyEventsHolder()){
-            headers.add("@attribute "+ event + " numeric");
+        headers.add("@relation badfs_badma_good_events_" + performanceEventsHolder.getArchitecture().toString());
+        for (String event : performanceEventsHolder.getPrettyEventsHolder()) {
+            headers.add("@attribute " + event + " numeric");
         }
         headers.add("@attribute status {good, badfs, badma}");
         headers.add("@data");

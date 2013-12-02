@@ -18,8 +18,9 @@
  * /
  */
 
-package org.vimarsha.utils;
+package org.vimarsha.utils.impl;
 
+import org.vimarsha.utils.Architecture;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;

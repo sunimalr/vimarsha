@@ -18,9 +18,10 @@
  * /
  */
 
-package org.vimarsha.formatter;
+package org.vimarsha.formatter.impl;
 
-import org.vimarsha.utils.PerfStatDataHolder;
+import org.vimarsha.formatter.DataParser;
+import org.vimarsha.utils.impl.PerfStatDataHolder;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -33,10 +34,11 @@ public class PerfStatDataParser implements DataParser {
     private BufferedReader bufferedReader;
     private PerfStatDataHolder perfStatDataHolder;
 
-    public PerfStatDataParser(BufferedReader filReader, PerfStatDataHolder perfStatDataHolder){
+    public PerfStatDataParser(BufferedReader filReader, PerfStatDataHolder perfStatDataHolder) {
         this.bufferedReader = filReader;
         this.setPerfStatDataHolder(perfStatDataHolder);
     }
+
     @Override
     public void parse() throws IOException {
         String line = null;
@@ -47,9 +49,9 @@ public class PerfStatDataParser implements DataParser {
         line = this.bufferedReader.readLine();  //read header
         line = this.bufferedReader.readLine();
 
-        while ((line = this.bufferedReader.readLine()) != null){
+        while ((line = this.bufferedReader.readLine()) != null) {
             line = line.trim();
-            String [] tokens = line.split(":") ;
+            String[] tokens = line.split(":");
             rawEvent = tokens[1];
             value = tokens[0];
             this.getPerfStatDataHolder().addValue(rawEvent, value);

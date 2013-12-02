@@ -16,7 +16,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.vimarsha.classifier;
+package org.vimarsha.classifier.impl;
 
 import org.vimarsha.exceptions.ClassificationFailedException;
 import weka.core.Instances;
