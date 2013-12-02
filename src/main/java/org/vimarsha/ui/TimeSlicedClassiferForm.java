@@ -21,6 +21,7 @@ package org.vimarsha.ui;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.NumberTickUnit;
 import org.jfree.chart.axis.TickUnits;
 import org.jfree.chart.axis.ValueAxis;
@@ -32,6 +33,8 @@ import org.vimarsha.mediator.UIHandler;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
+import java.text.FieldPosition;
 
 /**
  * Created with IntelliJ IDEA.
@@ -89,7 +92,8 @@ public class TimeSlicedClassiferForm {
         );
 
         XYPlot plot = chart.getXYPlot();
-        ValueAxis range = plot.getRangeAxis();
+        NumberAxis range = (NumberAxis) plot.getRangeAxis();
+        //ValueAxis range = plot.getRangeAxis();
         ValueAxis domain = plot.getDomainAxis();
 
         range.setRange(0,1.1);
@@ -99,6 +103,16 @@ public class TimeSlicedClassiferForm {
         units.add(new NumberTickUnit(1));
 
         range.setStandardTickUnits(units);
+        range.setNumberFormatOverride( new DecimalFormat(){
+            public StringBuffer format( double number, StringBuffer toAppendTo, FieldPosition pos){
+                if(number==1)
+                    return toAppendTo.append("badfs");
+                else if(number==0.5)
+                    return  toAppendTo.append("badma");
+                else
+                    return toAppendTo.append("good");
+            }
+        });
 
         return chart;
     }
