@@ -20,7 +20,12 @@
 
 package org.vimarsha.ui;
 
+import org.vimarsha.mediator.impl.UIHandler;
+import org.vimarsha.utils.impl.PropertiesLoader;
+
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 /**
  * Created with IntelliJ IDEA.
@@ -36,10 +41,21 @@ public class HomePage {
     private JPanel dataLoaderPanel;
 
     public HomePage() {
-        JFrame frame = new JFrame("vimarsha - Performance analysis visualizer");
+        JFrame frame = new JFrame(PropertiesLoader.getInstance().getProgramName());
         frame.setContentPane(this.panel1);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
+
+        homeTabbedPane.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent e) {
+                wholeProgramClassifierForm1.getArchitectureComboBox().setSelectedItem(UIHandler.getInstance().getArchitecture());
+                functionWiseClassifierForm1.getArchitectureComboBox().setSelectedItem(UIHandler.getInstance().getArchitecture());
+                timeSlicedClassiferForm1.getArchitectureComboBox().setSelectedItem(UIHandler.getInstance().getArchitecture());
+                wholeProgramClassifierForm1.getTrainingModelTextBox().setText(UIHandler.getInstance().getTrainingModel());
+                functionWiseClassifierForm1.getTrainingModelTextBox().setText(UIHandler.getInstance().getTrainingModel());
+                timeSlicedClassiferForm1.getTrainingModelTextBox().setText(UIHandler.getInstance().getTrainingModel());
+            }
+        });
     }
 }
