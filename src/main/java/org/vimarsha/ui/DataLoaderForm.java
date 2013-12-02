@@ -55,6 +55,7 @@ public class DataLoaderForm {
 
         for (String str : UIHandler.getInstance().getArchitectureList()) {
             archComboBox.addItem(str);
+            archComboBox.setSelectedItem(null);
         }
 
         archComboBox.addActionListener(new ActionListener() {
