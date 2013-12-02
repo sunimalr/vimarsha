@@ -21,12 +21,15 @@ package org.vimarsha.ui;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.NumberTickUnit;
+import org.jfree.chart.axis.TickUnits;
+import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.vimarsha.mediator.UIHandler;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -84,6 +87,20 @@ public class TimeSlicedClassiferForm {
                 true,
                 false
         );
+
+        XYPlot plot = chart.getXYPlot();
+        ValueAxis range = plot.getRangeAxis();
+        ValueAxis domain = plot.getDomainAxis();
+
+        range.setRange(0,1.1);
+        TickUnits units = new TickUnits();
+        units.add(new NumberTickUnit(0));
+        units.add(new NumberTickUnit(0.5));
+        units.add(new NumberTickUnit(1));
+
+        range.setStandardTickUnits(units);
+        domain.setAutoTickUnitSelection(false);
+
         return chart;
     }
 
