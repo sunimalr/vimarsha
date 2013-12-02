@@ -21,23 +21,24 @@
 package org.vimarsha.utils;
 
 import javax.swing.table.DefaultTableModel;
-import java.util.ArrayList;
+import java.util.TreeMap;
 
 /**
  * Created with IntelliJ IDEA.
  * User: gayashan
  */
 public class TableDataHandler {
-    private ArrayList<String> firstColumn;
 
-    public TableDataHandler(ArrayList<String> firstColumn) {
-        this.firstColumn = firstColumn;
+    public TableDataHandler() {
     }
 
-    public DefaultTableModel getFunctionwiseTableModel(ArrayList<String> secondColumn){
+    public DefaultTableModel getFunctionwiseTableModel(TreeMap<String, String> results) {
         DefaultTableModel tableModel = new DefaultTableModel();
-        tableModel.addColumn("Function",firstColumn.toArray());
-        tableModel.addColumn("Classification",secondColumn.toArray());
+        tableModel.addColumn("Function");
+        tableModel.addColumn("Classification");
+        for (String result : results.keySet()) {
+            tableModel.addRow(new String[]{result, results.get(result)});
+        }
         return tableModel;
     }
 }

@@ -249,7 +249,7 @@ public class DefaultMediator implements Mediator {
 
     @Override
     public DefaultTableModel getFunctionWiseClassificationResultsTableModel() {
-        tableDataHandler = new TableDataHandler(new ArrayList<String>(((TreeMap<String, String>) this.classificationResult).keySet()));
+        tableDataHandler = new TableDataHandler();
         return tableDataHandler.getFunctionwiseTableModel((TreeMap<String, String>) this.classificationResult);
     }
 
