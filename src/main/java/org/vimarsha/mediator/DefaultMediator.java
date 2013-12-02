@@ -31,21 +31,24 @@ import org.vimarsha.formatter.*;
 import org.vimarsha.utils.*;
 import org.xml.sax.SAXException;
 import weka.core.Instances;
-import weka.core.converters.ArffLoader.ArffReader;
 
 import javax.swing.table.DefaultTableModel;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.TreeMap;
 
 /**
  * Created with IntelliJ IDEA.
  * User: gayashan
  */
-public class DefaultMediator implements Mediator{
+public class DefaultMediator implements Mediator {
     private PerformanceEventsHolder performanceEventsHolder;
     private ConfigurationsLoader configurationsLoader;
     private ArffWriter arffWriter;
@@ -60,7 +63,7 @@ public class DefaultMediator implements Mediator{
     private FunctionWiseClassifier functionWiseClassifier;
     private TimeslicedClassifier timeslicedClassifier;
     private Object classificationResult;
-    private HashMap<String,String> wholeProgramClassificationResultsBuffer;
+    private HashMap<String, String> wholeProgramClassificationResultsBuffer;
     private Architecture currentArchitecture;
     private Instances currentTrainingModel;
     private File currentRawFile;
@@ -102,7 +105,7 @@ public class DefaultMediator implements Mediator{
 
     private int setLocalArffFile(File fileToOpen) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(fileToOpen));
-        this.arffHandler = new ArffHandler(reader,this.performanceEventsHolder);
+        this.arffHandler = new ArffHandler(reader, this.performanceEventsHolder);
         return 0;
     }
 
@@ -117,27 +120,15 @@ public class DefaultMediator implements Mediator{
     }
 
     private int loadTrainingModel(Architecture architecture) throws IOException {
-        switch (architecture){
-            case INTEL_NEHALEM:
-                this.currentTrainingModel = new Instances(new BufferedReader(new FileReader("resources/intel_nehalem_training.arff")));
-                if(this.currentTrainingModel.classIndex() == -1){
-                    this.currentTrainingModel.setClassIndex(this.currentTrainingModel.numAttributes() - 1);
-                }
-                return 100;
-            case POWER7:
-                this.currentTrainingModel = new Instances(new BufferedReader(new FileReader("resources/ibm_power7_training.arff")));
-                if(this.currentTrainingModel.classIndex() == -1){
-                    this.currentTrainingModel.setClassIndex(this.currentTrainingModel.numAttributes() - 1);
-                }
-                return 100;
-            default:
-                this.currentTrainingModel = null;
+        this.currentTrainingModel = new Instances(new BufferedReader(new FileReader(this.performanceEventsHolder.getTrainingModel())));
+        if (this.currentTrainingModel.classIndex() == -1) {
+            this.currentTrainingModel.setClassIndex(this.currentTrainingModel.numAttributes() - 1);
         }
-        return -1;
+        return 100;
     }
 
     public String getTrainingModel() throws TrainingModelNotSetException {
-        if(this.currentTrainingModel == null){
+        if (this.currentTrainingModel == null) {
             throw new TrainingModelNotSetException();
         }
         return this.currentTrainingModel.relationName();
@@ -145,7 +136,7 @@ public class DefaultMediator implements Mediator{
 
     @Override
     public String getArchitecture() throws ArchitectureNotSetException {
-        if(this.currentArchitecture == null){
+        if (this.currentArchitecture == null) {
             throw new ArchitectureNotSetException();
         }
         return this.currentArchitecture.name();
@@ -153,13 +144,13 @@ public class DefaultMediator implements Mediator{
 
     @Override
     public int convertRawFileToArff() throws IOException, SymbolNotFoundException, RawEventNotFoundException, InstructionCountNotSetException, RawFileParseFailedException {
-        switch (this.dataFileType){
+        switch (this.dataFileType) {
             case PERF_REPORT:
                 this.perfReportDataHolder = new PerfReportDataHolder();
                 this.bufferedReader = new BufferedReader(new FileReader(this.currentRawFile));
-                this.perfReportDataParser = new PerfReportDataParser(this.bufferedReader,this.perfReportDataHolder);
+                this.perfReportDataParser = new PerfReportDataParser(this.bufferedReader, this.perfReportDataHolder);
                 this.perfReportDataParser.parse();
-                this.perfReportArffDataWriter = new PerfReportArffDataWriter("output/tempreport.arff",this.performanceEventsHolder,this.perfReportDataHolder);
+                this.perfReportArffDataWriter = new PerfReportArffDataWriter("output/tempreport.arff", this.performanceEventsHolder, this.perfReportDataHolder);
                 this.perfReportArffDataWriter.writeToArffFile();
                 this.setLocalArffFile(new File("output/tempreport.arff"));
                 this.currentArffFile = new File("output/tempreport.arff");
@@ -168,9 +159,9 @@ public class DefaultMediator implements Mediator{
             case PERF_STAT:
                 this.perfStatDataHolder = new PerfStatDataHolder();
                 this.bufferedReader = new BufferedReader(new FileReader(this.currentRawFile));
-                this.perfStatDataParser = new PerfStatDataParser(this.bufferedReader,this.perfStatDataHolder);
+                this.perfStatDataParser = new PerfStatDataParser(this.bufferedReader, this.perfStatDataHolder);
                 this.perfStatDataParser.parse();
-                this.perfStatArffDataWriter = new PerfStatArffDataWriter("output/tempstat.arff",this.performanceEventsHolder,this.perfStatDataHolder);
+                this.perfStatArffDataWriter = new PerfStatArffDataWriter("output/tempstat.arff", this.performanceEventsHolder, this.perfStatDataHolder);
                 this.perfStatArffDataWriter.writeToArffFile();
                 this.setLocalArffFile(new File("output/tempstat.arff"));
                 this.currentArffFile = new File("output/tempstat.arff");
@@ -184,12 +175,12 @@ public class DefaultMediator implements Mediator{
 
     @Override
     public int saveArffFile(File fileToSave) throws IOException {
-        new FileHandler().copy(this.currentArffFile,fileToSave.getAbsolutePath());
+        new FileHandler().copy(this.currentArffFile, fileToSave.getAbsolutePath());
         return 0;
     }
 
     @Override
-    public ArrayList<String> getArffAttributesList(){
+    public ArrayList<String> getArffAttributesList() {
         return this.arffHandler.getPerformanceEventsList(this.rawfileconverted);
     }
 
@@ -206,7 +197,7 @@ public class DefaultMediator implements Mediator{
     @Override
     public ArrayList<String> getArchitectureList() {
         ArrayList<String> architectureList = new ArrayList<String>();
-        for(Architecture architecture : Architecture.values()){
+        for (Architecture architecture : Architecture.values()) {
             architectureList.add(architecture.toString());
         }
         return architectureList;
@@ -223,7 +214,7 @@ public class DefaultMediator implements Mediator{
         this.wholeProgramClassifier.setTrainingDataSource(this.currentTrainingModel);
         this.wholeProgramClassifier.setTestingDataSource(this.currentArffFile.getAbsolutePath());
         this.wholeProgramClassifier.classify();
-        this.wholeProgramClassificationResultsBuffer.put(new Timestamp(new Date().getTime()).toString(),(String)this.wholeProgramClassifier.getClassificationResult());
+        this.wholeProgramClassificationResultsBuffer.put(new Timestamp(new Date().getTime()).toString(), (String) this.wholeProgramClassifier.getClassificationResult());
         return 0;
     }
 
@@ -234,7 +225,7 @@ public class DefaultMediator implements Mediator{
 
     @Override
     public String getWholeProgramClassificationResult(String timestamp) throws TimestampNotFoundException {
-        if(!this.wholeProgramClassificationResultsBuffer.containsKey(timestamp)){
+        if (!this.wholeProgramClassificationResultsBuffer.containsKey(timestamp)) {
             throw new TimestampNotFoundException();
         }
         return this.wholeProgramClassificationResultsBuffer.get(timestamp);
@@ -258,43 +249,43 @@ public class DefaultMediator implements Mediator{
 
     @Override
     public DefaultTableModel getFunctionWiseClassificationResultsTableModel() {
-        tableDataHandler = new TableDataHandler(new ArrayList<String>(((HashMap<String,String>)this.classificationResult).keySet()));
-        return tableDataHandler.getFunctionwiseTableModel(new ArrayList<String>(((HashMap<String,String>)this.classificationResult).values()));
+        tableDataHandler = new TableDataHandler(new ArrayList<String>(((TreeMap<String, String>) this.classificationResult).keySet()));
+        return tableDataHandler.getFunctionwiseTableModel((TreeMap<String, String>) this.classificationResult);
     }
 
 
     @Override
     public XYSeriesCollection getXYChartDataSet() {
-        XYSeries series =  new XYSeries("Classified result");
-        series.add(1,1);
-        series.add(2,0);
-        series.add(3,1);
-        series.add(4,1);
-        series.add(6,0);
-        series.add(7,1);
-        series.add(8,0);
-        series.add(9,1);
-        series.add(10,1);
-        series.add(11,0);
-        series.add(12,1);
-        series.add(13,0);
-        series.add(14,1);
-        series.add(15,1);
-        series.add(16,0);
-        series.add(17,0);
-        series.add(18,0);
-        series.add(19,1);
-        series.add(20,1);
-        series.add(21,0);
-        series.add(22,1);
-        series.add(23,0);
-        series.add(24,1);
-        series.add(25,1);
-        series.add(26,0);
-        series.add(27,0);
-        series.add(28,0);
-        series.add(29,1);
-        series.add(30,1);
+        XYSeries series = new XYSeries("Classified result");
+        series.add(1, 1);
+        series.add(2, 0);
+        series.add(3, 1);
+        series.add(4, 1);
+        series.add(6, 0);
+        series.add(7, 1);
+        series.add(8, 0);
+        series.add(9, 1);
+        series.add(10, 1);
+        series.add(11, 0);
+        series.add(12, 1);
+        series.add(13, 0);
+        series.add(14, 1);
+        series.add(15, 1);
+        series.add(16, 0);
+        series.add(17, 0);
+        series.add(18, 0);
+        series.add(19, 1);
+        series.add(20, 1);
+        series.add(21, 0);
+        series.add(22, 1);
+        series.add(23, 0);
+        series.add(24, 1);
+        series.add(25, 1);
+        series.add(26, 0);
+        series.add(27, 0);
+        series.add(28, 0);
+        series.add(29, 1);
+        series.add(30, 1);
 
         XYSeriesCollection dataset = new XYSeriesCollection();
         dataset.addSeries(series);
