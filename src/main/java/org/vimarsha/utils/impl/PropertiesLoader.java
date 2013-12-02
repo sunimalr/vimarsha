@@ -106,7 +106,7 @@ public class PropertiesLoader {
     }
 
     public String getARFFCommentString() {
-        return this.properties.getProperty("arff_comment");
+        return this.properties.getProperty("arff_comment") + " ";
     }
 
     public String getNotCountedValueIndicator() {
