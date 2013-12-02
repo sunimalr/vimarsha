@@ -33,6 +33,7 @@
             <event>0xd0a2</event>
             <event>0xd0a0</event>
             <training-model>resources/ibm_power7_training.arff</training-model>
+            <relation-header>badfs_badma_good_events_</relation-header>
         </events>
     </architecture>
     <architecture id="POWER7_REDUCED">
@@ -44,6 +45,7 @@
             <event>0x26880</event>
             <event>0xd0a0</event>
             <training-model>resources/ibm_power7_reduced_training.arff</training-model>
+            <relation-header>badfs_badma_good_events_</relation-header>
         </events>
     </architecture>
     <architecture id="INTEL_NEHALEM">
@@ -65,6 +67,7 @@
             <event>0x4b8</event>
             <event>0x40cb</event>
             <training-model>resources/intel_nehalem_training.arff</training-model>
+            <relation-header>badfs_badma_good_events_</relation-header>
         </events>
     </architecture>
     <architecture id="INTEL_NEHALEM_REDUCED">
@@ -75,6 +78,7 @@
             <event>0x20f0</event>
             <event>0x4b8</event>
             <training-model>resources/intel_nehalem_reduced_training.arff</training-model>
+            <relation-header>badfs_badma_good_events_</relation-header>
         </events>
     </architecture>
     <architecture id="POWER8">

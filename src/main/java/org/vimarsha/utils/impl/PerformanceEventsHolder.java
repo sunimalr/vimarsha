@@ -34,6 +34,15 @@ public class PerformanceEventsHolder {
     private String instructionCountEvent;
     private Architecture architecture;
     private String trainingModel;
+    private String relationHeader;
+
+    public String getRelationHeader() {
+        return relationHeader;
+    }
+
+    public void setRelationHeader(String relationHeader) {
+        this.relationHeader = relationHeader;
+    }
 
     public PerformanceEventsHolder() {
         setEventsHolder(new ArrayList<String>());

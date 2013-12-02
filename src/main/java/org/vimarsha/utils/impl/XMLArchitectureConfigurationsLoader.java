@@ -74,6 +74,8 @@ public class XMLArchitectureConfigurationsLoader extends DefaultHandler {
             performanceEventsHolder.addRawEvent(content);
         } else if (qName.equalsIgnoreCase("training-model") && selected) {
             performanceEventsHolder.setTrainingModel(content);
+        } else if (qName.equalsIgnoreCase("relation-header") && selected) {
+            performanceEventsHolder.setRelationHeader(content);
         }
     }
 

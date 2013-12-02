@@ -58,7 +58,7 @@ abstract class DataWriter {
 
     public ArrayList<String> generateHeaders(PerformanceEventsHolder performanceEventsHolder) {
         ArrayList<String> headers = new ArrayList<String>();
-        headers.add("@relation badfs_badma_good_events_" + performanceEventsHolder.getArchitecture().toString());
+        headers.add("@relation " + performanceEventsHolder.getRelationHeader() + performanceEventsHolder.getArchitecture().toString());
         for (String event : performanceEventsHolder.getPrettyEventsHolder()) {
             headers.add("@attribute " + event + " numeric");
         }
