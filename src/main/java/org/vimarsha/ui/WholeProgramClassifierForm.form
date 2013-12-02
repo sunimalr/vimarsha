@@ -52,7 +52,8 @@
               <component id="8ff74" class="javax.swing.JTextPane" binding="classificationTextPane">
                 <constraints/>
                 <properties>
-                  <enabled value="false"/>
+                  <editable value="false"/>
+                  <enabled value="true"/>
                   <text value=""/>
                   <toolTipText value=""/>
                 </properties>
