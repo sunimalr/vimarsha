@@ -25,6 +25,7 @@ import org.vimarsha.exceptions.RawEventNotFoundException;
 import org.vimarsha.exceptions.SymbolNotFoundException;
 import org.vimarsha.formatter.OutputWriter;
 import org.vimarsha.utils.impl.PerformanceEventsHolder;
+import org.vimarsha.utils.impl.PropertiesLoader;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -58,12 +59,12 @@ abstract class DataWriter {
 
     public ArrayList<String> generateHeaders(PerformanceEventsHolder performanceEventsHolder) {
         ArrayList<String> headers = new ArrayList<String>();
-        headers.add("@relation " + performanceEventsHolder.getRelationHeader() + performanceEventsHolder.getArchitecture().toString());
+        headers.add(PropertiesLoader.getInstance().getRelationHeader() + performanceEventsHolder.getRelationHeader() + performanceEventsHolder.getArchitecture().toString());
         for (String event : performanceEventsHolder.getPrettyEventsHolder()) {
-            headers.add("@attribute " + event + " numeric");
+            headers.add(PropertiesLoader.getInstance().getAttributeHeader() + event + PropertiesLoader.getInstance().getNumericValueHeaderName());
         }
-        headers.add("@attribute status {good, badfs, badma}");
-        headers.add("@data");
+        headers.add(PropertiesLoader.getInstance().getStatusHeader());
+        headers.add(PropertiesLoader.getInstance().getDataHeader());
         return headers;
     }
 

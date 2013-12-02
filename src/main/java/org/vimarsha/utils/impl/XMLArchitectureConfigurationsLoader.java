@@ -56,8 +56,8 @@ public class XMLArchitectureConfigurationsLoader extends DefaultHandler {
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-        if (qName.equalsIgnoreCase("architecture")) {
-            if (attributes.getValue("id").equals(architecture.toString())) {
+        if (qName.equalsIgnoreCase(PropertiesLoader.getInstance().getXMLTagArchitecture())) {
+            if (attributes.getValue(PropertiesLoader.getInstance().getXMLTagID()).equals(architecture.toString())) {
                 this.selected = true;
                 performanceEventsHolder.setArchitecture(architecture);
             } else {
@@ -68,13 +68,13 @@ public class XMLArchitectureConfigurationsLoader extends DefaultHandler {
 
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
-        if (qName.equalsIgnoreCase("instruction-count") && selected) {
+        if (qName.equalsIgnoreCase(PropertiesLoader.getInstance().getXMLTagInsCount()) && selected) {
             performanceEventsHolder.setInstructionCountEvent(content);
-        } else if (qName.equalsIgnoreCase("event") && selected) {
+        } else if (qName.equalsIgnoreCase(PropertiesLoader.getInstance().getXMLTagEvent()) && selected) {
             performanceEventsHolder.addRawEvent(content);
-        } else if (qName.equalsIgnoreCase("training-model") && selected) {
+        } else if (qName.equalsIgnoreCase(PropertiesLoader.getInstance().getXMLTagTrainingModel()) && selected) {
             performanceEventsHolder.setTrainingModel(content);
-        } else if (qName.equalsIgnoreCase("relation-header") && selected) {
+        } else if (qName.equalsIgnoreCase(PropertiesLoader.getInstance().getXMLTagRelationHeader()) && selected) {
             performanceEventsHolder.setRelationHeader(content);
         }
     }

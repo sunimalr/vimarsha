@@ -76,11 +76,11 @@ public class PerformanceEventsHolder {
         if (instructionCountEvent == null) {
             throw new InstructionCountNotSetException();
         }
-        String event = instructionCountEvent.split("0x")[1];
+        String event = instructionCountEvent.split(PropertiesLoader.getInstance().getPerfEventPrefix())[1];
         if (event.length() < 4) {   //TODO Handle properly
-            return new String("r00" + event);
+            return new String(PropertiesLoader.getInstance().getPerfEventPrettyPrefix1() + event);
         }
-        return new String("r" + event);
+        return new String(PropertiesLoader.getInstance().getPerfEventPrettyPrefix3() + event);
     }
 
     public Architecture getArchitecture() {
@@ -109,11 +109,11 @@ public class PerformanceEventsHolder {
     public ArrayList<String> getPrettyEventsHolder() {
         ArrayList<String> events = new ArrayList<String>();
         for (String event : this.eventsHolder) {
-            event = event.split("0x")[1];
+            event = event.split(PropertiesLoader.getInstance().getPerfEventPrefix())[1];
             if (event.length() < 4) {
-                events.add("r0" + event);
+                events.add(PropertiesLoader.getInstance().getPerfEventPrettyPrefix2() + event);
             } else {
-                events.add("r" + event);
+                events.add(PropertiesLoader.getInstance().getPerfEventPrettyPrefix3() + event);
             }
         }
         return events;

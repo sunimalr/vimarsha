@@ -25,6 +25,7 @@ import org.vimarsha.exceptions.RawEventNotFoundException;
 import org.vimarsha.exceptions.SymbolNotFoundException;
 import org.vimarsha.utils.impl.PerfStatDataHolder;
 import org.vimarsha.utils.impl.PerformanceEventsHolder;
+import org.vimarsha.utils.impl.PropertiesLoader;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -46,20 +47,20 @@ public class PerfStatArffDataWriter extends DataWriter {
     public void writeToArffFile() throws SymbolNotFoundException, InstructionCountNotSetException, RawEventNotFoundException, IOException {
         String out = "";
         float instructionCount;
-        if (!this.perfStatDataHolder.getValue(this.performanceEventsHolder.getPrettyInstructionCountEvent()).equalsIgnoreCase("<not counted>")) {
+        if (!this.perfStatDataHolder.getValue(this.performanceEventsHolder.getPrettyInstructionCountEvent()).equalsIgnoreCase(PropertiesLoader.getInstance().getNotCountedValueIndicator())) {
             instructionCount = Float.parseFloat(this.perfStatDataHolder.getValue(this.performanceEventsHolder.getPrettyInstructionCountEvent()));
         } else {
             throw new InstructionCountNotSetException();
         }
         for (String rawEvent : this.performanceEventsHolder.getPrettyEventsHolder()) {
-            if (!this.perfStatDataHolder.getValue(rawEvent).equalsIgnoreCase("<not counted>")) {
+            if (!this.perfStatDataHolder.getValue(rawEvent).equalsIgnoreCase(PropertiesLoader.getInstance().getNotCountedValueIndicator())) {
                 out += new BigDecimal(Float.parseFloat(this.perfStatDataHolder.getValue(rawEvent)) * java.lang.Math.pow(10, 9) / instructionCount).setScale(4, RoundingMode.CEILING).toPlainString();
             } else {
-                out += "?";
+                out += PropertiesLoader.getInstance().getMissingValueIndicator();
             }
-            out += ",";
+            out += PropertiesLoader.getInstance().getValueSeparator();
         }
-        out += "?\n";
+        out += PropertiesLoader.getInstance().getMissingValueIndicator() + System.getProperty("line.separator");
         this.arffWriter.write(out);
         this.arffWriter.close();
     }

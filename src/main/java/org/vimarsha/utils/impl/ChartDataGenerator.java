@@ -35,9 +35,9 @@ public class ChartDataGenerator {
         XYSeries series = new XYSeries(chartName);
         int count = 0;
         for (String result : results) {
-            if (result.equalsIgnoreCase("badfs")) {
+            if (result.equalsIgnoreCase(PropertiesLoader.getInstance().getBADFSClass())) {
                 series.add(++count, 1);
-            } else if (result.equalsIgnoreCase("badma")) {
+            } else if (result.equalsIgnoreCase(PropertiesLoader.getInstance().getBADMAClass())) {
                 series.add(++count, 0.5);
             } else {
                 series.add(++count, 0);
