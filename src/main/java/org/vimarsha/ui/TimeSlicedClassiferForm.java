@@ -99,7 +99,6 @@ public class TimeSlicedClassiferForm {
         units.add(new NumberTickUnit(1));
 
         range.setStandardTickUnits(units);
-        domain.setAutoTickUnitSelection(false);
 
         return chart;
     }
