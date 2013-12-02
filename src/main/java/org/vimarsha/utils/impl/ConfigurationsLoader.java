@@ -36,7 +36,7 @@ public class ConfigurationsLoader {
 
     public ConfigurationsLoader(PerformanceEventsHolder performanceEventsHolder) {
         this.performanceEventsHolder = performanceEventsHolder;
-        xmlHandler = new XMLArchitectureConfigurationsLoader(performanceEventsHolder, "config/events.xml");
+        xmlHandler = new XMLArchitectureConfigurationsLoader(performanceEventsHolder, PropertiesLoader.getInstance().getEventsXMLFileName());
     }
 
     public void loadPerformanceEvents(Architecture architecture) throws IOException, SAXException, ParserConfigurationException {
