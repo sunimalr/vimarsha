@@ -45,6 +45,10 @@ public class PropertiesLoader {
         }
     }
 
+    public String getProgramName() {
+        return this.properties.getProperty("name");
+    }
+
     public String getEventsXMLFileName() {
         return this.properties.getProperty("events");
     }
