@@ -36,17 +36,8 @@ public class HomePage {
     private JPanel dataLoaderPanel;
 
     public HomePage() {
-//        homeTabbedPane.getModel().addChangeListener(new ChangeListener() {
-//            @Override
-//            public void stateChanged(ChangeEvent changeEvent) {
-//
-//            }
-//        });
-    }
-
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("HomePage");
-        frame.setContentPane(new HomePage().panel1);
+        JFrame frame = new JFrame("vimarsha - Performance analysis visualizer");
+        frame.setContentPane(this.panel1);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
