@@ -150,10 +150,10 @@ public class DefaultMediator implements Mediator {
                 this.bufferedReader = new BufferedReader(new FileReader(this.currentRawFile));
                 this.perfReportDataParser = new PerfReportDataParser(this.bufferedReader, this.perfReportDataHolder);
                 this.perfReportDataParser.parse();
-                this.perfReportArffDataWriter = new PerfReportArffDataWriter("output/tempreport.arff", this.performanceEventsHolder, this.perfReportDataHolder);
+                this.perfReportArffDataWriter = new PerfReportArffDataWriter(PropertiesLoader.getInstance().getTempReportARFF(), this.performanceEventsHolder, this.perfReportDataHolder);
                 this.perfReportArffDataWriter.writeToArffFile();
-                this.setLocalArffFile(new File("output/tempreport.arff"));
-                this.currentArffFile = new File("output/tempreport.arff");
+                this.setLocalArffFile(new File(PropertiesLoader.getInstance().getTempReportARFF()));
+                this.currentArffFile = new File(PropertiesLoader.getInstance().getTempReportARFF());
                 this.bufferedReader.close();
                 return 100;
             case PERF_STAT:
@@ -161,10 +161,10 @@ public class DefaultMediator implements Mediator {
                 this.bufferedReader = new BufferedReader(new FileReader(this.currentRawFile));
                 this.perfStatDataParser = new PerfStatDataParser(this.bufferedReader, this.perfStatDataHolder);
                 this.perfStatDataParser.parse();
-                this.perfStatArffDataWriter = new PerfStatArffDataWriter("output/tempstat.arff", this.performanceEventsHolder, this.perfStatDataHolder);
+                this.perfStatArffDataWriter = new PerfStatArffDataWriter(PropertiesLoader.getInstance().getTempStatARFF(), this.performanceEventsHolder, this.perfStatDataHolder);
                 this.perfStatArffDataWriter.writeToArffFile();
-                this.setLocalArffFile(new File("output/tempstat.arff"));
-                this.currentArffFile = new File("output/tempstat.arff");
+                this.setLocalArffFile(new File(PropertiesLoader.getInstance().getTempStatARFF()));
+                this.currentArffFile = new File(PropertiesLoader.getInstance().getTempStatARFF());
                 this.bufferedReader.close();
                 return 100;
             default:
