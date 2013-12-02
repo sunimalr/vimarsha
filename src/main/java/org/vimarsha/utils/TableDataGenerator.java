@@ -27,9 +27,9 @@ import java.util.TreeMap;
  * Created with IntelliJ IDEA.
  * User: gayashan
  */
-public class TableDataHandler {
+public class TableDataGenerator {
 
-    public TableDataHandler() {
+    public TableDataGenerator() {
     }
 
     public DefaultTableModel getFunctionwiseTableModel(TreeMap<String, String> results) {
