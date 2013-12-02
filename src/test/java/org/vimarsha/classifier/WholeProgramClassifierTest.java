@@ -22,6 +22,7 @@ import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.vimarsha.classifier.impl.WholeProgramClassifier;
 import weka.core.Instances;
 
 import java.io.BufferedReader;

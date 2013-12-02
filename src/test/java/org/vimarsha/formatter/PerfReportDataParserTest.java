@@ -26,7 +26,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.vimarsha.exceptions.RawEventNotFoundException;
 import org.vimarsha.exceptions.SymbolNotFoundException;
-import org.vimarsha.utils.PerfReportDataHolder;
+import org.vimarsha.formatter.impl.PerfReportDataParser;
+import org.vimarsha.utils.impl.PerfReportDataHolder;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -45,6 +46,7 @@ public class PerfReportDataParserTest extends TestCase {
     private BufferedReader bufferedReader;
     private static final String PROGRAM;
     private ByteArrayOutputStream out;
+
     static {
         PROGRAM = "ppical-bad_fs";
     }
@@ -67,17 +69,17 @@ public class PerfReportDataParserTest extends TestCase {
     @Test
     public void testParse() throws Exception {
         assertEquals("211.28851", perfReportDataHolder.getValue("Thread_sum_with_fs", "0xc0"));
-        assertEquals("187.5923", perfReportDataHolder.getValue("Thread_sum_with_fs","0x151"));
-        assertEquals("138.6785", perfReportDataHolder.getValue("Thread_sum_with_fs","0x20f0"));
-        assertEquals("196.5666", perfReportDataHolder.getValue("Thread_sum_with_fs","0x4b8"));
-        assertEquals("18.377", perfReportDataHolder.getValue("Serial_pi","0xc0"));
-        assertEquals(new ArrayList<String>(Arrays.asList("0x20f0","0x151","0x4b8","0xc0")),perfReportDataParser.getPerfReportDataHolder().getRawEventsCollection("Thread_sum_with_fs"));
+        assertEquals("187.5923", perfReportDataHolder.getValue("Thread_sum_with_fs", "0x151"));
+        assertEquals("138.6785", perfReportDataHolder.getValue("Thread_sum_with_fs", "0x20f0"));
+        assertEquals("196.5666", perfReportDataHolder.getValue("Thread_sum_with_fs", "0x4b8"));
+        assertEquals("18.377", perfReportDataHolder.getValue("Serial_pi", "0xc0"));
+        assertEquals(new ArrayList<String>(Arrays.asList("0x20f0", "0x151", "0x4b8", "0xc0")), perfReportDataParser.getPerfReportDataHolder().getRawEventsCollection("Thread_sum_with_fs"));
     }
 
     @Test(expected = RawEventNotFoundException.class)
     public void testRawEventNotFounfException() throws SymbolNotFoundException {
         try {
-            perfReportDataHolder.getValue("Thread_sum_with_fs","0x149");
+            perfReportDataHolder.getValue("Thread_sum_with_fs", "0x149");
         } catch (RawEventNotFoundException e) {
         }
     }

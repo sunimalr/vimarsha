@@ -21,6 +21,7 @@ package org.vimarsha.classifier;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
+import org.vimarsha.classifier.impl.FunctionWiseClassifier;
 import weka.core.Instances;
 
 import java.io.BufferedReader;

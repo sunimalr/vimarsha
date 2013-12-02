@@ -22,7 +22,13 @@ package org.vimarsha.formatter;
 
 import junit.framework.TestCase;
 import org.junit.Test;
-import org.vimarsha.utils.*;
+import org.vimarsha.formatter.impl.ArffWriter;
+import org.vimarsha.formatter.impl.PerfReportArffDataWriter;
+import org.vimarsha.formatter.impl.PerfReportDataParser;
+import org.vimarsha.utils.Architecture;
+import org.vimarsha.utils.impl.ConfigurationsLoader;
+import org.vimarsha.utils.impl.PerfReportDataHolder;
+import org.vimarsha.utils.impl.PerformanceEventsHolder;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -40,6 +46,7 @@ public class GenerateArffFileFromPerfDataOutputTest extends TestCase {
     private PerfReportArffDataWriter arffDataWriter;
     private BufferedReader bufferedReader;
     private static final String PROGRAM;
+
     static {
         PROGRAM = "ppical-bad_fs";
     }
@@ -54,25 +61,25 @@ public class GenerateArffFileFromPerfDataOutputTest extends TestCase {
         this.perfReportDataHolder = new PerfReportDataHolder();
         this.perfReportDataParser = new PerfReportDataParser(this.bufferedReader, this.perfReportDataHolder, PROGRAM);
         this.perfReportDataParser.parse();
-        this.arffDataWriter = new PerfReportArffDataWriter("output/ppical-test.arff",this.performanceEventsHolder,this.perfReportDataHolder);
+        this.arffDataWriter = new PerfReportArffDataWriter("output/ppical-test.arff", this.performanceEventsHolder, this.perfReportDataHolder);
         this.arffDataWriter.writeToArffFile();
     }
 
     @Test
     public void testGenrateArffFileFromPerfDataOutput() throws Exception {
-        assertEquals("0xc0",this.performanceEventsHolder.getInstructionCountEvent());
-        assertEquals("211.28851",this.perfReportDataHolder.getValue("Thread_sum_with_fs","0xc0"));
-        assertEquals("@attribute r02a2 numeric",this.arffDataWriter.getHeaders().get(3));
+        assertEquals("0xc0", this.performanceEventsHolder.getInstructionCountEvent());
+        assertEquals("211.28851", this.perfReportDataHolder.getValue("Thread_sum_with_fs", "0xc0"));
+        assertEquals("@attribute r02a2 numeric", this.arffDataWriter.getHeaders().get(3));
         BufferedReader bufferedReader = new BufferedReader(new FileReader("output/ppical-test.arff"));
 //        assertEquals(this.arffDataWriter.getHeaders().get(0),bufferedReader.readLine());
-        for(String out: this.arffDataWriter.getHeaders()){
-            assertEquals(out,bufferedReader.readLine());
+        for (String out : this.arffDataWriter.getHeaders()) {
+            assertEquals(out, bufferedReader.readLine());
         }
         bufferedReader.readLine();
-        assertEquals("% 1 Function: Serial_pi",bufferedReader.readLine());
+        assertEquals("% 1 Function: Serial_pi", bufferedReader.readLine());
         bufferedReader.readLine();
         bufferedReader.readLine();
-        assertEquals("?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?",bufferedReader.readLine());
+        assertEquals("?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", bufferedReader.readLine());
         bufferedReader.close();
     }
 }

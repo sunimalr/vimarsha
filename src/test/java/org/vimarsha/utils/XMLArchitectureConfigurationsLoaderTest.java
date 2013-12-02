@@ -24,6 +24,8 @@ import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.vimarsha.utils.impl.PerformanceEventsHolder;
+import org.vimarsha.utils.impl.XMLArchitectureConfigurationsLoader;
 
 import java.util.ArrayList;
 import java.util.Arrays;

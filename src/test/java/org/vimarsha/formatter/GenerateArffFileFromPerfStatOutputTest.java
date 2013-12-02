@@ -23,10 +23,13 @@ package org.vimarsha.formatter;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
+import org.vimarsha.formatter.impl.ArffWriter;
+import org.vimarsha.formatter.impl.PerfStatArffDataWriter;
+import org.vimarsha.formatter.impl.PerfStatDataParser;
 import org.vimarsha.utils.Architecture;
-import org.vimarsha.utils.ConfigurationsLoader;
-import org.vimarsha.utils.PerfStatDataHolder;
-import org.vimarsha.utils.PerformanceEventsHolder;
+import org.vimarsha.utils.impl.ConfigurationsLoader;
+import org.vimarsha.utils.impl.PerfStatDataHolder;
+import org.vimarsha.utils.impl.PerformanceEventsHolder;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -53,15 +56,15 @@ public class GenerateArffFileFromPerfStatOutputTest extends TestCase {
         //this.performanceEventsHolder = this.configurationsLoader.getPerformanceEventsHolder();
         this.bufferedReader = new BufferedReader(new FileReader("data/perfstat.out"));
         this.perfStatDataHolder = new PerfStatDataHolder();
-        this.perfStatDataParser = new PerfStatDataParser(this.bufferedReader,this.perfStatDataHolder);
+        this.perfStatDataParser = new PerfStatDataParser(this.bufferedReader, this.perfStatDataHolder);
         this.perfStatDataParser.parse();
-        this.arffDataWriter = new PerfStatArffDataWriter("output/perfstat-out-test.arff",this.performanceEventsHolder,this.perfStatDataHolder);
+        this.arffDataWriter = new PerfStatArffDataWriter("output/perfstat-out-test.arff", this.performanceEventsHolder, this.perfStatDataHolder);
         this.arffDataWriter.writeToArffFile();
     }
 
     @Test
     public void testWriteToArffFile() throws Exception {
-        assertEquals("0xc0",this.performanceEventsHolder.getInstructionCountEvent());
-        assertEquals("r00c0",this.performanceEventsHolder.getPrettyInstructionCountEvent());
+        assertEquals("0xc0", this.performanceEventsHolder.getInstructionCountEvent());
+        assertEquals("r00c0", this.performanceEventsHolder.getPrettyInstructionCountEvent());
     }
 }

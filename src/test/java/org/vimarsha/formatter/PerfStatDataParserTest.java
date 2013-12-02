@@ -21,11 +21,11 @@
 package org.vimarsha.formatter;
 
 import junit.framework.TestCase;
-import org.junit.Before;
 import org.junit.Test;
 import org.vimarsha.exceptions.RawEventNotFoundException;
 import org.vimarsha.exceptions.SymbolNotFoundException;
-import org.vimarsha.utils.PerfStatDataHolder;
+import org.vimarsha.formatter.impl.PerfStatDataParser;
+import org.vimarsha.utils.impl.PerfStatDataHolder;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -43,20 +43,20 @@ public class PerfStatDataParserTest extends TestCase {
     public void setUp() throws Exception {
         this.bufferedReader = new BufferedReader(new FileReader("data/perfstat.out"));
         this.perfStatDataHolder = new PerfStatDataHolder();
-        this.perfStatDataParser = new PerfStatDataParser(this.bufferedReader,this.perfStatDataHolder);
+        this.perfStatDataParser = new PerfStatDataParser(this.bufferedReader, this.perfStatDataHolder);
         this.perfStatDataParser.parse();
     }
 
     @Test
     public void testParse() throws Exception {
-        assertEquals("155903550566",this.perfStatDataParser.getPerfStatDataHolder().getValue("r00c0"));
-        assertEquals("227362",this.perfStatDataParser.getPerfStatDataHolder().getValue("r0149"));
-        assertEquals("654243829",this.perfStatDataParser.getPerfStatDataHolder().getValue("r0151"));
-        assertEquals("4641640916",this.perfStatDataParser.getPerfStatDataHolder().getValue("r02a2"));
-        assertEquals("21443166",this.perfStatDataParser.getPerfStatDataHolder().getValue("r0126"));
-        assertEquals("364744378",this.perfStatDataParser.getPerfStatDataHolder().getValue("r08a2"));
-        assertEquals("14425",this.perfStatDataParser.getPerfStatDataHolder().getValue("r04b8"));
-        assertEquals("53190504",this.perfStatDataParser.getPerfStatDataHolder().getValue("r40cb"));
+        assertEquals("155903550566", this.perfStatDataParser.getPerfStatDataHolder().getValue("r00c0"));
+        assertEquals("227362", this.perfStatDataParser.getPerfStatDataHolder().getValue("r0149"));
+        assertEquals("654243829", this.perfStatDataParser.getPerfStatDataHolder().getValue("r0151"));
+        assertEquals("4641640916", this.perfStatDataParser.getPerfStatDataHolder().getValue("r02a2"));
+        assertEquals("21443166", this.perfStatDataParser.getPerfStatDataHolder().getValue("r0126"));
+        assertEquals("364744378", this.perfStatDataParser.getPerfStatDataHolder().getValue("r08a2"));
+        assertEquals("14425", this.perfStatDataParser.getPerfStatDataHolder().getValue("r04b8"));
+        assertEquals("53190504", this.perfStatDataParser.getPerfStatDataHolder().getValue("r40cb"));
     }
 
     @Test(expected = RawEventNotFoundException.class)
