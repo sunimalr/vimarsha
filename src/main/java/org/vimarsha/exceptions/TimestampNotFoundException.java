@@ -26,7 +26,7 @@ package org.vimarsha.exceptions;
  */
 public class TimestampNotFoundException extends Exception {
     @Override
-    public String toString() {
-        return "Invalid timestamp!";
+    public String getMessage() {
+        return "Invalid timestamp selected.";
     }
 }

@@ -25,5 +25,8 @@ package org.vimarsha.exceptions;
  * User: gayashan
  */
 public class InstructionCountNotSetException extends Exception {
-
+    @Override
+    public String getMessage() {
+        return "Please indicate the instruction count property in events.xml file.";
+    }
 }

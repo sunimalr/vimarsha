@@ -27,7 +27,7 @@ package org.vimarsha.exceptions;
 public class ArchitectureNotSetException extends Exception {
 
     @Override
-    public String toString() {
-        return "Please set the architecture properly.";
+    public String getMessage() {
+        return "Please select the correct architecture.";
     }
 }

@@ -25,4 +25,8 @@ package org.vimarsha.exceptions;
  * User: gayashan
  */
 public class DataFileTypeHeaderNotSetException extends Exception {
+    @Override
+    public String getMessage() {
+        return "Please set the correct header on the raw file";
+    }
 }

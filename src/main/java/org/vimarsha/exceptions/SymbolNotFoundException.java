@@ -25,4 +25,8 @@ package org.vimarsha.exceptions;
  * User: gayashan
  */
 public class SymbolNotFoundException extends Exception {
+    @Override
+    public String getMessage() {
+        return "Unable to convert to ARFF format.";
+    }
 }

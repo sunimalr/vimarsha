@@ -25,4 +25,9 @@ package org.vimarsha.exceptions;
  * User: gayashan
  */
 public class TrainingModelNotSetException extends Exception {
+
+    @Override
+    public String getMessage() {
+        return "Please select the correct Architecture.";
+    }
 }

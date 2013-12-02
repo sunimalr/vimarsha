@@ -23,5 +23,8 @@ package org.vimarsha.exceptions;
  * User: sunimal
  */
 public class ClassificationFailedException extends Exception {
-
+    @Override
+    public String getMessage() {
+        return "Unable to classify!";
+    }
 }
