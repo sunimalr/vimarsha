@@ -32,7 +32,7 @@ import java.util.Arrays;
  * Created with IntelliJ IDEA.
  * User: gayashan
  */
-public class XMLArchitectureConfigurationsLoaderTest extends TestCase{
+public class XMLArchitectureConfigurationsLoaderTest extends TestCase {
     private XMLArchitectureConfigurationsLoader xmlArchitectureConfigurationsLoader;
     private PerformanceEventsHolder performanceEventsHolder;
     private PerformanceEventsHolder dummyEventsHolder;
@@ -46,11 +46,11 @@ public class XMLArchitectureConfigurationsLoaderTest extends TestCase{
     public void setUp() throws Exception {
         performanceEventsHolder = new PerformanceEventsHolder();
         dummyEventsHolder = new PerformanceEventsHolder();
-        xmlArchitectureConfigurationsLoader = new XMLArchitectureConfigurationsLoader(performanceEventsHolder,"config/events.config");
+        xmlArchitectureConfigurationsLoader = new XMLArchitectureConfigurationsLoader(performanceEventsHolder, "config/events.xml");
         xmlArchitectureConfigurationsLoader.setArchitecture(Architecture.INTEL_NEHALEM);
         xmlArchitectureConfigurationsLoader.parseDocument();
 
-        ArrayList<String> dummyList = new ArrayList<String>(Arrays.asList("0x149", "0x151", "0x2a2", "0x126", "0x227", "0x224", "0x8a2", "0x1b0", "0x20f0", "0x2f1", "0x1f2", "0x1b8", "0x2b8", "0x4b8", "0x40cb")) ;
+        ArrayList<String> dummyList = new ArrayList<String>(Arrays.asList("0x149", "0x151", "0x2a2", "0x126", "0x227", "0x224", "0x8a2", "0x1b0", "0x20f0", "0x2f1", "0x1f2", "0x1b8", "0x2b8", "0x4b8", "0x40cb"));
         dummyEventsHolder.setArchitecture(Architecture.INTEL_NEHALEM);
         dummyEventsHolder.setInstructionCountEvent("0xc0");
         dummyEventsHolder.setEventsHolder(dummyList);
@@ -58,8 +58,8 @@ public class XMLArchitectureConfigurationsLoaderTest extends TestCase{
 
     @Test
     public void testGetPerformanceEventsHolder() throws Exception {
-        assertEquals("INTEL_NEHALEM",xmlArchitectureConfigurationsLoader.getPerformanceEventsHolder().getArchitecture().toString());
-        assertEquals("0xc0",xmlArchitectureConfigurationsLoader.getPerformanceEventsHolder().getInstructionCountEvent());
-        assertEquals(dummyEventsHolder.getEventsHolder(),xmlArchitectureConfigurationsLoader.getPerformanceEventsHolder().getEventsHolder());
+        assertEquals("INTEL_NEHALEM", xmlArchitectureConfigurationsLoader.getPerformanceEventsHolder().getArchitecture().toString());
+        assertEquals("0xc0", xmlArchitectureConfigurationsLoader.getPerformanceEventsHolder().getInstructionCountEvent());
+        assertEquals(dummyEventsHolder.getEventsHolder(), xmlArchitectureConfigurationsLoader.getPerformanceEventsHolder().getEventsHolder());
     }
 }
