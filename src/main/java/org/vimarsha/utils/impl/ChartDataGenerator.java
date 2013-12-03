@@ -29,7 +29,13 @@ import java.util.LinkedList;
  * User: gayashan
  */
 public class ChartDataGenerator {
+    private AttributeValueDiscretizer attributeValueDiscretizer;
+
     public ChartDataGenerator() {
+    }
+
+    public ChartDataGenerator(AttributeValueDiscretizer attributeValueDiscretizer) {
+        this.attributeValueDiscretizer = attributeValueDiscretizer;
     }
 
     public XYSeriesCollection getTimeSlicedChartDataSet(LinkedList<String> results, String chartName) {
@@ -49,7 +55,7 @@ public class ChartDataGenerator {
 
     public DefaultCategoryDataset getBinnedChartDataSet(LinkedList<String> results, String binnedEvent) {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.setValue(6, binnedEvent, "1");
+        dataset.setValue(30, binnedEvent, "1");
         dataset.setValue(7, binnedEvent, "2");
         dataset.setValue(8, binnedEvent, "3");
         dataset.setValue(5, binnedEvent, "4");
