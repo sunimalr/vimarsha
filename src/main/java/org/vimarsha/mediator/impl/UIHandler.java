@@ -133,6 +133,9 @@ public class UIHandler {
         return null;
     }
 
+    public String getTestDataName() {
+        return this.mediator.getTestDataName();
+    }
 
     public ArrayList<String> getTrainingModels() {
         return this.mediator.getTrainingModels();
