@@ -106,8 +106,12 @@ public class UIHandler {
         return this.mediator.getArffAttributesList();
     }
 
-    public DefaultCategoryDataset getBarChartDataSet(String selectedEvent) {
-        return this.mediator.getBarChartDataSet(selectedEvent);
+    public DefaultCategoryDataset getBarChartDataSet(int selectedEvent) {
+        try {
+            return this.mediator.getBarChartDataSet(selectedEvent);
+        } catch (IOException e) {
+        }
+        return null;
     }
 
     public ArrayList<String> getArchitectureList() {
