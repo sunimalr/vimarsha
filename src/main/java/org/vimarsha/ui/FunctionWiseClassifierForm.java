@@ -24,6 +24,7 @@ import javax.swing.*;
 import javax.swing.table.TableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 /**
  * Created with IntelliJ IDEA.
@@ -63,10 +64,17 @@ public class FunctionWiseClassifierForm {
                 functionWiseResultsTable.setModel(tmp);
             }
         });
+
         exportButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                UIHandler.getInstance().exportAsCSV();
+                File file = null;
+                JFileChooser fc = new JFileChooser();
+                int returnVal = fc.showSaveDialog(Tab2);
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    System.out.println(fc.getSelectedFile());
+                    UIHandler.getInstance().exportFunctionWiseAsCSV(fc.getSelectedFile());
+                }
             }
         });
     }
