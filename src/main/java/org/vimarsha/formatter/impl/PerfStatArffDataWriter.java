@@ -24,6 +24,7 @@ import org.vimarsha.exceptions.InstructionCountNotSetException;
 import org.vimarsha.exceptions.RawEventNotFoundException;
 import org.vimarsha.exceptions.SymbolNotFoundException;
 import org.vimarsha.utils.impl.PerfStatDataHolder;
+import org.vimarsha.utils.impl.PerfStatTimeSlicedDataHolder;
 import org.vimarsha.utils.impl.PerformanceEventsHolder;
 import org.vimarsha.utils.impl.PropertiesLoader;
 
@@ -37,10 +38,16 @@ import java.math.RoundingMode;
  */
 public class PerfStatArffDataWriter extends DataWriter {
     private PerfStatDataHolder perfStatDataHolder;
+    private PerfStatTimeSlicedDataHolder perfStatTimeSlicedDataHolder;
 
     public PerfStatArffDataWriter(String fileName, PerformanceEventsHolder performanceEventsHolder, PerfStatDataHolder perfStatDataHolder) throws IOException {
         super(fileName, performanceEventsHolder);
         this.perfStatDataHolder = perfStatDataHolder;
+    }
+
+    public PerfStatArffDataWriter(String fileName, PerformanceEventsHolder performanceEventsHolder, PerfStatTimeSlicedDataHolder perfStatTimeSlicedDataHolder) throws IOException {
+        super(fileName, performanceEventsHolder);
+        this.perfStatTimeSlicedDataHolder = perfStatTimeSlicedDataHolder;
     }
 
     @Override
@@ -65,5 +72,26 @@ public class PerfStatArffDataWriter extends DataWriter {
         this.arffWriter.close();
     }
 
-
+    public void writeManyToArffFile() throws SymbolNotFoundException, InstructionCountNotSetException, RawEventNotFoundException, IOException {
+        String out = "";
+        for (String symbol : this.perfStatTimeSlicedDataHolder.getSymbolsList()) {
+            float instructionCount;
+            if (!this.perfStatTimeSlicedDataHolder.getRawEventValueCollection(symbol).get(this.performanceEventsHolder.getPrettyInstructionCountEvent()).equalsIgnoreCase(PropertiesLoader.getInstance().getNotCountedValueIndicator())) {
+                instructionCount = Float.parseFloat(this.perfStatTimeSlicedDataHolder.getRawEventValueCollection(symbol).get(this.performanceEventsHolder.getPrettyInstructionCountEvent()));
+            } else {
+                throw new InstructionCountNotSetException();
+            }
+            for (String rawEvent : this.performanceEventsHolder.getPrettyEventsHolder()) {
+                if (!this.perfStatTimeSlicedDataHolder.getRawEventValueCollection(symbol).get(rawEvent).equalsIgnoreCase(PropertiesLoader.getInstance().getNotCountedValueIndicator())) {
+                    out += new BigDecimal(Float.parseFloat(this.perfStatTimeSlicedDataHolder.getRawEventValueCollection(symbol).get(rawEvent)) * java.lang.Math.pow(10, 9) / instructionCount).setScale(4, RoundingMode.CEILING).toPlainString();
+                } else {
+                    out += PropertiesLoader.getInstance().getMissingValueIndicator();
+                }
+                out += PropertiesLoader.getInstance().getValueSeparator();
+            }
+            out += PropertiesLoader.getInstance().getMissingValueIndicator() + System.getProperty("line.separator");
+        }
+        this.arffWriter.write(out);
+        this.arffWriter.close();
+    }
 }
