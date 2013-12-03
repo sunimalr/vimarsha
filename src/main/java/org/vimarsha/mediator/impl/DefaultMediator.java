@@ -127,17 +127,17 @@ public class DefaultMediator implements Mediator {
         return 100;
     }
 
-    public String getTrainingModel() throws TrainingModelNotSetException {
-        if (this.currentTrainingModel == null) {
-            throw new TrainingModelNotSetException();
+    public String getTrainingModel() {
+        if (this.currentTrainingModel != null) {
+            return this.currentTrainingModel.relationName();
         }
-        return this.currentTrainingModel.relationName();
+        return "Not set";
     }
 
     @Override
     public String getTestDataName() {
         if (this.currentArffFile == null && this.currentRawFile == null) {
-            return null;
+            return "Not set";
         }
         if (rawfileconverted) {
             return this.currentRawFile.getName();
@@ -278,7 +278,7 @@ public class DefaultMediator implements Mediator {
     }
 
     @Override
-    public int exportAsCSV() {
+    public int exportAsCSV(File fileToSave) {
 
         return 0;
     }
