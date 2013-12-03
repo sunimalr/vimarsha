@@ -20,7 +20,11 @@
 
 package org.vimarsha.ui;
 
+import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 import org.vimarsha.mediator.impl.UIHandler;
 
 import javax.swing.*;
@@ -41,7 +45,6 @@ public class DataLoaderForm {
     private JButton saveToARFFFileButton;
     private JTable table1;
     private JTable table2;
-    private ChartPanel chartPanel1;
     private JComboBox architectureComboBox;
     private JTable attributesTable;
     private JTable attributesSummaryTable;
@@ -114,9 +117,18 @@ public class DataLoaderForm {
         attributeList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent listSelectionEvent) {
+                String selectedEvent = (String) attributeList.getSelectedValue();
                 attributesSummaryTable.setModel(UIHandler.getInstance().getArffAttributeInfo(attributeList.getSelectedIndex()));
+                DefaultCategoryDataset data = UIHandler.getInstance().getBarChartDataSet(selectedEvent);
+                drawBarChart(data);
             }
         });
+    }
+
+    private void drawBarChart(DefaultCategoryDataset data) {
+        JFreeChart chart = ChartFactory.createBarChart( "Binned event data", "bins", "count", data, PlotOrientation.VERTICAL, false, true, false );
+        this.attributeDetailsChart.setChart(chart);
+        this.attributeDetailsChart.setVisible(true);
     }
 
     private void createUIComponents() {

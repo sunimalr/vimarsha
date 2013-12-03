@@ -18,6 +18,7 @@
 
 package org.vimarsha.utils.impl;
 
+import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
@@ -44,5 +45,15 @@ public class ChartDataGenerator {
             }
         }
         return new XYSeriesCollection(series);
+    }
+
+    public DefaultCategoryDataset getBinnedChartDataSet(LinkedList<String> results, String binnedEvent) {
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        dataset.setValue(6, binnedEvent, "1");
+        dataset.setValue(7, binnedEvent, "2");
+        dataset.setValue(8, binnedEvent, "3");
+        dataset.setValue(5, binnedEvent, "4");
+        dataset.setValue(12, binnedEvent, "5");
+        return dataset;
     }
 }

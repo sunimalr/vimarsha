@@ -190,8 +190,9 @@ public class DefaultMediator implements Mediator {
     }
 
     @Override
-    public DefaultCategoryDataset getBarChartDataSet() {
-        return null;
+    public DefaultCategoryDataset getBarChartDataSet(String selectedEvent) {
+        this.chartDataGenerator = new ChartDataGenerator();
+        return this.chartDataGenerator.getBinnedChartDataSet(null, selectedEvent);
     }
 
     @Override
