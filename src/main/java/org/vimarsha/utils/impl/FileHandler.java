@@ -20,14 +20,15 @@
 
 package org.vimarsha.utils.impl;
 
+import au.com.bytecode.opencsv.CSVWriter;
 import weka.core.Instances;
 import weka.core.converters.ArffSaver;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.channels.FileChannel;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.TreeMap;
 
 /**
  * Created with IntelliJ IDEA.
@@ -36,6 +37,7 @@ import java.nio.channels.FileChannel;
 public class FileHandler {
     private FileChannel sourceFileChannel;
     private FileChannel destinationFileChannel;
+    private CSVWriter csvWriter;
 
     public FileHandler() {
         this.destinationFileChannel = null;
@@ -48,5 +50,30 @@ public class FileHandler {
         arffSaver.setInstances(instances);
         arffSaver.setFile(new File(destination));
         arffSaver.writeBatch();
+    }
+
+    public void exportFunctionWiseResultsAsCSV(TreeMap<String, String> results, String destination) throws IOException {
+        this.csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(destination)));
+        String[] header = new String[]{"Function", "Classsification"};
+        ArrayList<String[]> lines = new ArrayList<String[]>();
+        lines.add(header);
+        for (String key : results.keySet()) {
+            lines.add(new String[]{key, results.get(key)});
+        }
+        this.csvWriter.writeAll(lines);
+        this.csvWriter.flush();
+    }
+
+    public void exportTimeSlicedResultsAsCSV(LinkedList<String> results, String destination) throws IOException {
+        this.csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(destination)));
+        String[] header = new String[]{"Time slice no", "Classification"};
+        ArrayList<String[]> lines = new ArrayList<String[]>();
+        lines.add(header);
+        int count = 0;
+        for (String result : results) {
+            lines.add(new String[]{String.valueOf(++count), result});
+        }
+        this.csvWriter.writeAll(lines);
+        this.csvWriter.flush();
     }
 }
