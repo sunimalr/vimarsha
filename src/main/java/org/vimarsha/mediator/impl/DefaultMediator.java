@@ -278,15 +278,13 @@ public class DefaultMediator implements Mediator {
     }
 
     @Override
-    public int exportFunctionWiseAsCSV(File fileToSave) {
-
-        return 0;
+    public int exportFunctionWiseResultsAsCSV(File fileToSave) {
+        return 0;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
-    public int exportTimeSlicedAsCSV(File fileToSave) {
-
-        return 0;
+    public int exportTimeSlicedResultsAsCSV(File fileToSave) {
+        return 0;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
