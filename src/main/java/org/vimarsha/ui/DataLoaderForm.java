@@ -120,7 +120,7 @@ public class DataLoaderForm {
         attributeList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent listSelectionEvent) {
-                String selectedEvent = (String) attributeList.getSelectedValue();
+                int selectedEvent = attributeList.getSelectedIndex();
                 attributesSummaryTable.setModel(UIHandler.getInstance().getArffAttributeInfo(attributeList.getSelectedIndex()));
                 DefaultCategoryDataset data = UIHandler.getInstance().getBarChartDataSet(selectedEvent);
                 drawBarChart(data);
