@@ -189,10 +189,6 @@ public class UIHandler {
         this.mediator.exportAsCSV();
     }
 
-    public void exportAsImage() {
-        this.mediator.exportAsImage();
-    }
-
     public DefaultTableModel getArffAttributeInfo(int attrNo) {
         return mediator.getArffAttributeInfo(attrNo);
     }
