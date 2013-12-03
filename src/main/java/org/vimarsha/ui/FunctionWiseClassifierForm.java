@@ -46,16 +46,6 @@ public class FunctionWiseClassifierForm {
             architectureComboBox.addItem(str);
         }
 
-        //for(String str : UIHandler.getInstance().getTrainingModels()){
-        //trainingComboBox.addItem(str);
-        //}
-
-//        architectureComboBox.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent actionEvent) {
-//                UIHandler.getInstance().setArchitecture((String) architectureComboBox.getSelectedItem());
-//            }
-//        });
         classifyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
