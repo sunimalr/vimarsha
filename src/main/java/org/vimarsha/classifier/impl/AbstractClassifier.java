@@ -37,8 +37,6 @@ abstract class AbstractClassifier {
 
     protected Instances testSet;
     protected Instances trainSet;
-    protected ConverterUtils.DataSource trainingDataSource;
-    protected ConverterUtils.DataSource testingDataSource;
 
     public void setTrainingDataSource(Instances dataSource) {
         this.trainSet = dataSource;
