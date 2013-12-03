@@ -39,6 +39,7 @@ public class HomePage {
     private FunctionWiseClassifierForm functionWiseClassifierForm1;
     private TimeSlicedClassiferForm timeSlicedClassiferForm1;
     private JPanel dataLoaderPanel;
+    private AboutUs aboutUs1;
 
     public HomePage() {
         JFrame frame = new JFrame(PropertiesLoader.getInstance().getProgramName());
@@ -49,16 +50,19 @@ public class HomePage {
 
         homeTabbedPane.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
-                String architecture = UIHandler.getInstance().getArchitecture();
-                wholeProgramClassifierForm1.getArchitectureComboBox().setSelectedItem(architecture);
-                functionWiseClassifierForm1.getArchitectureComboBox().setSelectedItem(architecture);
-                timeSlicedClassiferForm1.getArchitectureComboBox().setSelectedItem(architecture);
-                wholeProgramClassifierForm1.getTrainingModelTextBox().setText(UIHandler.getInstance().getTrainingModel());
-                functionWiseClassifierForm1.getTrainingModelTextBox().setText(UIHandler.getInstance().getTrainingModel());
-                timeSlicedClassiferForm1.getTrainingModelTextBox().setText(UIHandler.getInstance().getTrainingModel());
-                wholeProgramClassifierForm1.getTestDataTextField().setText(UIHandler.getInstance().getTestDataName());
-                functionWiseClassifierForm1.getTestDataTextField().setText(UIHandler.getInstance().getTestDataName());
-                timeSlicedClassiferForm1.getTestDataTextField().setText(UIHandler.getInstance().getTestDataName());
+
+                if (homeTabbedPane.getSelectedIndex() != 4) {
+                    String architecture = UIHandler.getInstance().getArchitecture();
+                    wholeProgramClassifierForm1.getArchitectureComboBox().setSelectedItem(architecture);
+                    functionWiseClassifierForm1.getArchitectureComboBox().setSelectedItem(architecture);
+                    timeSlicedClassiferForm1.getArchitectureComboBox().setSelectedItem(architecture);
+                    wholeProgramClassifierForm1.getTrainingModelTextBox().setText(UIHandler.getInstance().getTrainingModel());
+                    functionWiseClassifierForm1.getTrainingModelTextBox().setText(UIHandler.getInstance().getTrainingModel());
+                    timeSlicedClassiferForm1.getTrainingModelTextBox().setText(UIHandler.getInstance().getTrainingModel());
+                    wholeProgramClassifierForm1.getTestDataTextField().setText(UIHandler.getInstance().getTestDataName());
+                    functionWiseClassifierForm1.getTestDataTextField().setText(UIHandler.getInstance().getTestDataName());
+                    timeSlicedClassiferForm1.getTestDataTextField().setText(UIHandler.getInstance().getTestDataName());
+                }
             }
         });
     }
