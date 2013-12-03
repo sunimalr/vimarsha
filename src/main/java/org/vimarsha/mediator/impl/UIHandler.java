@@ -181,11 +181,19 @@ public class UIHandler {
     }
 
     public void exportFunctionWiseAsCSV(File file) {
-        this.mediator.exportFunctionWiseResultsAsCSV(file);
+        try {
+            this.mediator.exportFunctionWiseResultsAsCSV(file);
+        } catch (IOException e) {
+            this.showErrorDialog("Please select the file destination!");
+        }
     }
 
     public void exportTimeSlicedAsCSV(File file) {
-        this.mediator.exportTimeSlicedResultsAsCSV(file);
+        try {
+            this.mediator.exportTimeSlicedResultsAsCSV(file);
+        } catch (IOException e) {
+            this.showErrorDialog("Please select the file destination!");
+        }
     }
 
     public DefaultTableModel getArffAttributeInfo(int attrNo) {
