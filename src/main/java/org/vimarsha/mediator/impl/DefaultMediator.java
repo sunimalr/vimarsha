@@ -71,6 +71,7 @@ public class DefaultMediator implements Mediator {
     private ArffHandler arffHandler;
     private TableDataGenerator tableDataGenerator;
     private ChartDataGenerator chartDataGenerator;
+    private AttributeValueDiscretizer attributeValueDiscretizer;
     private boolean rawfileconverted;
 
 
@@ -201,9 +202,10 @@ public class DefaultMediator implements Mediator {
     }
 
     @Override
-    public DefaultCategoryDataset getBarChartDataSet(String selectedEvent) {
+    public DefaultCategoryDataset getBarChartDataSet(int selectedEventIndex) throws IOException {
         this.chartDataGenerator = new ChartDataGenerator();
-        return this.chartDataGenerator.getBinnedChartDataSet(null, selectedEvent);
+        this.attributeValueDiscretizer = new AttributeValueDiscretizer(this.currentArffFile);
+        return this.chartDataGenerator.getBinnedChartDataSet(this.attributeValueDiscretizer.binAttribute(selectedEventIndex), this.getArffAttributesList().get(selectedEventIndex));
     }
 
     @Override
