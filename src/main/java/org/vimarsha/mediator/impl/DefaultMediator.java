@@ -69,7 +69,7 @@ public class DefaultMediator implements Mediator {
     private File currentRawFile;
     private File currentArffFile;
     private DataFileType dataFileType;
-    private ArffHandler arffHandler;
+    private ArffAttributeInfoExtractor arffHandler;
     private TableDataGenerator tableDataGenerator;
     private ChartDataGenerator chartDataGenerator;
     private AttributeValueDiscretizer attributeValueDiscretizer;
@@ -106,8 +106,7 @@ public class DefaultMediator implements Mediator {
     }
 
     private int setLocalArffFile(File fileToOpen) throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(fileToOpen));
-        this.arffHandler = new ArffHandler(reader, this.performanceEventsHolder);
+        this.arffHandler = new ArffAttributeInfoExtractor(fileToOpen, this.performanceEventsHolder);
         return 0;
     }
 

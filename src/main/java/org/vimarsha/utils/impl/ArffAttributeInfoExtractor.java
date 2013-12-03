@@ -25,6 +25,8 @@ import weka.core.converters.ArffLoader;
 
 import javax.swing.table.DefaultTableModel;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -32,17 +34,19 @@ import java.util.ArrayList;
  * Created with IntelliJ IDEA.
  * User: gayashan
  */
-public class ArffHandler {
+public class ArffAttributeInfoExtractor {
     private ArffLoader.ArffReader arffReader;
     private Instances arffData;
     private Instances arffStructure;
     private PerformanceEventsHolder performanceEventsHolder;
 
-    public ArffHandler(BufferedReader bufferedReader, PerformanceEventsHolder performanceEventsHolder) throws IOException {
-        this.arffReader = new ArffLoader.ArffReader(bufferedReader);
+    public ArffAttributeInfoExtractor(File fileToOpen, PerformanceEventsHolder performanceEventsHolder) throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(fileToOpen));
+        this.arffReader = new ArffLoader.ArffReader(reader);
         this.performanceEventsHolder = performanceEventsHolder;
         this.arffData = this.arffReader.getData();
         this.arffStructure = this.arffReader.getStructure();
+        reader.close();
     }
 
     public ArrayList<String> getPerformanceEventsList(boolean rawfileconverted) {
