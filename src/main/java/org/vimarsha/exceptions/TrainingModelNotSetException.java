@@ -28,6 +28,6 @@ public class TrainingModelNotSetException extends Exception {
 
     @Override
     public String getMessage() {
-        return "Please select the correct Architecture.";
+        return "Please select the correct Architecture to set the Training model.";
     }
 }
