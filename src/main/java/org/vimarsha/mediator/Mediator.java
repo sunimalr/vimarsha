@@ -60,6 +60,8 @@ public interface Mediator {
 
     public String getTrainingModel() throws TrainingModelNotSetException;
 
+    public String getTestDataName();
+
     public String getArchitecture() throws ArchitectureNotSetException;
 
     public int classifyWholeProgram() throws IOException, ClassificationFailedException;
