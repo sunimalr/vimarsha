@@ -25,5 +25,5 @@ package org.vimarsha.utils;
  * User: gayashan
  */
 public enum DataFileType {
-    PERF_STAT, PERF_REPORT, UNKNOWN
+    PERF_STAT, PERF_REPORT, PERF_STAT_TIME, UNKNOWN
 }
