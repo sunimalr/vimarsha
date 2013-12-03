@@ -125,12 +125,7 @@ public class UIHandler {
 
 
     public String getTrainingModel() {
-        try {
-            return this.mediator.getTrainingModel();
-        } catch (TrainingModelNotSetException e) {
-            this.showErrorDialog(e.getMessage());
-        }
-        return null;
+        return this.mediator.getTrainingModel();
     }
 
     public String getTestDataName() {
@@ -185,8 +180,12 @@ public class UIHandler {
         return this.mediator.getXYChartDataSet();
     }
 
-    public void exportAsCSV() {
-        this.mediator.exportAsCSV();
+    public void exportFunctionWiseAsCSV(File file) {
+        this.mediator.exportFunctionWiseResultsAsCSV(file);
+    }
+
+    public void exportTimeSlicedAsCSV(File file) {
+        this.mediator.exportTimeSlicedResultsAsCSV(file);
     }
 
     public DefaultTableModel getArffAttributeInfo(int attrNo) {
