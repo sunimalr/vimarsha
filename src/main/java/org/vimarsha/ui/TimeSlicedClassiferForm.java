@@ -101,8 +101,6 @@ public class TimeSlicedClassiferForm {
 
         XYPlot plot = chart.getXYPlot();
         NumberAxis range = (NumberAxis) plot.getRangeAxis();
-        //ValueAxis range = plot.getRangeAxis();
-        ValueAxis domain = plot.getDomainAxis();
 
         range.setRange(0, 1.1);
         TickUnits units = new TickUnits();
