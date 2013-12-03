@@ -22,6 +22,7 @@ import weka.core.Instances;
 
 import java.io.*;
 import java.util.HashMap;
+import java.util.TreeMap;
 
 /**
  * Created with IntelliJ IDEA.
@@ -35,8 +36,8 @@ public class AttributeValueDiscretizer {
         this.inputArffFile = inputArffFile;
     }
 
-    public HashMap<String, Integer> binAttribute(int attrIndex) throws IOException, IllegalArgumentException {
-        HashMap<String, Integer> bins = new HashMap<String, Integer>();
+    public TreeMap<String, Integer> binAttribute(int attrIndex) throws IOException, IllegalArgumentException {
+        TreeMap<String, Integer> bins = new TreeMap<String, Integer>();
         dataFile = new Instances(new BufferedReader(new FileReader(inputArffFile)));
         double min = dataFile.kthSmallestValue(attrIndex, 1);
         double max = dataFile.kthSmallestValue(attrIndex, dataFile.numInstances());
