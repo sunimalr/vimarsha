@@ -33,6 +33,7 @@ import org.vimarsha.mediator.impl.UIHandler;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.text.DecimalFormat;
 import java.text.FieldPosition;
 
@@ -62,6 +63,18 @@ public class TimeSlicedClassiferForm {
                 UIHandler.getInstance().classifyTimeSliced();
                 XYSeriesCollection data = UIHandler.getInstance().getXYChartDataSet();
                 displayTimeSlicedChart(data);
+            }
+        });
+        exportButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                File file = null;
+                JFileChooser fc = new JFileChooser();
+                int returnVal = fc.showSaveDialog(Tab3);
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    System.out.println(fc.getSelectedFile());
+                    UIHandler.getInstance().exportTimeSlicedAsCSV(fc.getSelectedFile());
+                }
             }
         });
     }
