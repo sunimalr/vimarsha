@@ -19,11 +19,8 @@
 package org.vimarsha.utils.impl;
 
 import weka.core.Instances;
-import weka.filters.Filter;
-import weka.filters.unsupervised.attribute.*;
 
 import java.io.*;
-import java.util.Enumeration;
 import java.util.HashMap;
 
 /**
@@ -31,21 +28,29 @@ import java.util.HashMap;
  * User: sunimal
  */
 public class AttributeValueDiscretizer {
+    private Instances dataFile = null;
 
-    public HashMap<Integer, Integer> binAttribute(File arffFile, int attrIndex) throws IOException {
-        Instances dataFile = null;
-        HashMap<Integer, Integer> bins = new HashMap<Integer, Integer>();
+    public HashMap<String, Integer> binAttribute(File arffFile, int attrIndex) throws IOException, IllegalArgumentException {
+        HashMap<String, Integer> bins = new HashMap<String, Integer>();
         dataFile = new Instances(new BufferedReader(new FileReader(arffFile)));
         double min = dataFile.kthSmallestValue(attrIndex, 1);
         double max = dataFile.kthSmallestValue(attrIndex, dataFile.numInstances());
         double foldsize = (max - min) / 10;
+        if (foldsize == 0) {
+            throw new IllegalArgumentException();
+        }
         for (int i = 0; i < dataFile.numInstances(); i++) {
-            double tmp = dataFile.instance(i).value(attrIndex);
-            long bin = Math.round(Math.floor(tmp / foldsize));
-            if (bins.containsKey(i)) {
-                bins.put(i, bins.get(i) + 1);
+            long bin = Math.round(Math.floor(dataFile.instance(i).value(attrIndex) / foldsize));
+            double lowerbound = bin * foldsize;
+            double upperbound = (bin + 1) * foldsize;
+            StringBuilder sb = new StringBuilder();
+            sb.append(lowerbound);
+            sb.append(" - ");
+            sb.append(upperbound);
+            if (bins.containsKey(sb.toString())) {
+                bins.put(sb.toString(), bins.get(i) + 1);
             } else {
-                bins.put(i, 1);
+                bins.put(sb.toString(), 1);
             }
         }
         return bins;
