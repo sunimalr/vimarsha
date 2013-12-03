@@ -41,20 +41,31 @@ public class AttributeValueDiscretizer {
         dataFile = new Instances(new BufferedReader(new FileReader(inputArffFile)));
         double min = dataFile.kthSmallestValue(attrIndex, 1);
         double max = dataFile.kthSmallestValue(attrIndex, dataFile.numInstances());
-        double foldsize = (max - min) / 10;
+        double foldsize = (max - min) / 12;
+        double lowerbound, upperbound;
+        StringBuilder sb;
+        for (int j = 0; j < 12; j++) {
+            lowerbound = j * foldsize;
+            upperbound = (j + 1) * foldsize;
+            sb = new StringBuilder();
+            sb.append(lowerbound);
+            sb.append("-");
+            sb.append(upperbound);
+            bins.put(sb.toString(), 0);
+        }
         if (foldsize == 0) {
             throw new IllegalArgumentException();
         }
         for (int i = 0; i < dataFile.numInstances(); i++) {
             long bin = Math.round(Math.floor(dataFile.instance(i).value(attrIndex) / foldsize));
-            double lowerbound = bin * foldsize;
-            double upperbound = (bin + 1) * foldsize;
-            StringBuilder sb = new StringBuilder();
+            lowerbound = bin * foldsize;
+            upperbound = (bin + 1) * foldsize;
+            sb = new StringBuilder();
             sb.append(lowerbound);
             sb.append("-");
             sb.append(upperbound);
             if (bins.containsKey(sb.toString())) {
-                bins.put(sb.toString(), bins.get(sb.toString()) + 1);
+                bins.put(sb.toString(), (Integer) bins.get(sb.toString()) + 1);
             } else {
                 bins.put(sb.toString(), 1);
             }
