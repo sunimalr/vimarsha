@@ -118,7 +118,7 @@ public class UIHandler {
         try {
             return this.mediator.getArchitecture();
         } catch (ArchitectureNotSetException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            this.showErrorDialog(e.getMessage());
         }
         return null;
     }
@@ -128,7 +128,7 @@ public class UIHandler {
         try {
             return this.mediator.getTrainingModel();
         } catch (TrainingModelNotSetException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            this.showErrorDialog(e.getMessage());
         }
         return null;
     }
@@ -145,9 +145,9 @@ public class UIHandler {
         try {
             this.mediator.classifyFunctionWise();
         } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            this.showErrorDialog("Data source not set!");
         } catch (ClassificationFailedException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            this.showErrorDialog(e.getMessage());
         }
     }
 
@@ -155,9 +155,9 @@ public class UIHandler {
         try {
             this.mediator.classifyWholeProgram();
         } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            this.showErrorDialog("Data source not set!");
         } catch (ClassificationFailedException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            this.showErrorDialog(e.getMessage());
         }
     }
 
@@ -170,9 +170,9 @@ public class UIHandler {
         try {
             this.mediator.classifyTimeSliced();
         } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            this.showErrorDialog("Data source not set!");
         } catch (ClassificationFailedException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.getMessage();
         }
     }
 
@@ -202,7 +202,7 @@ public class UIHandler {
         try {
             tmp = mediator.getWholeProgramClassificationResult(timestamp);
         } catch (TimestampNotFoundException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            this.showErrorDialog(e.getMessage());
         }
         return tmp;
     }
