@@ -28,11 +28,16 @@ import java.util.HashMap;
  * User: sunimal
  */
 public class AttributeValueDiscretizer {
-    private Instances dataFile = null;
+    private Instances dataFile;
+    private File inputArffFile;
 
-    public HashMap<String, Integer> binAttribute(File arffFile, int attrIndex) throws IOException, IllegalArgumentException {
+    public AttributeValueDiscretizer(File inputArffFile) {
+        this.inputArffFile = inputArffFile;
+    }
+
+    public HashMap<String, Integer> binAttribute(int attrIndex) throws IOException, IllegalArgumentException {
         HashMap<String, Integer> bins = new HashMap<String, Integer>();
-        dataFile = new Instances(new BufferedReader(new FileReader(arffFile)));
+        dataFile = new Instances(new BufferedReader(new FileReader(inputArffFile)));
         double min = dataFile.kthSmallestValue(attrIndex, 1);
         double max = dataFile.kthSmallestValue(attrIndex, dataFile.numInstances());
         double foldsize = (max - min) / 10;
@@ -45,7 +50,7 @@ public class AttributeValueDiscretizer {
             double upperbound = (bin + 1) * foldsize;
             StringBuilder sb = new StringBuilder();
             sb.append(lowerbound);
-            sb.append(" - ");
+            sb.append("-");
             sb.append(upperbound);
             if (bins.containsKey(sb.toString())) {
                 bins.put(sb.toString(), bins.get(i) + 1);
