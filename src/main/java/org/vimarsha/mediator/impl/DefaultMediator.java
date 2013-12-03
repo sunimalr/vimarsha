@@ -135,6 +135,17 @@ public class DefaultMediator implements Mediator {
     }
 
     @Override
+    public String getTestDataName() {
+        if (this.currentArffFile == null && this.currentRawFile == null) {
+            return null;
+        }
+        if (rawfileconverted) {
+            return this.currentRawFile.getName();
+        }
+        return this.currentArffFile.getName();
+    }
+
+    @Override
     public String getArchitecture() throws ArchitectureNotSetException {
         if (this.currentArchitecture == null) {
             throw new ArchitectureNotSetException();
