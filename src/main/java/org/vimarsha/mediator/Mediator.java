@@ -58,7 +58,7 @@ public interface Mediator {
 
     public ArrayList<String> getTrainingModels();
 
-    public String getTrainingModel() throws TrainingModelNotSetException;
+    public String getTrainingModel();
 
     public String getTestDataName();
 
@@ -80,7 +80,7 @@ public interface Mediator {
     //Dataset needed to create time sliced chart
     public XYSeriesCollection getXYChartDataSet();
 
-    public int exportAsCSV();
+    public int exportAsCSV(File fileToSave);
 
     public int exportAsImage();
 }
