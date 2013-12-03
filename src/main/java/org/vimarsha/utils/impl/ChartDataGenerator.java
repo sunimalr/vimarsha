@@ -23,19 +23,14 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 import java.util.LinkedList;
+import java.util.TreeMap;
 
 /**
  * Created with IntelliJ IDEA.
  * User: gayashan
  */
 public class ChartDataGenerator {
-    private AttributeValueDiscretizer attributeValueDiscretizer;
-
     public ChartDataGenerator() {
-    }
-
-    public ChartDataGenerator(AttributeValueDiscretizer attributeValueDiscretizer) {
-        this.attributeValueDiscretizer = attributeValueDiscretizer;
     }
 
     public XYSeriesCollection getTimeSlicedChartDataSet(LinkedList<String> results, String chartName) {
@@ -53,13 +48,16 @@ public class ChartDataGenerator {
         return new XYSeriesCollection(series);
     }
 
-    public DefaultCategoryDataset getBinnedChartDataSet(LinkedList<String> results, String binnedEvent) {
+    public DefaultCategoryDataset getBinnedChartDataSet(TreeMap<String, Integer> results, String binnedEvent) {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.setValue(30, binnedEvent, "1");
-        dataset.setValue(7, binnedEvent, "2");
-        dataset.setValue(8, binnedEvent, "3");
-        dataset.setValue(5, binnedEvent, "4");
-        dataset.setValue(12, binnedEvent, "5");
+        for (String key : results.keySet()) {
+            dataset.setValue(results.get(key), binnedEvent, key);
+        }
+//        dataset.setValue(30, binnedEvent, "1");
+//        dataset.setValue(7, binnedEvent, "2");
+//        dataset.setValue(8, binnedEvent, "3");
+//        dataset.setValue(5, binnedEvent, "4");
+//        dataset.setValue(12, binnedEvent, "5");
         return dataset;
     }
 }
