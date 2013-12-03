@@ -129,7 +129,6 @@ public class TimeSlicedClassiferForm {
         this.chartPanel = new ChartPanel(null);
     }
 
-
     public JComboBox getArchitectureComboBox() {
         return architectureComboBox;
     }
@@ -137,7 +136,6 @@ public class TimeSlicedClassiferForm {
     public void setArchitectureComboBox(JComboBox architectureComboBox) {
         this.architectureComboBox = architectureComboBox;
     }
-
 
     public JTextField getTrainingModelTextBox() {
         return trainingModelTextBox;
@@ -147,7 +145,6 @@ public class TimeSlicedClassiferForm {
         this.trainingModelTextBox = trainingModelTextBox;
     }
 
-
     public JTextField getTestDataTextField() {
         return testDataTextField;
     }
@@ -155,5 +152,4 @@ public class TimeSlicedClassiferForm {
     public void setTestDataTextField(JTextField testDataTextField) {
         this.testDataTextField = testDataTextField;
     }
-
 }
