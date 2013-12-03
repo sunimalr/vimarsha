@@ -57,6 +57,8 @@ public class DataFileTypeDetector {
                 this.dataFileType = DataFileType.PERF_STAT;
             } else if ((line.split("=")[1]).equalsIgnoreCase("PERF_REPORT")) {
                 this.dataFileType = DataFileType.PERF_REPORT;
+            } else if ((line.split("=")[1]).equalsIgnoreCase("PERF_STAT_TIME")) {
+                this.dataFileType = DataFileType.PERF_STAT_TIME;
             }
         } else {
             throw new DataFileTypeHeaderNotSetException();
