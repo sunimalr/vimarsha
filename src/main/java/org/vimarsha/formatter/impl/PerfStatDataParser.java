@@ -22,6 +22,8 @@ package org.vimarsha.formatter.impl;
 
 import org.vimarsha.formatter.DataParser;
 import org.vimarsha.utils.impl.PerfStatDataHolder;
+import org.vimarsha.utils.impl.PerfStatTimeSlicedDataHolder;
+import org.vimarsha.utils.impl.PropertiesLoader;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -33,10 +35,16 @@ import java.io.IOException;
 public class PerfStatDataParser implements DataParser {
     private BufferedReader bufferedReader;
     private PerfStatDataHolder perfStatDataHolder;
+    private PerfStatTimeSlicedDataHolder perfStatTimeSlicedDataHolder;
 
     public PerfStatDataParser(BufferedReader filReader, PerfStatDataHolder perfStatDataHolder) {
         this.bufferedReader = filReader;
         this.setPerfStatDataHolder(perfStatDataHolder);
+    }
+
+    public PerfStatDataParser(BufferedReader bufferedReader, PerfStatTimeSlicedDataHolder perfStatTimeSlicedDataHolder) {
+        this.bufferedReader = bufferedReader;
+        this.perfStatTimeSlicedDataHolder = perfStatTimeSlicedDataHolder;
     }
 
     @Override
@@ -46,8 +54,8 @@ public class PerfStatDataParser implements DataParser {
         String value = null;
 
         line = this.bufferedReader.readLine();  //read header
-        line = this.bufferedReader.readLine();  //read header
-        line = this.bufferedReader.readLine();
+        while ((line = this.bufferedReader.readLine()) == "" || line.startsWith(PropertiesLoader.getInstance().getCommentPrefix()))
+            ;
 
         while ((line = this.bufferedReader.readLine()) != null) {
             line = line.trim();
@@ -55,6 +63,27 @@ public class PerfStatDataParser implements DataParser {
             rawEvent = tokens[1];
             value = tokens[0];
             this.getPerfStatDataHolder().addValue(rawEvent, value);
+        }
+    }
+
+    public void parseMultipleInstances() throws IOException {
+        String line = null;
+        String rawEvent = null;
+        String value = null;
+        int count = 0;
+
+        line = this.bufferedReader.readLine(); //read header
+        while ((line = this.bufferedReader.readLine()) != null) {
+            if (line == "" || line.isEmpty()) continue;
+            if (line.startsWith(PropertiesLoader.getInstance().getCommentPrefix())) {
+                ++count;
+                continue;
+            }
+            line = line.trim();
+            String[] tokens = line.split(":");
+            rawEvent = tokens[1];
+            value = tokens[0];
+            this.perfStatTimeSlicedDataHolder.addValue(String.valueOf(count), rawEvent, value);
         }
     }
 
@@ -70,4 +99,13 @@ public class PerfStatDataParser implements DataParser {
     public void setPerfStatDataHolder(PerfStatDataHolder perfStatDataHolder) {
         this.perfStatDataHolder = perfStatDataHolder;
     }
+
+    public PerfStatTimeSlicedDataHolder getPerfStatTimeSlicedDataHolder() {
+        return perfStatTimeSlicedDataHolder;
+    }
+
+    public void setPerfStatTimeSlicedDataHolder(PerfStatTimeSlicedDataHolder perfStatTimeSlicedDataHolder) {
+        this.perfStatTimeSlicedDataHolder = perfStatTimeSlicedDataHolder;
+    }
+
 }
