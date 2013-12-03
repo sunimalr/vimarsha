@@ -227,7 +227,7 @@ public class DefaultMediator implements Mediator {
         this.wholeProgramClassifier.setTestingDataSource(this.currentArffFile.getAbsolutePath());
         this.wholeProgramClassifier.classify();
         this.wholeProgramClassificationResultsBuffer.put(new Timestamp(new Date().getTime()).toString(), (String) this.wholeProgramClassifier.getClassificationResult());
-        return 0;
+        return 100;
     }
 
     @Override
@@ -250,7 +250,7 @@ public class DefaultMediator implements Mediator {
         this.functionWiseClassifier.setTestingDataSource(this.currentArffFile.getAbsolutePath());
         this.functionWiseClassifier.classify(this.perfReportDataHolder.getFinalSymbolsList());
         this.classificationResult = this.functionWiseClassifier.getClassificationResult();
-        return 0;
+        return 100;
     }
 
     @Override
@@ -260,7 +260,7 @@ public class DefaultMediator implements Mediator {
         this.timeslicedClassifier.setTestingDataSource(this.currentArffFile.getAbsolutePath());
         this.timeslicedClassifier.classify();
         this.classificationResult = this.timeslicedClassifier.getClassificationResult();
-        return 0;
+        return 100;
     }
 
 
@@ -278,13 +278,15 @@ public class DefaultMediator implements Mediator {
     }
 
     @Override
-    public int exportFunctionWiseResultsAsCSV(File fileToSave) {
-        return 0;  //To change body of implemented methods use File | Settings | File Templates.
+    public int exportFunctionWiseResultsAsCSV(File fileToSave) throws IOException {
+        new FileHandler().exportFunctionWiseResultsAsCSV((TreeMap<String, String>) this.classificationResult, fileToSave.getAbsolutePath());
+        return 100;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
-    public int exportTimeSlicedResultsAsCSV(File fileToSave) {
-        return 0;  //To change body of implemented methods use File | Settings | File Templates.
+    public int exportTimeSlicedResultsAsCSV(File fileToSave) throws IOException {
+        new FileHandler().exportTimeSlicedResultsAsCSV((LinkedList<String>) this.classificationResult, fileToSave.getAbsolutePath());
+        return 100;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
