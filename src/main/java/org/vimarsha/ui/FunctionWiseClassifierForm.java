@@ -36,8 +36,8 @@ public class FunctionWiseClassifierForm {
     private JComboBox trainingComboBox;
     private JTable functionWiseResultsTable;
     private JPanel Tab2;
-
     private JTextField trainingModelTextBox;
+    private JTextField testDataTextField;
 
     public FunctionWiseClassifierForm() {
 
@@ -88,6 +88,14 @@ public class FunctionWiseClassifierForm {
         this.trainingModelTextBox = trainingModelTextBox;
     }
 
+
+    public JTextField getTestDataTextField() {
+        return testDataTextField;
+    }
+
+    public void setTestDataTextField(JTextField testDataTextField) {
+        this.testDataTextField = testDataTextField;
+    }
 
     private void createUIComponents() {
         // TODO: place custom component creation code here

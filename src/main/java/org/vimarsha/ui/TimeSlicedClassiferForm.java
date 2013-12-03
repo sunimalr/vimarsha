@@ -47,8 +47,8 @@ public class TimeSlicedClassiferForm {
     private JButton exportButton;
     private ChartPanel chartPanel;
     private JPanel timeSlicedGraph;
-
     private JTextField trainingModelTextBox;
+    private JTextField testDataTextField;
 
     public TimeSlicedClassiferForm() {
 
@@ -132,6 +132,15 @@ public class TimeSlicedClassiferForm {
 
     public void setTrainingModelTextBox(JTextField trainingModelTextBox) {
         this.trainingModelTextBox = trainingModelTextBox;
+    }
+
+
+    public JTextField getTestDataTextField() {
+        return testDataTextField;
+    }
+
+    public void setTestDataTextField(JTextField testDataTextField) {
+        this.testDataTextField = testDataTextField;
     }
 
 }

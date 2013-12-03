@@ -51,6 +51,7 @@ public class DataLoaderForm {
     private ChartPanel attributeDetailsChart;
     private JList attributeList;
     private JTextField trainingModelTextBox;
+    private JTextField testDataTextField;
 
     public DataLoaderForm() {
 
@@ -80,6 +81,7 @@ public class DataLoaderForm {
                 if ((UIHandler.getInstance().setRawFile(file) == 100) && (UIHandler.getInstance().convertRawToArff() == 100)) {
                     saveToARFFFileButton.setEnabled(true);
                     attributeList.setListData(UIHandler.getInstance().getArffAttribiutesTableModel().toArray());
+                    testDataTextField.setText(UIHandler.getInstance().getTestDataName());
                 }
 
             }
@@ -96,6 +98,7 @@ public class DataLoaderForm {
                     UIHandler.getInstance().setArffFile(file);
                     attributeList.setListData(UIHandler.getInstance().getArffAttribiutesTableModel().toArray());
                     saveToARFFFileButton.setEnabled(true);
+                    testDataTextField.setText(UIHandler.getInstance().getTestDataName());
                 }
 
             }
@@ -126,7 +129,7 @@ public class DataLoaderForm {
     }
 
     private void drawBarChart(DefaultCategoryDataset data) {
-        JFreeChart chart = ChartFactory.createBarChart( "Binned event data", "bins", "count", data, PlotOrientation.VERTICAL, false, true, false );
+        JFreeChart chart = ChartFactory.createBarChart("Binned event data", "bins", "count", data, PlotOrientation.VERTICAL, false, true, false);
         this.attributeDetailsChart.setChart(chart);
         this.attributeDetailsChart.setVisible(true);
     }
@@ -152,5 +155,14 @@ public class DataLoaderForm {
 
     public void setArchitectureComboBox(JComboBox architectureComboBox) {
         this.architectureComboBox = architectureComboBox;
+    }
+
+
+    public JTextField getTestDataTextField() {
+        return testDataTextField;
+    }
+
+    public void setTestDataTextField(JTextField testDataTextField) {
+        this.testDataTextField = testDataTextField;
     }
 }

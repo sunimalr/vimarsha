@@ -37,6 +37,7 @@ public class WholeProgramClassifierForm {
     private JTextPane classificationTextPane;
     private JList testDataSetList;
     private JTextField trainingModelTextBox;
+    private JTextField testDataTextField;
 
     public WholeProgramClassifierForm() {
 
@@ -77,6 +78,14 @@ public class WholeProgramClassifierForm {
         this.trainingModelTextBox = trainingModelTextBox;
     }
 
+
+    public JTextField getTestDataTextField() {
+        return testDataTextField;
+    }
+
+    public void setTestDataTextField(JTextField testDataTextField) {
+        this.testDataTextField = testDataTextField;
+    }
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
