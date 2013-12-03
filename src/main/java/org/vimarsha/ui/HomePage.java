@@ -49,9 +49,10 @@ public class HomePage {
 
         homeTabbedPane.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
-                wholeProgramClassifierForm1.getArchitectureComboBox().setSelectedItem(UIHandler.getInstance().getArchitecture());
-                functionWiseClassifierForm1.getArchitectureComboBox().setSelectedItem(UIHandler.getInstance().getArchitecture());
-                timeSlicedClassiferForm1.getArchitectureComboBox().setSelectedItem(UIHandler.getInstance().getArchitecture());
+                String architecture = UIHandler.getInstance().getArchitecture();
+                wholeProgramClassifierForm1.getArchitectureComboBox().setSelectedItem(architecture);
+                functionWiseClassifierForm1.getArchitectureComboBox().setSelectedItem(architecture);
+                timeSlicedClassiferForm1.getArchitectureComboBox().setSelectedItem(architecture);
                 wholeProgramClassifierForm1.getTrainingModelTextBox().setText(UIHandler.getInstance().getTrainingModel());
                 functionWiseClassifierForm1.getTrainingModelTextBox().setText(UIHandler.getInstance().getTrainingModel());
                 timeSlicedClassiferForm1.getTrainingModelTextBox().setText(UIHandler.getInstance().getTrainingModel());
