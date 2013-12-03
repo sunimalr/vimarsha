@@ -80,7 +80,9 @@ public interface Mediator {
     //Dataset needed to create time sliced chart
     public XYSeriesCollection getXYChartDataSet();
 
-    public int exportAsCSV(File fileToSave);
+    public int exportFunctionWiseResultsAsCSV(File fileToSave);
+
+    public int exportTimeSlicedResultsAsCSV(File fileToSave);
 
     public int exportAsImage();
 }

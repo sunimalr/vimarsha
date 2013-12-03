@@ -278,7 +278,13 @@ public class DefaultMediator implements Mediator {
     }
 
     @Override
-    public int exportAsCSV(File fileToSave) {
+    public int exportFunctionWiseAsCSV(File fileToSave) {
+
+        return 0;
+    }
+
+    @Override
+    public int exportTimeSlicedAsCSV(File fileToSave) {
 
         return 0;
     }
