@@ -54,6 +54,7 @@ public class DefaultMediator implements Mediator {
     private PerfStatArffDataWriter perfStatArffDataWriter;
     private PerfReportArffDataWriter perfReportArffDataWriter;
     private PerfStatDataHolder perfStatDataHolder;
+    private PerfStatTimeSlicedDataHolder perfStatTimeSlicedDataHolder;
     private PerfReportDataHolder perfReportDataHolder;
     private PerfStatDataParser perfStatDataParser;
     private PerfReportDataParser perfReportDataParser;
@@ -179,6 +180,17 @@ public class DefaultMediator implements Mediator {
                 this.currentArffFile = new File(PropertiesLoader.getInstance().getTempStatARFF());
                 this.bufferedReader.close();
                 return 100;
+            case PERF_STAT_TIME:
+                this.perfStatTimeSlicedDataHolder = new PerfStatTimeSlicedDataHolder();
+                this.bufferedReader = new BufferedReader(new FileReader(this.currentRawFile));
+                this.perfStatDataParser = new PerfStatDataParser(this.bufferedReader, this.perfStatTimeSlicedDataHolder);
+                this.perfStatDataParser.parseMultipleInstances();
+                this.perfStatArffDataWriter = new PerfStatArffDataWriter(PropertiesLoader.getInstance().getTempStatARFF(), this.performanceEventsHolder, this.perfStatTimeSlicedDataHolder);
+                this.perfStatArffDataWriter.writeManyToArffFile();
+                this.setLocalArffFile(new File(PropertiesLoader.getInstance().getTempStatARFF()));
+                this.currentArffFile = new File(PropertiesLoader.getInstance().getTempStatARFF());
+                this.bufferedReader.close();
+                return 100;
             default:
 
         }
@@ -239,10 +251,10 @@ public class DefaultMediator implements Mediator {
 
     @Override
     public String getWholeProgramClassificationResult(String timestamp) throws TimestampNotFoundException {
-        if (!this.wholeProgramClassificationResultsBuffer.containsKey(timestamp)) {
-            throw new TimestampNotFoundException();
+        if (this.wholeProgramClassificationResultsBuffer.containsKey(timestamp)) {
+            return this.wholeProgramClassificationResultsBuffer.get(timestamp);
         }
-        return this.wholeProgramClassificationResultsBuffer.get(timestamp);
+        return null;
     }
 
     @Override
