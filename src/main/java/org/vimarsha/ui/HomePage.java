@@ -55,6 +55,9 @@ public class HomePage {
                 wholeProgramClassifierForm1.getTrainingModelTextBox().setText(UIHandler.getInstance().getTrainingModel());
                 functionWiseClassifierForm1.getTrainingModelTextBox().setText(UIHandler.getInstance().getTrainingModel());
                 timeSlicedClassiferForm1.getTrainingModelTextBox().setText(UIHandler.getInstance().getTrainingModel());
+                wholeProgramClassifierForm1.getTestDataTextField().setText(UIHandler.getInstance().getTestDataName());
+                functionWiseClassifierForm1.getTestDataTextField().setText(UIHandler.getInstance().getTestDataName());
+                timeSlicedClassiferForm1.getTestDataTextField().setText(UIHandler.getInstance().getTestDataName());
             }
         });
     }
