@@ -54,7 +54,7 @@ public class AttributeValueDiscretizer {
             sb.append("-");
             sb.append(upperbound);
             if (bins.containsKey(sb.toString())) {
-                bins.put(sb.toString(), bins.get(i) + 1);
+                bins.put(sb.toString(), bins.get(sb.toString()) + 1);
             } else {
                 bins.put(sb.toString(), 1);
             }
