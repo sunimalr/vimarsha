@@ -239,7 +239,12 @@ public class DefaultMediator implements Mediator {
         this.wholeProgramClassifier.setTrainingDataSource(this.currentTrainingModel);
         this.wholeProgramClassifier.setTestingDataSource(this.currentArffFile.getAbsolutePath());
         this.wholeProgramClassifier.classify();
-        this.wholeProgramClassificationResultsBuffer.put(new Timestamp(new Date().getTime()).toString(), (String) this.wholeProgramClassifier.getClassificationResult());
+        StringBuilder result = new StringBuilder(PropertiesLoader.getInstance().getClassificationResultString());
+        result.append(this.wholeProgramClassifier.getClassificationResult());
+        result.append(System.lineSeparator());
+        result.append(PropertiesLoader.getInstance().getLineOfHyphens());
+        result.append(this.wholeProgramClassifier.getTreeModel());
+        this.wholeProgramClassificationResultsBuffer.put(new Timestamp(new Date().getTime()).toString(), result.toString());
         return 100;
     }
 
