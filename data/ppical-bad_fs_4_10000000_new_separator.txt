@@ -1,0 +1,160 @@
+@datafiletype=PERF_REPORT
+# ========
+# captured on: Wed Dec  4 15:28:29 2013
+# hostname : sao40.pok.ibm.com
+# os release : 2.6.32-220.el6.x86_64
+# perf version : 2.6.32-279.19.1.el6.x86_64.debug
+# arch : x86_64
+# nrcpus online : 12
+# nrcpus avail : 12
+# cpudesc : Intel(R) Xeon(R) CPU X5690 @ 3.47GHz
+# cpuid : GenuineIntel,6,44,2
+# total memory : 198348948 kB
+# cmdline : /usr/bin/perf record -e r00c0,r0149,r0151,r02a2,r0126,r0227,r0224,r08a2,r01b0,r20f0,r02f1,r01f2,r01b8,r02b8,r04b8,r40cb ./ppical-bad_fs 4 10000000 
+# event : name = r00c0, type = 4, config = 0xc0, config1 = 0x0, config2 = 0x0, excl_usr = 0, excl_kern = 0, id = { 2514585, 2514586, 2514587, 2514588, 2514589, 2514590, 2514591, 2514592, 2514593, 2514594, 2514595, 2514596 }
+# event : name = r0149, type = 4, config = 0x149, config1 = 0x0, config2 = 0x0, excl_usr = 0, excl_kern = 0, id = { 2514597, 2514598, 2514599, 2514600, 2514601, 2514602, 2514603, 2514604, 2514605, 2514606, 2514607, 2514608 }
+# event : name = r0151, type = 4, config = 0x151, config1 = 0x0, config2 = 0x0, excl_usr = 0, excl_kern = 0, id = { 2514609, 2514610, 2514611, 2514612, 2514613, 2514614, 2514615, 2514616, 2514617, 2514618, 2514619, 2514620 }
+# event : name = r02a2, type = 4, config = 0x2a2, config1 = 0x0, config2 = 0x0, excl_usr = 0, excl_kern = 0, id = { 2514621, 2514622, 2514623, 2514624, 2514625, 2514626, 2514627, 2514628, 2514629, 2514630, 2514631, 2514632 }
+# event : name = r0126, type = 4, config = 0x126, config1 = 0x0, config2 = 0x0, excl_usr = 0, excl_kern = 0, id = { 2514633, 2514634, 2514635, 2514636, 2514637, 2514638, 2514639, 2514640, 2514641, 2514642, 2514643, 2514644 }
+# event : name = r0227, type = 4, config = 0x227, config1 = 0x0, config2 = 0x0, excl_usr = 0, excl_kern = 0, id = { 2514645, 2514646, 2514647, 2514648, 2514649, 2514650, 2514651, 2514652, 2514653, 2514654, 2514655, 2514656 }
+# event : name = r0224, type = 4, config = 0x224, config1 = 0x0, config2 = 0x0, excl_usr = 0, excl_kern = 0, id = { 2514657, 2514658, 2514659, 2514660, 2514661, 2514662, 2514663, 2514664, 2514665, 2514666, 2514667, 2514668 }
+# event : name = r08a2, type = 4, config = 0x8a2, config1 = 0x0, config2 = 0x0, excl_usr = 0, excl_kern = 0, id = { 2514669, 2514670, 2514671, 2514672, 2514673, 2514674, 2514675, 2514676, 2514677, 2514678, 2514679, 2514680 }
+# event : name = r01b0, type = 4, config = 0x1b0, config1 = 0x0, config2 = 0x0, excl_usr = 0, excl_kern = 0, id = { 2514681, 2514682, 2514683, 2514684, 2514685, 2514686, 2514687, 2514688, 2514689, 2514690, 2514691, 2514692 }
+# event : name = r20f0, type = 4, config = 0x20f0, config1 = 0x0, config2 = 0x0, excl_usr = 0, excl_kern = 0, id = { 2514693, 2514694, 2514695, 2514696, 2514697, 2514698, 2514699, 2514700, 2514701, 2514702, 2514703, 2514704 }
+# event : name = r02f1, type = 4, config = 0x2f1, config1 = 0x0, config2 = 0x0, excl_usr = 0, excl_kern = 0, id = { 2514705, 2514706, 2514707, 2514708, 2514709, 2514710, 2514711, 2514712, 2514713, 2514714, 2514715, 2514716 }
+# event : name = r01f2, type = 4, config = 0x1f2, config1 = 0x0, config2 = 0x0, excl_usr = 0, excl_kern = 0, id = { 2514717, 2514718, 2514719, 2514720, 2514721, 2514722, 2514723, 2514724, 2514725, 2514726, 2514727, 2514728 }
+# event : name = r01b8, type = 4, config = 0x1b8, config1 = 0x0, config2 = 0x0, excl_usr = 0, excl_kern = 0, id = { 2514729, 2514730, 2514731, 2514732, 2514733, 2514734, 2514735, 2514736, 2514737, 2514738, 2514739, 2514740 }
+# event : name = r02b8, type = 4, config = 0x2b8, config1 = 0x0, config2 = 0x0, excl_usr = 0, excl_kern = 0, id = { 2514741, 2514742, 2514743, 2514744, 2514745, 2514746, 2514747, 2514748, 2514749, 2514750, 2514751, 2514752 }
+# event : name = r04b8, type = 4, config = 0x4b8, config1 = 0x0, config2 = 0x0, excl_usr = 0, excl_kern = 0, id = { 2514753, 2514754, 2514755, 2514756, 2514757, 2514758, 2514759, 2514760, 2514761, 2514762, 2514763, 2514764 }
+# event : name = r40cb, type = 4, config = 0x40cb, config1 = 0x0, config2 = 0x0, excl_usr = 0, excl_kern = 0, id = { 2514765, 2514766, 2514767, 2514768, 2514769, 2514770, 2514771, 2514772, 2514773, 2514774, 2514775, 2514776 }
+# HEADER_CPU_TOPOLOGY info available, use -I to display
+# HEADER_NUMA_TOPOLOGY info available, use -I to display
+# ========
+#
+# Events: 545  raw 0xc0
+#
+# Overhead:Command:Shared Object:Symbol
+98.87:ppical-bad_fs:ppical-bad_fs     :[.] Thread_sum_with_fs
+1.09:ppical-bad_fs:[kernel.kallsyms] :[k] 0xffffffff8101c145
+0.03:ppical-bad_fs:libc-2.12.so      :[.] __execvpe
+0.02:ppical-bad_fs:libpthread-2.12.so:[.] start_thread
+
+
+# Events: 111  raw 0x149
+#
+# Overhead:Command:Shared Object:Symbol
+98.01:ppical-bad_fs:[kernel.kallsyms]:[k] 0xffffffff8101c145
+1.56:ppical-bad_fs:libc-2.12.so     :[.] __execvpe
+0.28:ppical-bad_fs:libc-2.12.so     :[.] __clone
+0.09:ppical-bad_fs:ppical-bad_fs    :[.] Thread_sum_with_fs
+0.06:ppical-bad_fs:libc-2.12.so     :[.] arena_thread_freeres
+
+
+# Events: 581  raw 0x151
+#
+# Overhead:Command:Shared Object:Symbol
+94.26:ppical-bad_fs:ppical-bad_fs     :[.] Thread_sum_with_fs
+5.67:ppical-bad_fs:[kernel.kallsyms] :[k] 0xffffffff8101c145
+0.05:ppical-bad_fs:libc-2.12.so      :[.] __clone
+0.02:ppical-bad_fs:libpthread-2.12.so:[.] start_thread
+
+
+# Events: 647  raw 0x2a2
+#
+# Overhead:Command:Shared Object:Symbol
+74.49:ppical-bad_fs:ppical-bad_fs    :[.] Thread_sum_with_fs
+25.29:ppical-bad_fs:ppical-bad_fs    :[.] Serial_pi
+0.22:ppical-bad_fs:[kernel.kallsyms]:[k] 0xffffffff8113c4c4
+0.00:ppical-bad_fs:ld-2.12.so       :[.] do_lookup_x
+
+
+# Events: 665  raw 0x126
+#
+# Overhead:Command:Shared Object:Symbol
+93.47:ppical-bad_fs:ppical-bad_fs     :[.] Thread_sum_with_fs
+6.32:ppical-bad_fs:[kernel.kallsyms] :[k] 0xffffffff8101c145
+0.07:ppical-bad_fs:libc-2.12.so      :[.] _setjmp
+0.06:ppical-bad_fs:libpthread-2.12.so:[.] start_thread
+0.05:ppical-bad_fs:libc-2.12.so      :[.] __execvpe
+0.03:ppical-bad_fs:libc-2.12.so      :[.] __clone
+
+
+# Events: 522  raw 0x227
+#
+# Overhead:Command:Shared Object:Symbol
+99.11:ppical-bad_fs:ppical-bad_fs    :[.] Thread_sum_with_fs
+0.89:ppical-bad_fs:[kernel.kallsyms]:[k] 0xffffffff810de8fc
+
+
+# Events: 522  raw 0x224
+#
+# Overhead:Command:Shared Object:Symbol
+97.69:ppical-bad_fs:ppical-bad_fs    :[.] Thread_sum_with_fs
+2.31:ppical-bad_fs:[kernel.kallsyms]:[k] 0xffffffff81058f32
+
+
+# Events: 533  raw 0x8a2
+#
+# Overhead:Command:Shared Object:Symbol
+100.00:ppical-bad_fs:ppical-bad_fs    :[.] Thread_sum_with_fs
+0.00:ppical-bad_fs:[kernel.kallsyms]:[k] 0xffffffff81095759
+
+
+# Events: 486  raw 0x1b0
+#
+# Overhead:Command:Shared Object:Symbol
+98.50:ppical-bad_fs:ppical-bad_fs    :[.] Thread_sum_with_fs
+1.34:ppical-bad_fs:[kernel.kallsyms]:[k] 0xffffffff81058f32
+0.16:ppical-bad_fs:ld-2.12.so       :[.] __tls_get_addr
+
+
+# Events: 488  raw 0x20f0
+#
+# Overhead:Command:Shared Object:Symbol
+99.33:ppical-bad_fs:ppical-bad_fs    :[.] Thread_sum_with_fs
+0.67:ppical-bad_fs:[kernel.kallsyms]:[k] 0xffffffff81094403
+
+
+# Events: 478  raw 0x2f1
+#
+# Overhead:Command:Shared Object:Symbol
+97.89:ppical-bad_fs:ppical-bad_fs    :[.] Thread_sum_with_fs
+2.11:ppical-bad_fs:[kernel.kallsyms]:[k] 0xffffffff810a0be7
+
+
+# Events: 447  raw 0x1f2
+#
+# Overhead:Command:Shared Object:Symbol
+99.10:ppical-bad_fs:ppical-bad_fs    :[.] Thread_sum_with_fs
+0.90:ppical-bad_fs:[kernel.kallsyms]:[k] 0xffffffff81094416
+
+
+# Events: 433  raw 0x1b8
+#
+# Overhead:Command:Shared Object:Symbol
+100.00:ppical-bad_fs:ppical-bad_fs:[.] Thread_sum_with_fs
+
+
+# Events: 421  raw 0x2b8
+#
+# Overhead:Command:Shared Object:Symbol
+100.00:ppical-bad_fs:ppical-bad_fs:[.] Thread_sum_with_fs
+
+
+# Events: 381  raw 0x4b8
+#
+# Overhead:Command:Shared Object:Symbol
+100.00:ppical-bad_fs:ppical-bad_fs:[.] Thread_sum_with_fs
+
+
+# Events: 365  raw 0x40cb
+#
+# Overhead:Command:Shared Object:Symbol
+99.62:ppical-bad_fs:ppical-bad_fs    :[.] Thread_sum_with_fs
+0.38:ppical-bad_fs:[kernel.kallsyms]:[k] 0xffffffff810943fb
+
+
+#
+# (For a higher level overview, try: perf report --sort comm,dso)
+#
+
