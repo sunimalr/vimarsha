@@ -130,15 +130,12 @@ public class DataLoaderForm {
     }
 
     private void drawBarChart(DefaultCategoryDataset data) {
-        JFreeChart chart = ChartFactory.createBarChart("Binned event data", "bins", "count", data, PlotOrientation.VERTICAL, false, true, false);
-        CategoryPlot plot = (CategoryPlot) chart.getPlot();
-        plot.setOrientation(PlotOrientation.HORIZONTAL);
+        JFreeChart chart = ChartFactory.createBarChart("Binned event data", "bins", "count", data, PlotOrientation.HORIZONTAL, false, false, false);
         this.attributeDetailsChart.setChart(chart);
         this.attributeDetailsChart.setVisible(true);
     }
 
     private void createUIComponents() {
-        // TODO: place custom component creation code here
         attributeDetailsChart = new ChartPanel(null);
     }
 
