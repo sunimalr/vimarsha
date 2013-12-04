@@ -280,7 +280,7 @@ public class DefaultMediator implements Mediator {
     @Override
     public DefaultTableModel getFunctionWiseClassificationResultsTableModel() {
         this.tableDataGenerator = new TableDataGenerator();
-        return tableDataGenerator.getFunctionwiseTableModel((TreeMap<String, String>) this.classificationResult);
+        return tableDataGenerator.getFunctionwiseTableModel((LinkedHashMap<String, String>) this.classificationResult);
     }
 
 
