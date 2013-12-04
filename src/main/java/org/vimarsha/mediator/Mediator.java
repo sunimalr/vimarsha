@@ -52,7 +52,7 @@ public interface Mediator {
     public DefaultTableModel getArffAttributeInfo(int index);
 
     //Dataset needed to create bar charts
-    public DefaultCategoryDataset getBarChartDataSet(int selecteEventIndex) throws IOException;
+    public DefaultCategoryDataset getBarChartDataSet(int selecteEventIndex) throws IOException, IllegalArgumentException;
 
     public ArrayList<String> getArchitectureList();
 

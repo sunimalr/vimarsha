@@ -213,7 +213,7 @@ public class DefaultMediator implements Mediator {
     }
 
     @Override
-    public DefaultCategoryDataset getBarChartDataSet(int selectedEventIndex) throws IOException {
+    public DefaultCategoryDataset getBarChartDataSet(int selectedEventIndex) throws IOException, IllegalArgumentException {
         this.chartDataGenerator = new ChartDataGenerator();
         this.attributeValueDiscretizer = new AttributeValueDiscretizer(this.currentArffFile);
         return this.chartDataGenerator.getBinnedChartDataSet(this.attributeValueDiscretizer.binAttribute(selectedEventIndex), this.getArffAttributesList().get(selectedEventIndex));
