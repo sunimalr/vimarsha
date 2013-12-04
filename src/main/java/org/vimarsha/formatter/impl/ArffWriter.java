@@ -28,15 +28,22 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Created with IntelliJ IDEA.
- * User: gayashan
+ * A class which can be used to create arff files.
+ *
+ * @author gayashan
  */
-
 public class ArffWriter implements OutputWriter {
     private String fileName;
     private BufferedWriter bufferedWriter;
     private ArrayList<String> headers;
 
+    /**
+     * Creates an ArffWriter instance. Opens the file and writes the header to the file.
+     *
+     * @param fileName arff file name
+     * @param headers  header string
+     * @throws IOException thrown when file is not found
+     */
     public ArffWriter(String fileName, ArrayList<String> headers) throws IOException {
         this.fileName = fileName;
         this.headers = headers;
@@ -44,12 +51,24 @@ public class ArffWriter implements OutputWriter {
         this.writeLines(headers);
     }
 
+    /**
+     * Write the given line to the file.
+     *
+     * @param stringToWrite string to write
+     * @throws IOException
+     */
     @Override
     public void write(String stringToWrite) throws IOException {
         bufferedWriter.write(stringToWrite);
         bufferedWriter.newLine();
     }
 
+    /**
+     * Write given list of lines to the file.
+     *
+     * @param arrayList list of lines
+     * @throws IOException
+     */
     @Override
     public void writeLines(ArrayList<String> arrayList) throws IOException {
         for (String line : arrayList) {
@@ -58,6 +77,11 @@ public class ArffWriter implements OutputWriter {
         }
     }
 
+    /**
+     * Close the file.
+     *
+     * @throws IOException
+     */
     public void close() throws IOException {
         bufferedWriter.close();
     }
