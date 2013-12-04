@@ -26,8 +26,8 @@ import weka.core.Instances;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
-import java.util.TreeMap;
 
 /**
  * Created with IntelliJ IDEA.
@@ -53,7 +53,7 @@ public class FunctionWiseClassifierTest extends TestCase {
         LinkedList<String> fucntionlist = new LinkedList<String>();
         fucntionlist.add("pspeedy(Points*,float,long*,int,parsec_barrier_t*)");
         fucntionlist.add("dist(Point,Point,int)");
-        TreeMap<String, String> res = cls.classify(fucntionlist);
+        LinkedHashMap<String, String> res = cls.classify(fucntionlist);
         String tmp = fucntionlist.remove(0);
         assertEquals("badfs", res.get(tmp));
         tmp = fucntionlist.remove(0);
