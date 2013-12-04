@@ -84,13 +84,16 @@ public class ArffAttributeInfoExtractor {
      */
     public DefaultTableModel getArffAttributeInfo(int index) {
         DefaultTableModel defaultTableModel = new DefaultTableModel();
+        Instances temp = this.arffData;
+        //since kthSmallestValue cannot handle missing values, they need to be removed.
+        temp.deleteWithMissing(index);
         ArrayList<String> tmp = new ArrayList<String>();
         defaultTableModel.addColumn("Statistics", new String[]{"Name", "Variance", "Min", "Max", "Mean"});
-        tmp.add(this.arffData.attribute(index).name());
-        tmp.add(String.valueOf(this.arffData.variance(index)));
-        tmp.add(String.valueOf(this.arffData.kthSmallestValue(index, 1)));          //min value is the 1st smallest value
-        tmp.add(String.valueOf(this.arffData.kthSmallestValue(index, this.arffData.numInstances())));       //max value is the last smallest value
-        tmp.add(String.valueOf(this.arffData.meanOrMode(index)));
+        tmp.add(temp.attribute(index).name());
+        tmp.add(String.valueOf(temp.variance(index)));
+        tmp.add(String.valueOf(temp.kthSmallestValue(index, 1)));          //min value is the 1st smallest value
+        tmp.add(String.valueOf(temp.kthSmallestValue(index, temp.numInstances())));       //max value is the last smallest value
+        tmp.add(String.valueOf(temp.meanOrMode(index)));
         defaultTableModel.addColumn("Value", tmp.toArray());
         return defaultTableModel;
     }

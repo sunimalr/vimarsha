@@ -20,11 +20,12 @@ package org.vimarsha.utils.impl;
 
 import weka.core.Instances;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.text.DecimalFormat;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.TreeMap;
 
 /**
  * Class that bins data in a testset that belongs to a particular attribute
@@ -48,13 +49,15 @@ public class AttributeValueDiscretizer {
      * Bins specified attribute data of all instances in the test data file.
      *
      * @param attrIndex - index of the selected attibute
-     * @return TreeMap containing bins' data
+     * @return LinkedHashMap containing bins' data
      * @throws IOException
      * @throws IllegalArgumentException
      */
     public LinkedHashMap<String, Integer> binAttribute(int attrIndex) throws IOException, IllegalArgumentException {
         LinkedHashMap<String, Integer> bins = new LinkedHashMap<String, Integer>();
         dataFile = new Instances(new BufferedReader(new FileReader(inputArffFile)));
+        //since kthSmallestValue cannot handle missing values, they need to be removed.
+        dataFile.deleteWithMissing(attrIndex);
         double min = dataFile.kthSmallestValue(attrIndex, 1);
         double max = dataFile.kthSmallestValue(attrIndex, dataFile.numInstances());
         double foldsize = (max - min) / 12;
