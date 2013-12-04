@@ -35,8 +35,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Created with IntelliJ IDEA.
- * User: sunimal
+ * Graphical User Interface Handler
+ *
+ * @author sunimal
  */
 public class UIHandler {
     private static UIHandler uiHandlerInstance = null;
