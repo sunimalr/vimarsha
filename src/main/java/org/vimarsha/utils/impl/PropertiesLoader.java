@@ -127,6 +127,25 @@ public class PropertiesLoader {
     }
 
     /**
+     * Returns the classification result string
+     *
+     * @return String
+     */
+    public String getClassificationResultString() {
+        return this.properties.getProperty("classification") + " ";
+    }
+
+    /**
+     * Returns a line of hyphens
+     *
+     * @return String
+     */
+    public String getLineOfHyphens() {
+        return this.properties.getProperty("line") + System.getProperty("line.separator");
+    }
+
+
+    /**
      * Returns the data header
      *
      * @return String
