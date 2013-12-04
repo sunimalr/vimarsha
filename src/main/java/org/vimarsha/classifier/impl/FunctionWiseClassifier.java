@@ -38,6 +38,13 @@ public class FunctionWiseClassifier extends AbstractClassifier {
         super();
     }
 
+    /**
+     * Classifies function wise test instances in the associated with the names labels mentioned in the arraylist passed as the argument.
+     *
+     * @param list - labels of instances contained in the test set that need to be classified.
+     * @return TreeMap containing the instance labels and the associated classification results.
+     * @throws ClassificationFailedException
+     */
     @Override
     public TreeMap<String, String> classify(ArrayList<String> list) throws ClassificationFailedException {
         output = new TreeMap<String, String>();
@@ -63,8 +70,13 @@ public class FunctionWiseClassifier extends AbstractClassifier {
         return output;
     }
 
+    /**
+     * Get the resulting treemap of a previously evaluated dataset.
+     *
+     * @return TreeMap containing the instance labels and the associated classification results.
+     */
     @Override
     public Object getClassificationResult() {
-        return output;  //To change body of implemented methods use File | Settings | File Templates.
+        return output;
     }
 }
