@@ -26,17 +26,31 @@ import java.util.HashMap;
 import java.util.TreeMap;
 
 /**
- * Created with IntelliJ IDEA.
- * User: sunimal
+ * Class that bins data in a testset that belongs to a particular attribute
+ *
+ * @author sunimal
  */
 public class AttributeValueDiscretizer {
     private Instances dataFile;
     private File inputArffFile;
 
+    /**
+     * Constructs an AttributeValueDiscretizer with a given ARFF file.
+     *
+     * @param inputArffFile - ARFF file in which the attributes that need be binned exist
+     */
     public AttributeValueDiscretizer(File inputArffFile) {
         this.inputArffFile = inputArffFile;
     }
 
+    /**
+     * Bins specified attribute data of all instances in the test data file.
+     *
+     * @param attrIndex - index of the selected attibute
+     * @return TreeMap containing bins' data
+     * @throws IOException
+     * @throws IllegalArgumentException
+     */
     public TreeMap<String, Integer> binAttribute(int attrIndex) throws IOException, IllegalArgumentException {
         TreeMap<String, Integer> bins = new TreeMap<String, Integer>();
         dataFile = new Instances(new BufferedReader(new FileReader(inputArffFile)));
