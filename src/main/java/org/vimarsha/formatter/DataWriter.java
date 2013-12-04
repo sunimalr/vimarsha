@@ -18,12 +18,12 @@
  * /
  */
 
-package org.vimarsha.formatter.impl;
+package org.vimarsha.formatter;
 
 import org.vimarsha.exceptions.InstructionCountNotSetException;
 import org.vimarsha.exceptions.RawEventNotFoundException;
 import org.vimarsha.exceptions.SymbolNotFoundException;
-import org.vimarsha.formatter.OutputWriter;
+import org.vimarsha.formatter.impl.ArffWriter;
 import org.vimarsha.utils.impl.PerformanceEventsHolder;
 import org.vimarsha.utils.impl.PropertiesLoader;
 
@@ -31,10 +31,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Created with IntelliJ IDEA.
- * User: sunimal
+ * A class which
+ *
+ * @author gayashan
  */
-abstract class DataWriter {
+public abstract class DataWriter {
     protected ArffWriter arffWriter;
     protected ArrayList<String> headers;
     protected PerformanceEventsHolder performanceEventsHolder;
