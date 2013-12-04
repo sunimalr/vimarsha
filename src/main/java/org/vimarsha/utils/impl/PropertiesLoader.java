@@ -168,7 +168,16 @@ public class PropertiesLoader {
      * @return String
      */
     public String getSeparatorRegex() {
-        return " " + this.properties.getProperty("separator");
+        return this.properties.getProperty("separator");
+    }
+
+    /**
+     * Returns the spaces regex
+     *
+     * @return String
+     */
+    public String getSpacesRegex() {
+        return " " + this.properties.getProperty("spaces");
     }
 
     /**
