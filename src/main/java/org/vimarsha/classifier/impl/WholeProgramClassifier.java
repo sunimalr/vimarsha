@@ -32,6 +32,7 @@ import weka.filters.unsupervised.attribute.Remove;
 public class WholeProgramClassifier extends AbstractClassifier {
 
     private String classificationResult;
+    private String treeModel;
 
     public WholeProgramClassifier() {
         super();
@@ -54,6 +55,7 @@ public class WholeProgramClassifier extends AbstractClassifier {
         fc.setClassifier(j48);
         try {
             fc.buildClassifier(trainSet);
+            this.treeModel = j48.toString();
             double pred = fc.classifyInstance(testSet.instance(0));
             output = testSet.classAttribute().value((int) pred);
             classificationResult = output;
@@ -71,5 +73,9 @@ public class WholeProgramClassifier extends AbstractClassifier {
     @Override
     public Object getClassificationResult() {
         return classificationResult;
+    }
+
+    public String getTreeModel() {
+        return this.treeModel;
     }
 }
