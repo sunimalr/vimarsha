@@ -21,6 +21,7 @@ package org.vimarsha.utils.impl;
 import weka.core.Instances;
 
 import java.io.*;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.TreeMap;
 
@@ -43,14 +44,15 @@ public class AttributeValueDiscretizer {
         double max = dataFile.kthSmallestValue(attrIndex, dataFile.numInstances());
         double foldsize = (max - min) / 12;
         double lowerbound, upperbound;
+        DecimalFormat df = new DecimalFormat("0.00");
         StringBuilder sb;
         for (int j = 0; j < 12; j++) {
             lowerbound = j * foldsize;
             upperbound = (j + 1) * foldsize;
             sb = new StringBuilder();
-            sb.append(lowerbound);
-            sb.append("-");
-            sb.append(upperbound);
+            sb.append(df.format(lowerbound));
+            sb.append(" - ");
+            sb.append(df.format(upperbound));
             bins.put(sb.toString(), 0);
         }
         if (foldsize == 0) {
@@ -61,9 +63,9 @@ public class AttributeValueDiscretizer {
             lowerbound = bin * foldsize;
             upperbound = (bin + 1) * foldsize;
             sb = new StringBuilder();
-            sb.append(lowerbound);
-            sb.append("-");
-            sb.append(upperbound);
+            sb.append(df.format(lowerbound));
+            sb.append(" - ");
+            sb.append(df.format(upperbound));
             if (bins.containsKey(sb.toString())) {
                 bins.put(sb.toString(), (Integer) bins.get(sb.toString()) + 1);
             } else {
