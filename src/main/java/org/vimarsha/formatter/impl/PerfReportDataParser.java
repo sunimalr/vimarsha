@@ -29,8 +29,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 /**
- * Created with IntelliJ IDEA.
- * User: gayashan
+ * A class which can be used to parse and extract event count values from a perf report output file.
+ *
+ * @author gayashan
  */
 public class PerfReportDataParser implements DataParser {
     private BufferedReader fileReader;
@@ -38,6 +39,13 @@ public class PerfReportDataParser implements DataParser {
     private String programName;
     private boolean getAll;
 
+    /**
+     * Construct a PerfReportDataParser
+     *
+     * @param fileReader           a buffered file reader
+     * @param perfReportDataHolder a PerfReportDataHolder
+     * @param programName          the programName
+     */
     public PerfReportDataParser(BufferedReader fileReader, PerfReportDataHolder perfReportDataHolder, String programName) {
         this.fileReader = fileReader;
         this.setPerfReportDataHolder(perfReportDataHolder);
@@ -45,18 +53,30 @@ public class PerfReportDataParser implements DataParser {
         this.getAll = false;
     }
 
+    /**
+     * Construct a PerfReportDataParser
+     *
+     * @param fileReader           a buffered file reader
+     * @param perfReportDataHolder a PerfReportDataHolder
+     */
     public PerfReportDataParser(BufferedReader fileReader, PerfReportDataHolder perfReportDataHolder) {
         this.fileReader = fileReader;
         this.setPerfReportDataHolder(perfReportDataHolder);
         this.getAll = true;
     }
 
+    /**
+     * Parse the output file and extract the performance event count values
+     *
+     * @throws IOException
+     * @throws RawFileParseFailedException
+     */
     @Override
     public void parse() throws IOException, RawFileParseFailedException {
         String line = null;
         String rawEvent = null;
         String tmp = null;
-        String symbol = null;
+        StringBuilder symbol = null;
         float overhead = -1, interpolatedVal = -1;
         String out = "";
         int eventCount = -1;
@@ -64,18 +84,20 @@ public class PerfReportDataParser implements DataParser {
         //TODO Move the constants to a configuration file
         while ((line = fileReader.readLine()) != null) {
             line = line.trim();
+            //event count per each function is detected by looking for event line detector string in each commented line
+            //eg: # Events: 235  raw 0xc0
             if (line.contains(PropertiesLoader.getInstance().getEventLineDetector())) {
-                rawEvent = line.split(PropertiesLoader.getInstance().getSpacesRegex())[4];     //split the line and acquire raw event name
-                tmp = line.split(PropertiesLoader.getInstance().getSpacesRegex())[2];
+                rawEvent = line.split(PropertiesLoader.getInstance().getSeparatorRegex())[4];     //split the line and acquire raw event name
+                tmp = line.split(PropertiesLoader.getInstance().getSeparatorRegex())[2];
                 if (tmp.contains(PropertiesLoader.getInstance().getThousandSuffix())) {              //some raw event counts are scaled in K format eg: 4K = 4000
                     eventCount = Integer.parseInt(tmp.split(PropertiesLoader.getInstance().getThousandSuffix())[0]) * 1000;
                 } else {
                     eventCount = Integer.parseInt(tmp);
                 }
             }
-
-            if ((!line.contains(PropertiesLoader.getInstance().getCommentPrefix())) && (line.split(PropertiesLoader.getInstance().getSpacesRegex())).length != 1) {
-                String[] tokens = line.split(PropertiesLoader.getInstance().getSpacesRegex());
+            //if the linse is not a comment and if it is not an empty line
+            if ((!line.contains(PropertiesLoader.getInstance().getCommentPrefix())) && (line.split(PropertiesLoader.getInstance().getSeparatorRegex())).length != 1) {
+                String[] tokens = line.split(PropertiesLoader.getInstance().getSeparatorRegex());
                 //tokens[1] = command which executed the function
                 //tokens[2] = object which function belongs to
                 //tokens[1] gives all the functions (including external libraries, kernel, etc)
@@ -84,17 +106,17 @@ public class PerfReportDataParser implements DataParser {
                     int size = tokens.length;
                     overhead = Float.parseFloat(tokens[0].split("%")[0]);
                     if (size <= 5) {
-                        symbol = tokens[4];
+                        symbol = new StringBuilder(tokens[4]);
                     } else {
                         int i = 4;
                         while (i < size) {
-                            symbol += tokens[i];
+                            symbol.append(tokens[i]);
                             ++i;
                         }
                     }
                     //interpolated value of the performance count event per function = perf count event valu x overhead%
                     interpolatedVal = (float) ((eventCount / 100.0) * overhead);
-                    this.getPerfReportDataHolder().addValue(symbol, rawEvent, String.valueOf(interpolatedVal));
+                    this.getPerfReportDataHolder().addValue(symbol.toString(), rawEvent, String.valueOf(interpolatedVal));
                 } else {
                     throw new RawFileParseFailedException();
                 }
@@ -102,15 +124,30 @@ public class PerfReportDataParser implements DataParser {
         }
     }
 
+    /**
+     * Set the file reader.
+     *
+     * @param fileReader a BufferedReader
+     */
     @Override
     public void setFileReader(BufferedReader fileReader) {
         this.fileReader = fileReader;
     }
 
+    /**
+     * Returns the PerfReportDataHolder which is generated after parsing
+     *
+     * @return PerfReportDataHolder - contains the extracted performance event count values
+     */
     public PerfReportDataHolder getPerfReportDataHolder() {
         return perfReportDataHolder;
     }
 
+    /**
+     * Set the PerfReportDataHolder
+     *
+     * @param perfReportDataHolder a PerfReportDataHolder
+     */
     public void setPerfReportDataHolder(PerfReportDataHolder perfReportDataHolder) {
         this.perfReportDataHolder = perfReportDataHolder;
     }
