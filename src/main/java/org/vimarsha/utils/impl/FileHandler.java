@@ -31,19 +31,30 @@ import java.util.LinkedList;
 import java.util.TreeMap;
 
 /**
- * Created with IntelliJ IDEA.
- * User: gayashan
+ * A class which can be used to create output files of different formats.
+ *
+ * @author gayashan
  */
 public class FileHandler {
     private FileChannel sourceFileChannel;
     private FileChannel destinationFileChannel;
     private CSVWriter csvWriter;
 
+    /**
+     * Default constructor.
+     */
     public FileHandler() {
         this.destinationFileChannel = null;
         this.sourceFileChannel = null;
     }
 
+    /**
+     * Copy a given arff file to a given destination.
+     *
+     * @param source      source file
+     * @param destination destination
+     * @throws IOException
+     */
     public void copy(File source, String destination) throws IOException {
         Instances instances = new Instances(new BufferedReader(new FileReader(source)));
         ArffSaver arffSaver = new ArffSaver();
@@ -52,6 +63,15 @@ public class FileHandler {
         arffSaver.writeBatch();
     }
 
+    /**
+     * Export the function wise results to a csv file at a given destination.
+     * 1st column : function name
+     * 2nd column : classification
+     *
+     * @param results     results from function wise classification
+     * @param destination destination
+     * @throws IOException
+     */
     public void exportFunctionWiseResultsAsCSV(TreeMap<String, String> results, String destination) throws IOException {
         this.csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(destination)));
         String[] header = new String[]{"Function", "Classsification"};
@@ -64,6 +84,15 @@ public class FileHandler {
         this.csvWriter.flush();
     }
 
+    /**
+     * Export the time sliced results to a csv file at a given destination.
+     * 1st column : time slice number
+     * 2nd column : classification
+     *
+     * @param results     results from time sliced classification
+     * @param destination destination
+     * @throws IOException
+     */
     public void exportTimeSlicedResultsAsCSV(LinkedList<String> results, String destination) throws IOException {
         this.csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(destination)));
         String[] header = new String[]{"Time slice no", "Classification"};

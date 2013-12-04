@@ -19,10 +19,14 @@
 package org.vimarsha.utils.impl;
 
 /**
- * Created with IntelliJ IDEA.
- * User: gayashan
+ * A class which holds data generated from parsing the output of perf stat tool in time sliced data collection.
+ *
+ * @author gayashan
  */
 public class PerfStatTimeSlicedDataHolder extends PerfReportDataHolder {
+    /**
+     * Default constructor
+     */
     public PerfStatTimeSlicedDataHolder() {
         super();
     }

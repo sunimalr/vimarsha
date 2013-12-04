@@ -24,14 +24,23 @@ import javax.swing.table.DefaultTableModel;
 import java.util.TreeMap;
 
 /**
- * Created with IntelliJ IDEA.
- * User: gayashan
+ * A class responsible for generating data needed for tables.
+ *
+ * @author gayashan
  */
 public class TableDataGenerator {
-
+    /**
+     * Default constructor
+     */
     public TableDataGenerator() {
     }
 
+    /**
+     * Returns a DefaultTableModel generated from results of function wise classification
+     *
+     * @param results results of function wise classification
+     * @return DefaultTableModel
+     */
     public DefaultTableModel getFunctionwiseTableModel(TreeMap<String, String> results) {
         DefaultTableModel tableModel = new DefaultTableModel();
         tableModel.addColumn("Function");

@@ -21,8 +21,9 @@
 package org.vimarsha.utils;
 
 /**
- * Created with IntelliJ IDEA.
- * User: gayashan
+ * This enum holds the perf data file types
+ *
+ * @author gayashan
  */
 public enum DataFileType {
     PERF_STAT, PERF_REPORT, PERF_STAT_TIME, UNKNOWN

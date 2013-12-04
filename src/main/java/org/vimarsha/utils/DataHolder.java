@@ -21,8 +21,9 @@
 package org.vimarsha.utils;
 
 /**
- * Created with IntelliJ IDEA.
- * User: gayashan
+ * DataHolder interface to be implemented by different data holders.
+ *
+ * @author gayashan
  */
 public interface DataHolder {
 }

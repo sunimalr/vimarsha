@@ -27,28 +27,52 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 
 /**
- * Created with IntelliJ IDEA.
- * User: sunimal
+ * A class which can be used load the architecture configurations when created.
+ *
+ * @author gayashan
  */
 public class ConfigurationsLoader {
     private XMLArchitectureConfigurationsLoader xmlHandler;
     private PerformanceEventsHolder performanceEventsHolder;
 
+    /**
+     * Creates a new XMLArchitectureConfigurationsLoader with the provided performanceEventsHolder.
+     *
+     * @param performanceEventsHolder a PerformanceEventsHolder
+     */
     public ConfigurationsLoader(PerformanceEventsHolder performanceEventsHolder) {
         this.performanceEventsHolder = performanceEventsHolder;
         xmlHandler = new XMLArchitectureConfigurationsLoader(performanceEventsHolder, PropertiesLoader.getInstance().getEventsXMLFileName());
     }
 
+    /**
+     * Load the performance events related to the provided architecture.
+     *
+     * @param architecture architecture
+     * @throws IOException
+     * @throws SAXException
+     * @throws ParserConfigurationException
+     */
     public void loadPerformanceEvents(Architecture architecture) throws IOException, SAXException, ParserConfigurationException {
         xmlHandler.setArchitecture(architecture);
         xmlHandler.parseDocument();
         this.performanceEventsHolder = xmlHandler.getPerformanceEventsHolder();
     }
 
+    /**
+     * Returns the PerformanceEventsHolder with the performance events information related to the architecture.
+     *
+     * @return PerformanceEventsHolder
+     */
     public PerformanceEventsHolder getPerformanceEventsHolder() {
         return performanceEventsHolder;
     }
 
+    /**
+     * Set the PerformanceEventsHolder dynamically.
+     *
+     * @param performanceEventsHolder a PerformanceEventsHolder
+     */
     public void setPerformanceEventsHolder(PerformanceEventsHolder performanceEventsHolder) {
         this.performanceEventsHolder = performanceEventsHolder;
     }

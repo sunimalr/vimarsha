@@ -26,14 +26,21 @@ import org.vimarsha.utils.DataFileType;
 import java.io.*;
 
 /**
- * Created with IntelliJ IDEA.
- * User: gayashan
+ * A class which can be used to the loaded raw data file type.
+ *
+ * @author gayashan
  */
 public class DataFileTypeDetector {
     private DataFileType dataFileType;
     private File file;
     private BufferedReader bufferedReader;
 
+    /**
+     * Creates a new DataFileTypeDetector and opens the provided file for reading.
+     *
+     * @param file file name
+     * @throws FileNotFoundException
+     */
     public DataFileTypeDetector(File file) throws FileNotFoundException {
         this.file = file;
         this.bufferedReader = new BufferedReader(new FileReader(file));
@@ -41,9 +48,10 @@ public class DataFileTypeDetector {
     }
 
     /**
+     * Returns the DataFileType.
      * Expected header format "@datafiletype=PERF_REPORT"
      *
-     * @return
+     * @return DataFileType
      * @throws IOException
      */
     public DataFileType getDataFileType() throws IOException, DataFileTypeHeaderNotSetException {

@@ -26,7 +26,7 @@ import weka.core.Instances;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.TreeMap;
 
 /**
@@ -50,7 +50,7 @@ public class FunctionWiseClassifierTest extends TestCase {
 
     @Test
     public void testClassify() throws Exception {
-        ArrayList<String> fucntionlist = new ArrayList<String>();
+        LinkedList<String> fucntionlist = new LinkedList<String>();
         fucntionlist.add("pspeedy(Points*,float,long*,int,parsec_barrier_t*)");
         fucntionlist.add("dist(Point,Point,int)");
         TreeMap<String, String> res = cls.classify(fucntionlist);

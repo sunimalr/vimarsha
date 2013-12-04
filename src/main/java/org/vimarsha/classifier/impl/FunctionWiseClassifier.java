@@ -23,7 +23,7 @@ import weka.classifiers.meta.FilteredClassifier;
 import weka.classifiers.trees.J48;
 import weka.filters.unsupervised.attribute.Remove;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.TreeMap;
 
 /**
@@ -46,7 +46,7 @@ public class FunctionWiseClassifier extends AbstractClassifier {
      * @throws ClassificationFailedException
      */
     @Override
-    public TreeMap<String, String> classify(ArrayList<String> list) throws ClassificationFailedException {
+    public TreeMap<String, String> classify(LinkedList<String> list) throws ClassificationFailedException {
         output = new TreeMap<String, String>();
         J48 j48 = new J48();
         Remove rm = new Remove();
