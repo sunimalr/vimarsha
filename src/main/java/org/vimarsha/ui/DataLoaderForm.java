@@ -23,6 +23,7 @@ package org.vimarsha.ui;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.vimarsha.mediator.impl.UIHandler;
@@ -130,6 +131,8 @@ public class DataLoaderForm {
 
     private void drawBarChart(DefaultCategoryDataset data) {
         JFreeChart chart = ChartFactory.createBarChart("Binned event data", "bins", "count", data, PlotOrientation.VERTICAL, false, true, false);
+        CategoryPlot plot = (CategoryPlot) chart.getPlot();
+        plot.setOrientation(PlotOrientation.HORIZONTAL);
         this.attributeDetailsChart.setChart(chart);
         this.attributeDetailsChart.setVisible(true);
     }
