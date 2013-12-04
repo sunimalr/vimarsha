@@ -22,8 +22,8 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
-import java.util.TreeMap;
 
 /**
  * A class which returns a chart data set when a result set is passed.
@@ -70,7 +70,7 @@ public class ChartDataGenerator {
      * @param binnedEvent attribute name
      * @return DefaultCategoryDataset
      */
-    public DefaultCategoryDataset getBinnedChartDataSet(TreeMap<String, Integer> results, String binnedEvent) {
+    public DefaultCategoryDataset getBinnedChartDataSet(LinkedHashMap<String, Integer> results, String binnedEvent) {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         for (String key : results.keySet()) {
             dataset.setValue(results.get(key), binnedEvent, key);

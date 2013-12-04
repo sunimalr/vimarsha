@@ -23,8 +23,8 @@ import weka.classifiers.meta.FilteredClassifier;
 import weka.classifiers.trees.J48;
 import weka.filters.unsupervised.attribute.Remove;
 
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
-import java.util.TreeMap;
 
 /**
  * Created with IntelliJ IDEA.
@@ -32,7 +32,7 @@ import java.util.TreeMap;
  */
 public class FunctionWiseClassifier extends AbstractClassifier {
 
-    private TreeMap<String, String> output;
+    private LinkedHashMap<String, String> output;
 
     public FunctionWiseClassifier() {
         super();
@@ -46,8 +46,8 @@ public class FunctionWiseClassifier extends AbstractClassifier {
      * @throws ClassificationFailedException
      */
     @Override
-    public TreeMap<String, String> classify(LinkedList<String> list) throws ClassificationFailedException {
-        output = new TreeMap<String, String>();
+    public LinkedHashMap<String, String> classify(LinkedList<String> list) throws ClassificationFailedException {
+        output = new LinkedHashMap<String, String>();
         J48 j48 = new J48();
         Remove rm = new Remove();
         rm.setAttributeIndices("1");

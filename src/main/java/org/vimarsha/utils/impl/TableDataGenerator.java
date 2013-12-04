@@ -21,7 +21,7 @@
 package org.vimarsha.utils.impl;
 
 import javax.swing.table.DefaultTableModel;
-import java.util.TreeMap;
+import java.util.LinkedHashMap;
 
 /**
  * A class responsible for generating data needed for tables.
@@ -41,7 +41,7 @@ public class TableDataGenerator {
      * @param results results of function wise classification
      * @return DefaultTableModel
      */
-    public DefaultTableModel getFunctionwiseTableModel(TreeMap<String, String> results) {
+    public DefaultTableModel getFunctionwiseTableModel(LinkedHashMap<String, String> results) {
         DefaultTableModel tableModel = new DefaultTableModel();
         tableModel.addColumn("Function");
         tableModel.addColumn("Classification");

@@ -24,8 +24,8 @@ import weka.core.Instances;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
-import java.util.TreeMap;
 
 /**
  * Created with IntelliJ IDEA.
@@ -75,7 +75,7 @@ abstract class AbstractClassifier {
      * @return TreeMap containing the instance labels and the associated classification results.
      * @throws ClassificationFailedException
      */
-    public TreeMap<String, String> classify(LinkedList<String> list) throws ClassificationFailedException {
+    public LinkedHashMap<String, String> classify(LinkedList<String> list) throws ClassificationFailedException {
         return null;
     }
 
