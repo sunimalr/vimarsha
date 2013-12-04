@@ -78,24 +78,23 @@ public class PerfReportDataParser implements DataParser {
         String tmp = null;
         StringBuilder symbol = null;
         float overhead = -1, interpolatedVal = -1;
-        String out = "";
         int eventCount = -1;
 
-        //TODO Move the constants to a configuration file
         while ((line = fileReader.readLine()) != null) {
             line = line.trim();
             //event count per each function is detected by looking for event line detector string in each commented line
             //eg: # Events: 235  raw 0xc0
             if (line.contains(PropertiesLoader.getInstance().getEventLineDetector())) {
-                rawEvent = line.split(PropertiesLoader.getInstance().getSeparatorRegex())[4];     //split the line and acquire raw event name
-                tmp = line.split(PropertiesLoader.getInstance().getSeparatorRegex())[2];
+                rawEvent = line.split(PropertiesLoader.getInstance().getSpacesRegex())[4];     //split the line and acquire raw event name
+                tmp = line.split(PropertiesLoader.getInstance().getSpacesRegex())[2];
                 if (tmp.contains(PropertiesLoader.getInstance().getThousandSuffix())) {              //some raw event counts are scaled in K format eg: 4K = 4000
                     eventCount = Integer.parseInt(tmp.split(PropertiesLoader.getInstance().getThousandSuffix())[0]) * 1000;
                 } else {
                     eventCount = Integer.parseInt(tmp);
                 }
             }
-            //if the linse is not a comment and if it is not an empty line
+
+            //if the line is not a comment and if it is not an empty line
             if ((!line.contains(PropertiesLoader.getInstance().getCommentPrefix())) && (line.split(PropertiesLoader.getInstance().getSeparatorRegex())).length != 1) {
                 String[] tokens = line.split(PropertiesLoader.getInstance().getSeparatorRegex());
                 //tokens[1] = command which executed the function
@@ -104,16 +103,8 @@ public class PerfReportDataParser implements DataParser {
                 //tokens[2] gives only the functions available in the program
                 if (tokens[1].equals(this.programName) || this.getAll) {
                     int size = tokens.length;
-                    overhead = Float.parseFloat(tokens[0].split("%")[0]);
-                    if (size <= 5) {
-                        symbol = new StringBuilder(tokens[4]);
-                    } else {
-                        int i = 4;
-                        while (i < size) {
-                            symbol.append(tokens[i]);
-                            ++i;
-                        }
-                    }
+                    overhead = Float.parseFloat(tokens[0]);
+                    symbol = new StringBuilder(tokens[3].split(PropertiesLoader.getInstance().getSpacesRegex())[1]);
                     //interpolated value of the performance count event per function = perf count event valu x overhead%
                     interpolatedVal = (float) ((eventCount / 100.0) * overhead);
                     this.getPerfReportDataHolder().addValue(symbol.toString(), rawEvent, String.valueOf(interpolatedVal));
