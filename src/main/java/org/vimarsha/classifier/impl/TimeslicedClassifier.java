@@ -37,9 +37,14 @@ public class TimeslicedClassifier extends AbstractClassifier {
         super();
     }
 
+    /**
+     * Classifies Timesliced test data instances.
+     *
+     * @return Resulting linked list with timelsiced classification results.
+     * @throws ClassificationFailedException
+     */
     @Override
     public Object classify() throws ClassificationFailedException {
-
         output = new LinkedList<String>();
         J48 j48 = new J48();
         Remove rm = new Remove();
@@ -63,6 +68,11 @@ public class TimeslicedClassifier extends AbstractClassifier {
         return output;
     }
 
+    /**
+     * Get the resulting LinkedList of a previously evaluated dataset.
+     *
+     * @return LinkedList containing the instance labels and the associated classification results.
+     */
     @Override
     public Object getClassificationResult() {
         return output;

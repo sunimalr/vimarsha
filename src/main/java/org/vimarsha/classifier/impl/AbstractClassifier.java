@@ -38,20 +38,44 @@ abstract class AbstractClassifier {
     protected Instances testSet;
     protected Instances trainSet;
 
+    /**
+     * Sets the data set with training instances.
+     *
+     * @param dataSource - Weka Instances object that contains training instances.
+     */
     public void setTrainingDataSource(Instances dataSource) {
         this.trainSet = dataSource;
     }
 
+    /**
+     * Sets the data set that need to be evaluated. (Test set)
+     *
+     * @param dataSource - Weka Instances object that contains training instances.
+     * @throws IOException
+     */
     public void setTestingDataSource(String dataSource) throws IOException {
         this.testSet = new Instances(new BufferedReader(new FileReader(dataSource)));
         if (testSet.classIndex() == -1)
             testSet.setClassIndex(testSet.numAttributes() - 1);
     }
 
+    /**
+     * Classifies test instances with the classifier trained with training data set.
+     *
+     * @return Classification results
+     * @throws ClassificationFailedException
+     */
     public Object classify() throws ClassificationFailedException {
         return null;
     }
 
+    /**
+     * Classifies test instances in the associated with the names labels mentioned in the arraylist passed as the argument.
+     *
+     * @param list - labels of instances contained in the test set that need to be classified.
+     * @return TreeMap containing the instance labels and the associated classification results.
+     * @throws ClassificationFailedException
+     */
     public TreeMap<String, String> classify(ArrayList<String> list) throws ClassificationFailedException {
         return null;
     }

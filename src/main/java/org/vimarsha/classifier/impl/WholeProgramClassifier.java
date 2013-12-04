@@ -37,6 +37,12 @@ public class WholeProgramClassifier extends AbstractClassifier {
         super();
     }
 
+    /**
+     * Classifies whole program test instances,
+     *
+     * @return String containing the classification result of the evaluated program's dataset.
+     * @throws ClassificationFailedException
+     */
     @Override
     public Object classify() throws ClassificationFailedException {
         J48 j48 = new J48();
@@ -57,6 +63,11 @@ public class WholeProgramClassifier extends AbstractClassifier {
         return output;
     }
 
+    /**
+     * Get the resulting String of a previously evaluated dataset.
+     *
+     * @return
+     */
     @Override
     public Object getClassificationResult() {
         return classificationResult;
