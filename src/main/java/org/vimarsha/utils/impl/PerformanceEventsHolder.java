@@ -26,8 +26,10 @@ import org.vimarsha.utils.Architecture;
 import java.util.ArrayList;
 
 /**
- * Created with IntelliJ IDEA.
- * User: gayashan
+ * A class which holds performance count events per architecture.
+ * Also holds the training model specified for the architecture.
+ *
+ * @author gayashan
  */
 public class PerformanceEventsHolder {
     private ArrayList<String> eventsHolder;
@@ -36,27 +38,30 @@ public class PerformanceEventsHolder {
     private String trainingModel;
     private String relationHeader;
 
-    public String getRelationHeader() {
-        return relationHeader;
-    }
-
-    public void setRelationHeader(String relationHeader) {
-        this.relationHeader = relationHeader;
-    }
-
+    /**
+     * Default constructor.
+     */
     public PerformanceEventsHolder() {
         setEventsHolder(new ArrayList<String>());
         instructionCountEvent = null;
     }
 
+    /**
+     * Set the instruction count raw event.
+     *
+     * @param instructionCountEvent instruction retired event
+     */
     public void setInstructionCountEvent(String instructionCountEvent) {
         this.instructionCountEvent = instructionCountEvent;
     }
 
-    public void addRawEvent(String rawEvent) {
-        getEventsHolder().add(rawEvent);
-    }
-
+    /**
+     * Return the instruction count raw event.
+     *
+     * @return String
+     * @throws InstructionCountNotSetException
+     *
+     */
     public String getInstructionCountEvent() throws InstructionCountNotSetException {
         if (instructionCountEvent == null) {
             throw new InstructionCountNotSetException();
@@ -65,10 +70,18 @@ public class PerformanceEventsHolder {
     }
 
     /**
-     * Returns the prettified Instruction count raw event id
-     * TODO: Needs proper handling of names.
+     * Add a raw event to the events list.
      *
-     * @return
+     * @param rawEvent performance event
+     */
+    public void addRawEvent(String rawEvent) {
+        getEventsHolder().add(rawEvent);
+    }
+
+    /**
+     * Returns the prettified Instruction count raw event id
+     *
+     * @return String
      * @throws InstructionCountNotSetException
      *
      */
@@ -83,18 +96,38 @@ public class PerformanceEventsHolder {
         return new String(PropertiesLoader.getInstance().getPerfEventPrettyPrefix3() + event);
     }
 
+    /**
+     * Returns the architecture.
+     *
+     * @return Architecture
+     */
     public Architecture getArchitecture() {
         return architecture;
     }
 
+    /**
+     * Set the architecture.
+     *
+     * @param architecture architecture
+     */
     public void setArchitecture(Architecture architecture) {
         this.architecture = architecture;
     }
 
+    /**
+     * Get a list of performance events related to the architecture.
+     *
+     * @return ArrayList
+     */
     public ArrayList<String> getEventsHolder() {
         return eventsHolder;
     }
 
+    /**
+     * Set the events holder which holds the list of events.
+     *
+     * @param eventsHolder ArrayList to store events
+     */
     public void setEventsHolder(ArrayList<String> eventsHolder) {
         this.eventsHolder = eventsHolder;
     }
@@ -119,11 +152,40 @@ public class PerformanceEventsHolder {
         return events;
     }
 
+    /**
+     * Returns the file name of the training model.
+     *
+     * @return String
+     */
     public String getTrainingModel() {
         return trainingModel;
     }
 
+    /**
+     * Set the file name of the training model.
+     *
+     * @param trainingModel training model name
+     */
     public void setTrainingModel(String trainingModel) {
         this.trainingModel = trainingModel;
     }
+
+    /**
+     * Returns the relation header for the architecture.
+     *
+     * @return String
+     */
+    public String getRelationHeader() {
+        return relationHeader;
+    }
+
+    /**
+     * Set the relationHeader.
+     *
+     * @param relationHeader relation header string
+     */
+    public void setRelationHeader(String relationHeader) {
+        this.relationHeader = relationHeader;
+    }
+
 }

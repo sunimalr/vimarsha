@@ -31,8 +31,9 @@ import javax.xml.parsers.SAXParserFactory;
 import java.io.IOException;
 
 /**
- * Created with IntelliJ IDEA.
- * User: gayashan
+ * A class which parses a given xml file to extract data.
+ *
+ * @author gayashan
  */
 public class XMLArchitectureConfigurationsLoader extends DefaultHandler {
     private final PerformanceEventsHolder performanceEventsHolder;
@@ -41,12 +42,25 @@ public class XMLArchitectureConfigurationsLoader extends DefaultHandler {
     private boolean selected;
     private Architecture architecture;
 
+    /**
+     * Generates a xml data parser.
+     *
+     * @param eventsHolder a PerformanceEventsHolder
+     * @param fileName     xml file name
+     */
     public XMLArchitectureConfigurationsLoader(PerformanceEventsHolder eventsHolder, String fileName) {
         this.fileName = fileName;
         this.performanceEventsHolder = eventsHolder;
         this.selected = false;
     }
 
+    /**
+     * Parse the document through the xml parser
+     *
+     * @throws ParserConfigurationException
+     * @throws SAXException
+     * @throws IOException
+     */
     public void parseDocument() throws ParserConfigurationException, SAXException, IOException {
         SAXParserFactory factory = SAXParserFactory.newInstance();
         SAXParser parser = factory.newSAXParser();
@@ -54,6 +68,15 @@ public class XMLArchitectureConfigurationsLoader extends DefaultHandler {
 
     }
 
+    /**
+     * When a starting element is found trigger this method.
+     *
+     * @param uri
+     * @param localName
+     * @param qName
+     * @param attributes
+     * @throws SAXException
+     */
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         if (qName.equalsIgnoreCase(PropertiesLoader.getInstance().getXMLTagArchitecture())) {
@@ -66,6 +89,14 @@ public class XMLArchitectureConfigurationsLoader extends DefaultHandler {
         }
     }
 
+    /**
+     * When an ending element is found trigger this method.
+     *
+     * @param uri
+     * @param localName
+     * @param qName
+     * @throws SAXException
+     */
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
         if (qName.equalsIgnoreCase(PropertiesLoader.getInstance().getXMLTagInsCount()) && selected) {
@@ -79,15 +110,33 @@ public class XMLArchitectureConfigurationsLoader extends DefaultHandler {
         }
     }
 
+    /**
+     * When in between starting and ending element trigger this method.
+     *
+     * @param ch
+     * @param start
+     * @param length
+     * @throws SAXException
+     */
     @Override
     public void characters(char[] ch, int start, int length) throws SAXException {
         content = new String(ch, start, length);
     }
 
+    /**
+     * Returns the PerformanceEventsHolder
+     *
+     * @return PerformanceEventsHolder
+     */
     public PerformanceEventsHolder getPerformanceEventsHolder() {
         return this.performanceEventsHolder;
     }
 
+    /**
+     * Set the architecture
+     *
+     * @param architecture architecture
+     */
     public void setArchitecture(Architecture architecture) {
         this.architecture = architecture;
     }

@@ -26,38 +26,55 @@ import java.util.LinkedList;
 import java.util.TreeMap;
 
 /**
- * Created with IntelliJ IDEA.
- * User: gayashan
+ * A class which returns a chart data set when a result set is passed.
+ *
+ * @author gayashan
  */
 public class ChartDataGenerator {
+    /**
+     * Default constructor.
+     */
     public ChartDataGenerator() {
     }
 
+    /**
+     * Returns an XYSeriesCollection when the a list of results are provided.
+     * X axis is an auto incremented numeric value.
+     * Y axis contains provided results.
+     *
+     * @param results   results of time sliced classification
+     * @param chartName name for the chart
+     * @return XYSeriesCollection
+     */
     public XYSeriesCollection getTimeSlicedChartDataSet(LinkedList<String> results, String chartName) {
         XYSeries series = new XYSeries(chartName);
         int count = 0;
         for (String result : results) {
-            if (result.equalsIgnoreCase(PropertiesLoader.getInstance().getBADFSClass())) {
+            if (result.equalsIgnoreCase(PropertiesLoader.getInstance().getBADFSClass())) {  //badfs = 1
                 series.add(++count, 1);
-            } else if (result.equalsIgnoreCase(PropertiesLoader.getInstance().getBADMAClass())) {
+            } else if (result.equalsIgnoreCase(PropertiesLoader.getInstance().getBADMAClass())) {   //badma = 0.5
                 series.add(++count, 0.5);
-            } else {
+            } else {    //good = 0
                 series.add(++count, 0);
             }
         }
         return new XYSeriesCollection(series);
     }
 
+    /**
+     * Returns a DefaultCategoryDataset when a collection of key-value pairs are provided.
+     * X axis is the key.
+     * Y axis is the value.
+     *
+     * @param results     TreeMap of attribute value counts
+     * @param binnedEvent attribute name
+     * @return DefaultCategoryDataset
+     */
     public DefaultCategoryDataset getBinnedChartDataSet(TreeMap<String, Integer> results, String binnedEvent) {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         for (String key : results.keySet()) {
             dataset.setValue(results.get(key), binnedEvent, key);
         }
-//        dataset.setValue(30, binnedEvent, "1");
-//        dataset.setValue(7, binnedEvent, "2");
-//        dataset.setValue(8, binnedEvent, "3");
-//        dataset.setValue(5, binnedEvent, "4");
-//        dataset.setValue(12, binnedEvent, "5");
         return dataset;
     }
 }

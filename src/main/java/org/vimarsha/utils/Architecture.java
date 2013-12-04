@@ -21,8 +21,9 @@
 package org.vimarsha.utils;
 
 /**
- * Created with IntelliJ IDEA.
- * User: gayashan
+ * This enum holds the architecture list
+ *
+ * @author gayashan
  */
 public enum Architecture {
     POWER7, POWER7_REDUCED, INTEL_NEHALEM, INTEL_NEHALEM_REDUCED, POWER8
