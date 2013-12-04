@@ -110,6 +110,8 @@ public class UIHandler {
         try {
             return this.mediator.getBarChartDataSet(selectedEvent);
         } catch (IOException e) {
+            this.showErrorDialog("Data source not set!");
+        } catch (IllegalArgumentException e) {
         }
         return null;
     }
