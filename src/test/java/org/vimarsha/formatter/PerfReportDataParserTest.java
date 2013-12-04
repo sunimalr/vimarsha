@@ -55,7 +55,7 @@ public class PerfReportDataParserTest extends TestCase {
     public void setUp() throws Exception {
         out = new ByteArrayOutputStream();
         System.setOut(new PrintStream(out));
-        this.bufferedReader = new BufferedReader(new FileReader("data/ppical-bad_fs_4_1000000.txt"));
+        this.bufferedReader = new BufferedReader(new FileReader("data/ppical-bad_fs_4_10000000_new_separator.txt"));
         perfReportDataHolder = new PerfReportDataHolder();
         this.perfReportDataParser = new PerfReportDataParser(bufferedReader, perfReportDataHolder, PROGRAM);
         this.perfReportDataParser.parse();
@@ -68,12 +68,12 @@ public class PerfReportDataParserTest extends TestCase {
 
     @Test
     public void testParse() throws Exception {
-        assertEquals("211.28851", perfReportDataHolder.getValue("Thread_sum_with_fs", "0xc0"));
-        assertEquals("187.5923", perfReportDataHolder.getValue("Thread_sum_with_fs", "0x151"));
-        assertEquals("138.6785", perfReportDataHolder.getValue("Thread_sum_with_fs", "0x20f0"));
-        assertEquals("196.5666", perfReportDataHolder.getValue("Thread_sum_with_fs", "0x4b8"));
-        assertEquals("18.377", perfReportDataHolder.getValue("Serial_pi", "0xc0"));
-        assertEquals(new ArrayList<String>(Arrays.asList("0x20f0", "0x151", "0x4b8", "0xc0")), perfReportDataParser.getPerfReportDataHolder().getRawEventsCollection("Thread_sum_with_fs"));
+        assertEquals("538.8415", perfReportDataHolder.getValue("Thread_sum_with_fs", "0xc0"));
+        assertEquals("547.65063", perfReportDataHolder.getValue("Thread_sum_with_fs", "0x151"));
+        assertEquals("484.7304", perfReportDataHolder.getValue("Thread_sum_with_fs", "0x20f0"));
+        assertEquals("381.0", perfReportDataHolder.getValue("Thread_sum_with_fs", "0x4b8"));
+        assertEquals("0.1635", perfReportDataHolder.getValue("__execvpe", "0xc0"));
+        assertEquals(new ArrayList<String>(Arrays.asList("0x1f2", "0x151", "0x2b8", "0x149", "0x1b8", "0x20f0", "0x2a2", "0x126", "0x2f1", "0x40cb", "0x8a2", "0x4b8", "0x1b0", "0xc0", "0x227", "0x224")), perfReportDataParser.getPerfReportDataHolder().getRawEventsCollection("Thread_sum_with_fs"));
     }
 
     @Test(expected = RawEventNotFoundException.class)

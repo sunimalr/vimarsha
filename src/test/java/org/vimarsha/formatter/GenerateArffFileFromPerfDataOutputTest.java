@@ -57,7 +57,7 @@ public class GenerateArffFileFromPerfDataOutputTest extends TestCase {
         this.configurationsLoader = new ConfigurationsLoader(this.performanceEventsHolder);
         this.configurationsLoader.loadPerformanceEvents(Architecture.INTEL_NEHALEM);
         this.performanceEventsHolder = this.configurationsLoader.getPerformanceEventsHolder();
-        this.bufferedReader = new BufferedReader(new FileReader("data/ppical-bad_fs_4_1000000.txt"));
+        this.bufferedReader = new BufferedReader(new FileReader("data/ppical-bad_fs_4_10000000_new_separator.txt"));
         this.perfReportDataHolder = new PerfReportDataHolder();
         this.perfReportDataParser = new PerfReportDataParser(this.bufferedReader, this.perfReportDataHolder, PROGRAM);
         this.perfReportDataParser.parse();
@@ -68,7 +68,7 @@ public class GenerateArffFileFromPerfDataOutputTest extends TestCase {
     @Test
     public void testGenrateArffFileFromPerfDataOutput() throws Exception {
         assertEquals("0xc0", this.performanceEventsHolder.getInstructionCountEvent());
-        assertEquals("211.28851", this.perfReportDataHolder.getValue("Thread_sum_with_fs", "0xc0"));
+        assertEquals("538.8415", this.perfReportDataHolder.getValue("Thread_sum_with_fs", "0xc0"));
         assertEquals("@attribute r02a2 numeric", this.arffDataWriter.getHeaders().get(3));
         BufferedReader bufferedReader = new BufferedReader(new FileReader("output/ppical-test.arff"));
 //        assertEquals(this.arffDataWriter.getHeaders().get(0),bufferedReader.readLine());
@@ -76,10 +76,10 @@ public class GenerateArffFileFromPerfDataOutputTest extends TestCase {
             assertEquals(out, bufferedReader.readLine());
         }
         bufferedReader.readLine();
-        assertEquals("% 1 Function: Serial_pi", bufferedReader.readLine());
+        assertEquals("% 1 Function: __execvpe", bufferedReader.readLine());
         bufferedReader.readLine();
         bufferedReader.readLine();
-        assertEquals("?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", bufferedReader.readLine());
+        assertEquals("10590825496.0971,?,?,2033639258.2813,?,?,?,?,?,?,?,?,?,?,?,?", bufferedReader.readLine());
         bufferedReader.close();
     }
 }
