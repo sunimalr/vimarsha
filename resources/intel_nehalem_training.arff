@@ -1,6 +1,6 @@
 % ARFF file for training-1.ratio.2.arff_and_training-2.ratio.2.arff
 %
-@relation bad_mem_access_and_false_sharing
+@relation intel_nehalem_training_set
 %
 % 16 original attributes=['r00c0', 'r0149', 'r0151', 'r02a2', 'r0126', 'r0227', 'r0224', 'r08a2', 'r01b0', 'r20f0', 'r02f1', 'r01f2', 'r01b8', 'r02b8', 'r04b8', 'r40cb']
 % skipped attributes=['r00c0']

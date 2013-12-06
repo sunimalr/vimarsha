@@ -26,5 +26,5 @@ package org.vimarsha.utils;
  * @author gayashan
  */
 public enum Architecture {
-    POWER7, POWER7_REDUCED, INTEL_NEHALEM, INTEL_NEHALEM_REDUCED, POWER8
+    POWER7, POWER7_REDUCED, INTEL_NEHALEM, INTEL_NEHALEM_REDUCED
 }
