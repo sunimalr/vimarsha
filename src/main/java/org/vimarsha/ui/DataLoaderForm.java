@@ -23,7 +23,6 @@ package org.vimarsha.ui;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.vimarsha.mediator.impl.UIHandler;
@@ -74,7 +73,7 @@ public class DataLoaderForm {
 
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                JFileChooser fc = new JFileChooser();
+                JFileChooser fc = new JFileChooser(".");
                 int returnVal = fc.showOpenDialog(Tab0);
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     file = fc.getSelectedFile();
@@ -92,7 +91,7 @@ public class DataLoaderForm {
 
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                JFileChooser fc = new JFileChooser();
+                JFileChooser fc = new JFileChooser(".");
                 int returnVal = fc.showOpenDialog(Tab0);
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     file = fc.getSelectedFile();
@@ -108,7 +107,7 @@ public class DataLoaderForm {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 File file = null;
-                JFileChooser fc = new JFileChooser();
+                JFileChooser fc = new JFileChooser(".");
                 int returnVal = fc.showSaveDialog(Tab0);
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     System.out.println(fc.getSelectedFile());
