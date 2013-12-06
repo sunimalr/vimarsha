@@ -98,7 +98,7 @@ public class PerfStatArffDataWriter extends DataWriter {
             }
             out.append(PropertiesLoader.getInstance().getValueSeparator());
         }
-        out.append(PropertiesLoader.getInstance().getMissingValueIndicator() + System.getProperty("line.separator"));
+        out.append(PropertiesLoader.getInstance().getMissingValueIndicator() + System.lineSeparator());
         this.arffWriter.write(out.toString());
         this.arffWriter.close();
     }
@@ -134,7 +134,7 @@ public class PerfStatArffDataWriter extends DataWriter {
                 }
                 out.append(PropertiesLoader.getInstance().getValueSeparator());
             }
-            out.append(PropertiesLoader.getInstance().getMissingValueIndicator() + System.getProperty("line.separator"));
+            out.append(PropertiesLoader.getInstance().getMissingValueIndicator() + System.lineSeparator());
         }
         this.arffWriter.write(out.toString());
         this.arffWriter.close();

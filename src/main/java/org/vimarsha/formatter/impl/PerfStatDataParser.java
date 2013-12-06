@@ -29,8 +29,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 /**
- * Created with IntelliJ IDEA.
- * User: gayashan
+ * @author gayashan
  */
 public class PerfStatDataParser implements DataParser {
     private BufferedReader bufferedReader;
