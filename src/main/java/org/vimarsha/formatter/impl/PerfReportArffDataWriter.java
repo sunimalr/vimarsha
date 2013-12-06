@@ -74,8 +74,12 @@ public class PerfReportArffDataWriter extends DataWriter {
                         out.append(String.valueOf(this.perfReportDataHolder.getValue(symbol, event)) + PropertiesLoader.getInstance().getValueSeparator());
                     } else { //if the value is present
                         //calculate the normalized value = performance event count value * 10^9 / number of instructions retired
-                        out.append(new BigDecimal(Float.parseFloat(this.perfReportDataHolder.getValue(symbol, event)) * java.lang.Math.pow(10, 9) /
-                                Float.parseFloat(this.perfReportDataHolder.getValue(symbol, this.performanceEventsHolder.getInstructionCountEvent()))).setScale(4, RoundingMode.CEILING).toPlainString());
+                        if (!this.perfReportDataHolder.getValue(symbol, this.performanceEventsHolder.getInstructionCountEvent()).equalsIgnoreCase("0.0")) {
+                            out.append(new BigDecimal(Float.parseFloat(this.perfReportDataHolder.getValue(symbol, event)) * java.lang.Math.pow(10, 9) /
+                                    Float.parseFloat(this.perfReportDataHolder.getValue(symbol, this.performanceEventsHolder.getInstructionCountEvent()))).setScale(4, RoundingMode.CEILING).toPlainString());
+                        } else {
+                            out.append(PropertiesLoader.getInstance().getMissingValueIndicator());
+                        }
                         out.append(PropertiesLoader.getInstance().getValueSeparator());
                     }
                 }
